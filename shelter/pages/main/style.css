@@ -1,0 +1,185 @@
+/* || Reset */
+
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+}
+/* || Variables */
+
+:root {
+
+}
+
+/* || General Styles */
+
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 160%;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+ul,
+li {
+    list-style-type: none;
+}
+img {
+    width: 100%;
+    vertical-align: bottom;
+}
+button {
+    background-color: transparent;
+    font: inherit;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+.wrapper {
+    
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.main {
+    flex: 1 1 auto;
+}
+.container { 
+    max-width: 1280px;
+    margin: 0 auto; 
+    padding: 0px 40px 0 40px; 
+}
+
+/* || Header */
+
+.header {
+    position: absolute;
+    top: 60px;
+    left: 0px;
+    right: 0px;
+}
+.header__flex {
+    display: flex;
+    flex-flow: row nowrap;
+    overflow: hidden;
+    align-items: center;
+    justify-content: space-between;
+}
+.header__logo {
+    /* display: flex;
+    align-content: center;
+    flex: column nowrap; */
+}
+.header__logo-title {
+    font-family: 'Georgia';
+    font-style: normal;
+    font-size: 32px;
+    line-height: 110%;
+    /* or 35px */
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.06em;
+    color: #F1CDB3;
+    margin-bottom: 10px;
+}
+.header__logo-subtitle {
+    font-family: 'Arial';
+    font-style: normal;
+    font-size: 13px;
+    line-height: 15px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.1em;
+    color: #FFFFFF;
+}
+.nav__list {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 35px;
+    font-family: 'Arial';
+    font-size: 15px;
+    line-height: 160%;
+    /* identical to box height, or 24px */
+    /* color-dark-s */
+    color: #CDCDCD;
+    transition: color 0.6s;
+}
+.selected {
+    border-bottom: 3px solid #F1CDB3;
+    /* color-primary */
+    color: #FAFAFA;
+}
+.nav__list-item:not(.selected):hover {
+    color: #FAFAFA;
+}
+
+/* || Not Only */
+
+.notonly {
+    /* min-height: 728px; */
+    padding-top: 150px;
+    align-self: center;
+    background: 
+        url(../../assets/images/noisy-lines.png),
+        radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), 
+        #211F20;
+}
+.notonly__flex {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+.notonly__content {
+    align-self: center;
+    flex: 0 1 39%;
+    /* margin-top: -80px; */
+}
+.notonly__content-heading {
+    max-width: 350px;
+    margin-bottom: 42px;
+    font-family: 'Georgia';
+    font-size: 44px;
+    font-weight: 400;
+    line-height: 130%;
+    color: #FFFFFF;
+}
+.notonly__content-text {
+    margin-bottom: 42px;
+    font-family: 'Arial';
+    font-size: 15px;
+    line-height: 160%;
+    /* or 24px */
+    /* color-dark-s */
+    color: #CDCDCD;
+}
+.notonly__content-button {
+    background: #F1CDB3;
+    border-radius: 100px;
+    font-family: 'Georgia';
+    font-size: 17px;
+    line-height: 130%;
+    /* identical to box height, or 22px */
+    letter-spacing: 0.06em;
+    /* color-dark-3xl */
+    color: #292929;
+    padding: 15px 45px;
+}
+.notonly__puppy {
+    flex: 0 1 58%;
+    padding-top: 30px;
+}
+
+
+/* About the Shelter */
+
+

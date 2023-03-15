@@ -76,9 +76,13 @@ button {
 }
 .header__logo {
     cursor: pointer;
+    transition: opacity 0.6s;
     /* display: flex;
     align-content: center;
     flex: column nowrap; */
+}
+.header__logo:hover {
+    opacity: 0.7;
 }
 .header__logo-title {
     font-family: 'Georgia';
@@ -254,6 +258,8 @@ button {
     margin: 0 auto;
     text-align: center;
     font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
     font-size: 35px;
     line-height: 130%;
     /* or 45px */
@@ -321,9 +327,10 @@ button {
     letter-spacing: 0.06em;
     /* color-dark-3xl */
     color: #292929;
-    transition: background-color 0.6s;
+    transition: all 0.6s;
 }
 .learn-more__button:hover {
+    border: 2px solid #FDDCC4;
     /* color-primary-light */
     background-color: #FDDCC4;
 }
@@ -338,12 +345,18 @@ button {
 .prev-slide,
 .next-slide {
     position: absolute;
-    top: 50%;
+    top: 49%;
     display: flex;
     align-content: center;
     border: 2px solid #F1CDB3;
     border-radius: 50%;
     padding: 23px 19px;
+    transition: all 0.6s;
+}
+.prev-slide:hover,
+.next-slide:hover {
+    border: 2px solid #FDDCC4;
+    background-color: #FDDCC4;
 }
 .rest-button {
     display: inline-block;
@@ -364,6 +377,62 @@ button {
     background-color: #FDDCC4;
 }
 
+/* || Help section */
+
+.help {
+    padding-top: 80px;
+    margin-bottom: 100px;
+}
+.help__title {
+    margin-bottom: 60px;
+    text-align: center;
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 35px;
+    line-height: 130%;
+    /* or 45px */
+    letter-spacing: 0.06em;
+    /* color-dark-l */
+    color: #545454;
+}
+.help__list {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    row-gap: 55px;
+    column-gap: 120px;
+}
+.help__item {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    cursor: pointer;
+    transition: all 0.6s;
+}
+.help__item:hover {
+    opacity: 0.6;
+}
+.help__item-icon {
+    width: 60px;
+    transition: all 0.6s;
+}
+.help__item:hover .help__item-icon {
+    transform: scale(1.2);
+}
+.help__item-text {
+    font-family: 'Georgia';
+    font-size: 20px;
+    
+    line-height: 115%;
+    /* identical to box height, or 23px */
+    letter-spacing: 0.06em;
+    /* color-dark-l */
+    color: #545454;
+}
 
 /* MEDIA */
 
@@ -371,4 +440,18 @@ button {
     .notonly__flex {
         flex-flow: column;
     }
+
+
+
+    .help__item {
+        flex: 1 1 170px;
+    }
+}
+
+
+@media (max-width:500px) {
+    .help__item {
+        flex: 1 1 130px;
+    }
+
 }

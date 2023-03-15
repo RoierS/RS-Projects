@@ -250,7 +250,7 @@ button {
 /* || Our Friens */
 .friends {
     background: #F6F6F6;
-    padding: 80px 0 100px 0;
+    padding: 78px 0 100px 0;
 }
 .container {
 }
@@ -381,7 +381,7 @@ button {
 
 .help {
     padding-top: 80px;
-    margin-bottom: 100px;
+    margin-bottom: 97px;
 }
 .help__title {
     margin-bottom: 60px;
@@ -432,6 +432,81 @@ button {
     letter-spacing: 0.06em;
     /* color-dark-l */
     color: #545454;
+}
+/* || Donation section */
+
+    .addition {
+    /* color-light-l */
+    background: #F6F6F6;
+    padding: 80px 0 100px 0;
+}
+.addition__flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: row wrap;
+    gap: 30px;
+}
+.donation__dog {
+    flex: 0 1 505px;
+}
+.donation__content {
+    flex: 0 1 380px;
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 20px;
+    
+
+}
+.donation__content-heading {
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 35px;
+    line-height: 130%;
+    /* or 45px */
+    letter-spacing: 0.06em;
+    /* color-dark-l */
+    color: #545454;
+}
+.donation__content-bank {
+    
+    background-color: transparent;
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 110%;
+    /* identical to box height, or 17px */
+    letter-spacing: 0.06em;
+    /* color-dark-l */
+    color: #545454;
+}
+.donation__content-card {
+    max-width: 349px;
+    /* color-primary */
+    background: url(../../assets/icons/credit-card.svg) no-repeat 15px 50%, #F1CDB3;
+    border-radius: 9px;
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 115%;
+    /* identical to box height, or 23px */
+    letter-spacing: 0.06em;
+    /* color-dark-l */
+    color: #545454;
+    padding: 10px 15px 10px 60px;
+}
+.donation__content-text {
+    font-family: 'Arial';
+    font-style: italic;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    /* or 150% */
+    /* color-dark-m */
+    color: #B2B2B2;
 }
 
 /* MEDIA */

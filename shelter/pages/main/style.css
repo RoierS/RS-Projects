@@ -50,6 +50,7 @@ button {
     transition: all 0.4s;
 }
 .wrapper {
+    /* width: 1280px; fixed */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -519,8 +520,8 @@ button {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
-    justify-content: center;
-    gap: 158px;
+    justify-content: space-between;
+    gap: 60px;
 }
 .footer__contacts {
     flex: 0 0 279px;
@@ -606,7 +607,7 @@ button {
 
 /* MEDIA */
 
-@media (max-width:860px) {
+/* @media (max-width:860px) {
     .notonly__flex {
         flex-flow: column;
     }
@@ -624,4 +625,4 @@ button {
         flex: 1 1 130px;
     }
 
-}
+} */

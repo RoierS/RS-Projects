@@ -237,12 +237,15 @@ button {
     border: 2px solid var(--BTN-HOVER-COLOR);
 }
 
-.prev-slide:hover,
+/* .prev-slide:hover,
 .prev-slide:active,
-.prev-slide:focus,
+.prev-slide:focus, */
 .next-slide:hover,
 .next-slide:active,
-.next-slide:focus {
+.next-slide:focus,
+.end-slide:hover,
+.end-slide:active,
+.end-slide:focus {
     border: 2px solid var(--BTN-HOVER-COLOR);
     background-color: var(--BTN-HOVER-COLOR);
     outline: none;

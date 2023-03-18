@@ -18,7 +18,7 @@
                 <div class="header__flex">
                     <div class="header__logo">
                         <a href="#" class="header__logo-title">Cozy House</a>
-                        <a href="#" class="header__logo-subtitle">Shelter for pets in Boston</a>
+                        <p class="header__logo-subtitle">Shelter for pets in Boston</p>
                     </div>
                     <!-- <div class="menu__burger">
                         <span></span>
@@ -27,10 +27,10 @@
                     <div class="menu__burger-overlay"></div> -->
                     <nav class="nav">
                         <ul class="nav__list">
-                            <li class="nav__list-item selected"><a class="nav__list-link" href="">About the shelter</a></li>
-                            <li class="nav__list-item"><a class="nav__list-link" href="">Our pets</a></li>
-                            <li class="nav__list-item"><a class="nav__list-link" href="">Help the shelter</a></li>
-                            <li class="nav__list-item"><a class="nav__list-link" href="">Contacts</a></li>
+                            <li class="nav__list-item selected"><a class="nav__list-link" href="#about">About the shelter</a></li>
+                            <li class="nav__list-item"><a class="nav__list-link" href="../../pages/pets/index.html">Our pets</a></li>
+                            <li class="nav__list-item"><a class="nav__list-link" href="#help">Help the shelter</a></li>
+                            <li class="nav__list-item"><a class="nav__list-link" href="#contacts">Contacts</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -51,7 +51,7 @@
                     </div>
                 </div>
             </section>
-            <section class="about">
+            <section id="about" class="about">
                 <div class="container">
                     <div class="about__flex">
                         <div class="about__pets">
@@ -67,7 +67,7 @@
             </section>
             <section id="our-friends" class="friends">
                 <div class="container">
-                    <div class="friends__flex">
+                    <!-- <div class="friends__flex">
                         <h2 class="friends__title">Our friends who
                             <span class="wrap">are looking for a house</span></h2>
                         <div class="friends__slider">
@@ -93,10 +93,37 @@
                             <button class="next-slide"><img src="../../assets/icons/Arrow.svg" alt="next"></button>
                         </div>
                         <a class="rest-button" href="../pets/index.html">Get to know the rest</a>
+                    </div> -->
+                    <div class="friends__grid">
+                        <h2 class="friends__title">Our friends who
+                            <span class="wrap">are looking for a house</span></h2>
+                        <button class="prev-slide"><img src="../../assets/icons/Arrow.svg" alt="previous"></button>
+                        <div class="friends__slider">
+                            <div class="slider__item">
+                                <div class="slider__item-img">
+                                    <img class="item__image" src="../../assets/images/katrine.png" alt="Katrine">
+                                </div>
+                                <div class="slider__item-name">Katrine</div>
+                                <button class="learn-more__button">Learn more</button>
+                            </div>
+                            <div class="slider__item"><div class="slider__item-img">
+                                    <img class="item__image" src="../../assets/images/jenifer.png" alt="Jennifer">
+                                </div>
+                                <div class="slider__item-name">Jennifer</div>
+                                <button class="learn-more__button">Learn more</button></div>
+                            <div class="slider__item"><div class="slider__item-img">
+                                    <img class="item__image" src="../../assets/images/woody.png" alt="Woody">
+                                </div>
+                                <div class="slider__item-name">Woody</div>
+                                <button class="learn-more__button">Learn more</button>
+                            </div>
+                        </div>
+                        <button class="next-slide"><img src="../../assets/icons/Arrow.svg" alt="next"></button>
+                        <a class="rest-button" href="../pets/index.html">Get to know the rest</a>
                     </div>
                 </div>
             </section>
-            <section class="help">
+            <section id="help" class="help">
                 <div class="container">
                     <div class="help__flex">
                         <h2 class="help__title">How you can help <span class="wrap">our shelter</span></h2>
@@ -141,7 +168,7 @@
                     </div>
                 </div>
             </section>
-            <section class="addition">
+            <section id="donation"class="addition">
                 <div class="container">
                     <div class="addition__flex">
                         <div class="donation__dog">
@@ -149,15 +176,15 @@
                         </div>
                         <div class="donation__content">
                             <h2 class="donation__content-heading">You can also <span class="wrap">make a donation</span></h2>
-                            <input class="donation__content-bank" placeholder="Name of the bank / Type of bank account"></input>
-                            <input class="donation__content-card" placeholder="8380 2880 8028 8791 7435"></input>
+                            <p class="donation__content-bank">Name of the bank / Type of bank account</p>
+                            <a class="donation__content-card" href="#">8380 2880 8028 8791 7435</a>
                             <p class="donation__content-text">Legal information and lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas a ipsum at libero sagittis dignissim sed ac diam. Praesent ultrices maximus tortor et vulputate. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
                         </div>
                     </div>
                 </div>
             </section>
         </main>
-        <footer class="footer">
+        <footer id="contacts" class="footer">
             <div class="container">
                 <div class="footer_content">
                     <div class="footer__contacts">
@@ -167,8 +194,8 @@
                     </div>
                     <div class="footer__locations">
                         <h2 class="footer__title">We are waiting for your visit</h2>
-                        <p class="footer__boston">1 Central Street, Boston (entrance from the store)</p>
-                        <p class="footer__london">18 South Park, London</p>
+                        <a href="https://goo.gl/maps/hisLFAYBpu4r8YMN7" class="footer__boston">1 Central Street, Boston (entrance from the store)</a>
+                        <a href="https://goo.gl/maps/r4pBKGRWjjK6qDh97" class="footer__london">18 South Park, London</a>
                     </div>
                     <div class="footer__puppy">
                         <img src="../../assets/images/footer-puppy.png" alt="footer puppy">

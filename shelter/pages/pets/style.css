@@ -307,11 +307,23 @@ button {
 .footer__boston,
 .footer__london {
     display: flex;
+    position: relative;
     font-size: 20px;
     line-height: 115%;
     letter-spacing: 0.06em;
     color: var(--BTN-COLOR);
     transition: color 0.6s;
+}
+.mail {
+    margin-bottom: 13px;
+}
+.tele,
+.mail {
+    padding-left: 60px;
+}
+.footer__boston,
+.footer__london {
+    padding-left: 40px;
 }
 .tele:hover,
 .mail:hover,
@@ -334,16 +346,26 @@ button {
 
 .tele::before {
     content: url(../../assets/icons/icon-phone.svg);
+    position: absolute;
+    top: -4px;
+    left: 0;
 }
 .mail::before {
     content: url(../../assets/icons/icon-email.svg);
+    position: absolute;
+    top: -4px;
+    left: 0;
 }
-.tele::before, 
-.mail::before {
-    margin-right: 19px;
-}
+
 .footer__boston::before,
 .footer__london::before {
     content: url(../../assets/icons/icon-marker.svg);
-    margin-right: 19px;
+    position: absolute;
+    left: 0;
+}
+.footer__boston::before {
+    top:  5px;
+}
+.footer__london::before {
+    top:  -2px;
 }

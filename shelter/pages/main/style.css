@@ -54,8 +54,8 @@ button {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
     margin: 0 auto;
+    overflow: hidden;
 }
 .main {
     flex: 1 1 auto;
@@ -89,12 +89,12 @@ button {
     opacity: 0.7;
 }
 .header__logo-title {
-    font-family: 'Georgia';
+    display: flex;
+    align-items: center;
+    font-family: 'Georgia', serif;
     font-style: normal;
     font-size: 32px;
     line-height: 110%;
-    display: flex;
-    align-items: center;
     letter-spacing: 0.06em;
     color: var(--BTN-COLOR);
     margin-bottom: 10px;
@@ -104,13 +104,13 @@ button {
     outline: none;
 }
 .header__logo-subtitle {
-    font-family: 'Arial';
-    font-style: normal;
-    font-size: 13px;
-    line-height: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'Arial', sans-serif;
+    font-style: normal;
+    font-size: 13px;
+    line-height: 15px;
     letter-spacing: 0.1em;
     color: var(--TITLE-COLOR);
 }
@@ -118,25 +118,25 @@ button {
     display: flex;
     flex-flow: row nowrap;
     gap: 36px;
-    font-family: 'Arial';
+    font-family: 'Arial', sans-serif;
     color: var(--TEXT-COLOR);
 }
 .nav__list-item {
     transition: color 0.6s;
 }
 .selected {
-    border-bottom: 3px solid var(--BTN-COLOR);
     color: #FAFAFA;
+    border-bottom: 3px solid var(--BTN-COLOR);
 }
 .nav__list-item:not(.selected):hover {
     color: #FAFAFA;
 }
 .nav__list-link:active , 
 .nav__list-link:focus {
+    padding-bottom: 4px;
     color: #FAFAFA;
     border-bottom: 3px solid var(--BTN-COLOR);
     outline: none;
-    padding-bottom: 4px;
 }
 
 /* || Not Only */
@@ -163,7 +163,7 @@ button {
 .notonly__content-heading {
     max-width: 350px;
     margin-bottom: 41px;
-    font-family: 'Georgia';
+    font-family: 'Georgia', serif;
     font-size: 44px;
     font-weight: 400;
     line-height: 130%;
@@ -171,18 +171,18 @@ button {
 }
 .notonly__content-text {
     margin-bottom: 55px;
-    font-family: 'Arial';
+    font-family: 'Arial', sans-serif;
     color: var(--TEXT-COLOR);
 }
 .notonly__content-button {
-    background: var(--BTN-COLOR);
-    border-radius: 100px;
-    font-family: 'Georgia';
+    padding: 15px 45px;
+    font-family: 'Georgia', serif;
     font-size: 17px;
     line-height: 130%;
     letter-spacing: 0.06em;
     color: var(--BTN-TXT-COLOR);
-    padding: 15px 45px;
+    background: var(--BTN-COLOR);
+    border-radius: 100px;
     transition: background-color 0.6s;
 }
 .notonly__puppy {
@@ -221,7 +221,7 @@ button {
     align-items: center;
 }
 .about__content-title {
-    font-family: 'Georgia';
+    font-family: 'Georgia', serif;
     font-size: 35px;
     font-style: normal;
     font-weight: 400;
@@ -230,7 +230,7 @@ button {
     color: var(--TITLE-DARK-COLOR);
 }
 .about__content-text {
-    font-family: 'Arial';
+    font-family: 'Arial', sans-serif;
     color: #4C4C4C;
 }
 .about__content-title,
@@ -248,20 +248,20 @@ button {
 /* || Our Friens */
 
 .friends {
-    background: var(--BG-LIGHT);
     padding: 80px 0 100px 0;
+    background: var(--BG-LIGHT);
 }
 .friends__title {
     margin: 0 auto;
+    grid-column-start: 2;
     text-align: center;
-    font-family: 'Georgia';
+    font-family: 'Georgia', serif;
     font-style: normal;
     font-weight: 400;
     font-size: 35px;
     line-height: 130%;
     letter-spacing: 0.06em;
     color: var(--TITLE-DARK-COLOR);
-    grid-column-start: 2;
 }
 .friends__grid {
     display: grid;
@@ -282,11 +282,11 @@ button {
     align-items: center;
     justify-content: center;
     gap: 30px;
+    flex: 0 0 270px;
     background: #FAFAFA;
     border-radius: 9px;
-    flex: 0 0 270px;
-    transition: all 0.6s;
     cursor: pointer;
+    transition: all 0.6s;
 }
 .slider__item:hover {
     box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
@@ -298,7 +298,6 @@ button {
     border-top-left-radius: 9px;
 }
 .slider__item-name {
-    font-family: 'Georgia';
     font-size: 20px;
     line-height: 23px;
     text-align: center;
@@ -306,15 +305,14 @@ button {
     color: var(--TITLE-DARK-COLOR);
 }
 .learn-more__button {
-    border: 2px solid var(--BTN-COLOR);
-    border-radius: 100px;
     padding: 14px 44px;
     margin-bottom: 30px;
-    font-family: 'Georgia';
     font-size: 17px;
     line-height: 130%;
     letter-spacing: 0.06em;
     color: var(--BTN-TXT-COLOR);
+    border: 2px solid var(--BTN-COLOR);
+    border-radius: 100px;
     transition: all 0.6s;
 }
 .learn-more__button:hover,
@@ -328,16 +326,15 @@ button {
     display: inline-block;
     justify-self: center;
     align-self: center;
-    background: var(--BTN-COLOR);
-    border-radius: 100px;
+    grid-column: 2 / 3;
     padding: 15px 45px;
     color: var(--BTN-TXT-COLOR);
-    font-family: 'Georgia';
     font-size: 17px;
     line-height: 130%;
     letter-spacing: 0.06em;
+    background: var(--BTN-COLOR);
+    border-radius: 100px;
     transition: background-color 0.6s;
-    grid-column: 2 / 3;
 }
 .rest-button:hover,
 .rest-button:active,
@@ -354,10 +351,10 @@ button {
     align-self: center;
 }   
 .next-slide {
-    rotate: 180deg;
     grid-column: 3 / 4;
     justify-self: end;
     align-self: center;
+    rotate: 180deg;
 }
 .prev-slide,
 .next-slide {
@@ -365,9 +362,9 @@ button {
     height: 52px;
     display: flex;
     align-content: center;
+    padding: 21px 17px;
     border: 2px solid var(--BTN-COLOR);
     border-radius: 50%;
-    padding: 21px 17px;
     transition: all 0.6s;
 }
 .prev-slide:hover,
@@ -391,7 +388,7 @@ button {
 .help__title {
     margin-bottom: 60px;
     text-align: center;
-    font-family: 'Georgia';
+    font-family: 'Georgia', serif;
     font-style: normal;
     font-weight: 400;
     font-size: 35px;
@@ -427,7 +424,6 @@ button {
     transform: scale(1.2);
 }
 .help__item-text {
-    font-family: 'Georgia';
     font-size: 20px;
     line-height: 115%;
     letter-spacing: 0.06em;
@@ -438,8 +434,8 @@ button {
 /* || Donation section */
 
 .addition {
-    background: var(--BG-LIGHT);
     padding: 80px 0 100px 0;
+    background: var(--BG-LIGHT);
 }
 .addition__flex {
     display: flex;
@@ -458,7 +454,7 @@ button {
     row-gap: 20px;
 }
 .donation__content-heading {
-    font-family: 'Georgia';
+    font-family: 'Georgia', serif;
     font-style: normal;
     font-weight: 400;
     font-size: 35px;
@@ -467,27 +463,21 @@ button {
     color: var(--TITLE-DARK-COLOR);
 }
 .donation__content-bank {
-    background-color: transparent;
-    font-family: 'Georgia';
-    font-style: normal;
-    font-weight: 400;
     font-size: 15px;
     line-height: 110%;
     letter-spacing: 0.06em;
     color: var(--TITLE-DARK-COLOR);
+    background-color: transparent;
 }
 .donation__content-card {
     max-width: 349px;
-    background: url(../../assets/icons/credit-card.svg) no-repeat 15px 50%, var(--BTN-COLOR);
-    border-radius: 9px;
-    font-family: 'Georgia';
-    font-style: normal;
-    font-weight: 400;
+    padding: 10px 10px 10px 60px;
     font-size: 20px;
     line-height: 115%;
     letter-spacing: 0.06em;
     color: var(--TITLE-DARK-COLOR);
-    padding: 10px 10px 10px 60px;
+    background: url(../../assets/icons/credit-card.svg) no-repeat 15px 50%, var(--BTN-COLOR);
+    border-radius: 9px;
     transition: background-color 0.6s;
 }
 .donation__content-card:hover,
@@ -500,7 +490,7 @@ button {
     outline: 1px solid var(--BTN-COLOR);
 }
 .donation__content-text {
-    font-family: 'Arial';
+    font-family: 'Arial', sans-serif;
     font-style: italic;
     font-weight: 400;
     font-size: 12px;
@@ -532,8 +522,7 @@ button {
     padding-top: 16px;
 }
 .footer__title {
-    font-family: 'Georgia';
-    font-style: normal;
+    font-family: 'Georgia', serif;
     font-weight: 400;
     font-size: 35px;
     line-height: 130%;
@@ -559,9 +548,6 @@ button {
 .footer__boston,
 .footer__london {
     display: flex;
-    font-family: 'Georgia';
-    font-style: normal;
-    font-weight: 400;
     font-size: 20px;
     line-height: 115%;
     letter-spacing: 0.06em;

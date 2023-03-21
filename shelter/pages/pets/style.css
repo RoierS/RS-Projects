@@ -20,6 +20,137 @@
     --BTN-FONT-SIZE: 17px;
     --BTN-HOVER-COLOR: #FDDCC4;
 }
+/* Fonts */
+
+@font-face {
+    font-family: 'Arial';
+    src: url('../../assets/fonts/Arial-Black.woff2') format('woff2'),
+        url('../../assets/fonts/Arial-Black.woff') format('woff'),
+        url('../../assets/fonts/Arial-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arial';
+    src: url('../../assets/fonts/Arial-BoldMT.woff2') format('woff2'),
+        url('../../assets/fonts/Arial-BoldMT.woff') format('woff'),
+        url('../../assets/fonts/Arial-BoldMT.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arial';
+    src: url('../../assets/fonts/Arial-BoldItalicMT.woff2') format('woff2'),
+        url('../../assets/fonts/Arial-BoldItalicMT.woff') format('woff'),
+        url('../../assets/fonts/Arial-BoldItalicMT.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arial';
+    src: url('../../assets/fonts/Arial-ItalicMT.woff2') format('woff2'),
+        url('../../assets/fonts/Arial-ItalicMT.woff') format('woff'),
+        url('../../assets/fonts/Arial-ItalicMT.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arial Narrow';
+    src: url('../../assets/fonts/ArialNarrow-Italic.woff2') format('woff2'),
+        url('../../assets/fonts/ArialNarrow-Italic.woff') format('woff'),
+        url('../../assets/fonts/ArialNarrow-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arial';
+    src: url('../../assets/fonts/ArialMT.woff2') format('woff2'),
+        url('../../assets/fonts/ArialMT.woff') format('woff'),
+        url('../../assets/fonts/ArialMT.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arial Narrow';
+    src: url('../../assets/fonts/ArialNarrow-BoldItalic.woff2') format('woff2'),
+        url('../../assets/fonts/ArialNarrow-BoldItalic.woff') format('woff'),
+        url('../../assets/fonts/ArialNarrow-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arial Narrow';
+    src: url('../../assets/fonts/ArialNarrow.woff2') format('woff2'),
+        url('../../assets/fonts/ArialNarrow.woff') format('woff'),
+        url('../../assets/fonts/ArialNarrow.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arial Narrow';
+    src: url('../../assets/fonts/ArialNarrow-Bold.woff2') format('woff2'),
+        url('../../assets/fonts/ArialNarrow-Bold.woff') format('woff'),
+        url('../../assets/fonts/ArialNarrow-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Georgia';
+    src: url('../../assets/fonts/Georgia-Bold.woff2') format('woff2'),
+        url('../../assets/fonts/Georgia-Bold.woff') format('woff'),
+        url('../../assets/fonts/Georgia-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Georgia';
+    src: url('../../assets/fonts/Georgia.woff2') format('woff2'),
+        url('../../assets/fonts/Georgia.woff') format('woff'),
+        url('../../assets/fonts/Georgia.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Georgia';
+    src: url('../../assets/fonts/Georgia-BoldItalic.woff2') format('woff2'),
+        url('../../assets/fonts/Georgia-BoldItalic.woff') format('woff'),
+        url('../../assets/fonts/Georgia-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Georgia';
+    src: url('../../assets/fonts/Georgia-Italic.woff2') format('woff2'),
+        url('../../assets/fonts/Georgia-Italic.woff') format('woff'),
+        url('../../assets/fonts/Georgia-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
 
 /* || General Styles */
 
@@ -116,14 +247,14 @@ button {
     font-family: 'Arial', sans-serif;
     color: var(--TITLE-DARK-COLOR);
 }
-.nav__list-item {
+.nav__list-link {
     transition: color 0.6s;
 }
 .selected {
     color: var(--BTN-TXT-COLOR);
     border-bottom: 3px solid var(--BTN-COLOR);
 }
-.nav__list-item:not(.selected):hover {
+.nav__list-link:not(.selected):hover {
     color: var(--BTN-TXT-COLOR);
 }
 .nav__list-link:active , 
@@ -230,6 +361,10 @@ button {
     border: 2px solid var(--TEXT-COLOR);
 }
 .current-slide {
+    background-color: var(--BTN-COLOR);
+    border: 2px solid var(--BTN-COLOR);
+}
+.current-slide:hover {
     background-color: var(--BTN-HOVER-COLOR);
     border: 2px solid var(--BTN-HOVER-COLOR);
 }

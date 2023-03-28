@@ -248,6 +248,7 @@ button {
     color: var(--TITLE-DARK-COLOR);
 }
 .nav__list-link {
+    padding-bottom: 4px;
     transition: color 0.6s;
 }
 .selected {
@@ -257,9 +258,12 @@ button {
 .nav__list-link:not(.selected):hover {
     color: var(--BTN-TXT-COLOR);
 }
+.nav__list-link.selected {
+    cursor: default;
+}
 .nav__list-link:active , 
 .nav__list-link:focus {
-    padding-bottom: 4px;
+   
     color: var(--BTN-TXT-COLOR);
     border-bottom: 3px solid var(--BTN-COLOR);
     outline: none;
@@ -334,7 +338,7 @@ button {
     border-radius: 100px;
     transition: all 0.6s;
 }
-.learn-more__button:hover,
+.slider__item:hover .learn-more__button,
 .learn-more__button:active,
 .learn-more__button:focus {
     border: 2px solid var(--BTN-HOVER-COLOR);
@@ -359,6 +363,7 @@ button {
 .prev-slide {
     color: var(--TEXT-COLOR);
     border: 2px solid var(--TEXT-COLOR);
+    cursor: default;
 }
 .current-slide {
     background-color: var(--BTN-COLOR);

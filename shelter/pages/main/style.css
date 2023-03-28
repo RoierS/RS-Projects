@@ -271,6 +271,10 @@ button {
     outline: none;
 }
 
+.nav__list-item.selected .nav__list-link {
+    cursor: default;
+}
+
 /* || Not Only */
 
 .notonly {
@@ -447,7 +451,7 @@ button {
     border-radius: 100px;
     transition: all 0.6s;
 }
-.learn-more__button:hover,
+.slider__item:hover .learn-more__button,
 .learn-more__button:active,
 .learn-more__button:focus {
     border: 2px solid var(--BTN-HOVER-COLOR);

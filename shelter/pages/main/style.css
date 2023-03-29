@@ -753,22 +753,121 @@ button {
 
 /* MEDIA */
 
-/* @media (max-width:860px) {
+@media (max-width:860px) {
+    .container { 
+        padding: 0px 30px 0 30px; 
+    }
     .notonly__flex {
         flex-flow: column;
     }
+    .menu__burger-overlay {
+        display: none;
+    }
+    .notonly__content {
+        max-width: 65%;
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* flex: 1 0 460px; */
+        margin-top: 0;
+        margin-bottom: 14%;
+    }
+    .notonly__content-heading {
+        align-self: flex-start;
+    }
+    .notonly__content-text {
+        margin-bottom: 43px;
+    }
+    .notonly__puppy {
+        padding-top: 0;
+        max-width: 80.5%;
+    }
 
+        /* about  */
+    .about__flex {
+        flex-direction: row-reverse;
+        flex-wrap: wrap-reverse;
+        gap: 10.3vw;
+    }
+    .about__content-title {
+        margin-bottom: 24px;
+    }
+    .slider__item:last-child {
+        display: none;
+    }
+    .friends__grid {
+        grid-template-columns: auto 82% auto;
+        grid-template-rows: auto 95.5% auto;
 
+    }
 
+    /* Help */
+    .help {
+        padding-top: 79px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .help__title {
+        margin-bottom: 58px;
+    }
     .help__item {
         flex: 1 1 170px;
     }
-}
+    .help__list {
+        column-gap: 3%;
+    }
 
+    /* Addition */
+
+    .addition__flex {
+        flex-direction: row-reverse;
+        flex-wrap: wrap-reverse;
+        gap: 7.8vw;
+    }
+
+    /* Footer */
+    .footer {
+        padding-top: 4%;
+    }
+    .footer_content {
+        justify-content: center;
+        gap: 0;
+        row-gap: 8.5vw;
+        column-gap: 8vw;
+    }
+    .footer__contacts, 
+    .footer__locations {
+        padding-top: 0;
+    }
+    .footer__boston {
+        margin-bottom: 37px;
+    }
+    .footer__locations .footer__title {
+        margin-bottom: 32px;
+    }
+}
+@media (max-width:767px) {
+    .nav {
+        display: none;
+    }
+    .menu__burger {
+        width: 30px;
+        height: 22px;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+        align-items: stretch;
+    }
+    .menu__burger span {
+        border: 1px solid #F1CDB3;
+        
+    }
+}
 
 @media (max-width:500px) {
     .help__item {
         flex: 1 1 130px;
     }
 
-} */
+}

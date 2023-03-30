@@ -402,7 +402,7 @@ button {
 .friends__grid {
     display: grid;
     grid-template-columns: auto 82.5% auto;
-    grid-template-rows: auto 96% auto;
+    grid-template-rows: auto 95.7% auto;
     margin-bottom: 118px;
 }
 .friends__slider {
@@ -458,11 +458,19 @@ button {
     background-color: var(--BTN-HOVER-COLOR);
     outline: none;
 }
-.rest-button {
-    display: inline-block;
+.rest-wrapper-btn {
+    width: 100%;
     justify-self: center;
     align-self: center;
     grid-column: 2 / 3;
+    order: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rest-button {
+    text-align: center;
+    display: inline-block;
     padding: 15px 45px;
     color: var(--BTN-TXT-COLOR);
     font-size: 17px;
@@ -780,7 +788,6 @@ button {
         flex-wrap: wrap-reverse;
         gap: 7.8vw;
     }
-
 }
 
 @media (max-width:860px) {
@@ -799,7 +806,6 @@ button {
         display: flex;
         flex-direction: column;
         align-items: center;
-        /* flex: 1 0 460px; */
         margin-top: 0;
         margin-bottom: 14%;
     }
@@ -814,8 +820,7 @@ button {
         max-width: 80.5%;
     }
 
-        /* about  */
-   
+    /* about  */
     .about__content-title {
         margin-bottom: 24px;
     }
@@ -826,7 +831,6 @@ button {
         max-width: 61%;
     }
   
-
     /* Help */
     .help {
         padding-top: 79px;
@@ -842,9 +846,6 @@ button {
     .help__list {
         column-gap: 3%;
     }
-
-    /* Addition */
-
    
     /* Footer */
     .footer {
@@ -881,9 +882,45 @@ button {
     }
     .menu__burger span {
         border: 1px solid #F1CDB3;
-        
     }
 
+}
+@media (max-width: 600px) {
+    .friends {
+        padding: 13% 0 2% 0;
+    }
+    .friends__grid {
+        display: flex;
+        flex-flow: row wrap;
+        column-gap: 80px;
+        row-gap: 41px;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12%;
+    }
+    .friends__slider {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .slider__item:nth-child(2) {
+        display: none;
+    }
+    .prev-slide {
+        order: 3;
+        margin-top: -8%;
+        margin-bottom: 2px;
+    }
+    .next-slide {
+        order: 4;
+        margin-top: -8%;
+        margin-bottom: 2px;
+    }
+    .rest-button {
+        order: 5;
+    }
+    .about__flex {
+        margin-bottom: 14%;
+    }
 }
 
 @media (max-width:500px) {
@@ -901,7 +938,6 @@ button {
         align-self: center;
         font-size: 25px;
         text-align: center;
-
     }
     .notonly__content {
         max-width: 100%;
@@ -933,5 +969,100 @@ button {
     }
     .about__pets {
         max-width: 87%;
+    }
+}
+
+@media (max-width: 400px) {
+    .friends__title {
+        font-size: 25px;
+    }
+    .friends__slider {
+        margin-bottom: 0;
+    }
+    .about__flex {
+        margin-bottom: 14%;
+    }
+    .help {
+        padding-top: 13%;
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-bottom: 13%;
+    }
+    .help__list {
+        justify-content: space-between;
+        row-gap: 29px;
+        column-gap: 9px;
+    }
+    .help__title {
+        font-size: 25px;
+        margin-bottom: 14%;
+    }
+    .help__item {
+        flex: 0 1 130px;
+        gap: 20.5px;
+    }
+    .help__item-icon {
+       width: 50px;
+    }
+    .help__item-text {
+        font-size: 15px;
+    }
+    .donation__content {
+        gap: 23px;
+        align-items: center;
+        justify-content: center;
+    }
+    .donation__content-heading {
+        font-size: 25px;
+        text-align: center;
+    }
+    .addition {
+        padding: 13.6% 0 13% 0;
+    }
+    .donation__content-bank {
+        text-align: center;
+        letter-spacing: normal;
+    }
+    .donation__content-card {
+        font-size: 15px;
+        line-height: 110%;
+        padding: 14px 15px 13px 60px;
+        margin-bottom: -3px;
+    }
+    .donation__content-text {
+        padding: 0 10px 0 10px;
+        text-align: justify;
+    }
+    .donation__dog {
+        max-width: 260px;
+        margin-top: 17px;
+    }
+    .footer {
+        padding-top: 9.4%;
+    }
+    .footer__title {
+        font-size: 25px;
+        text-align: center;
+    }
+    .footer__contacts {
+        align-items: center;
+        justify-content: center;
+    }
+    .footer_content {
+        row-gap: 13.5vw;
+    }
+    .footer__locations .footer__title {
+        padding: 0 5px 0 5px;
+        margin-bottom: 40px;
+    }
+    .footer__boston {
+        margin-bottom: 43px;
+    }
+    .footer__boston,
+    .footer__london {
+        padding-left: 42px;
+    }
+    .footer__puppy {
+        flex: 0 0 260px;
     }
 }

@@ -273,6 +273,9 @@ button {
 .nav__list-item.selected .nav__list-link {
     cursor: default;
 }
+.menu__burger-overlay {
+    transition: all 1s;
+}
 
 /* || Not Only */
 
@@ -889,7 +892,7 @@ button {
         display: flex;
         align-items: center;
         justify-content: center;
-        background:  #292929;;
+        background:  var(--BTN-TXT-COLOR);;
         overflow: auto;
         transition: right 0.8s;
     }
@@ -902,7 +905,7 @@ button {
         margin: 0 auto;
         flex-direction: column;
         gap: 40px;
-        margin-top: -18px;
+        padding-top: 64px;
         align-items: center;
         justify-content: center;
         overflow: auto;
@@ -928,7 +931,8 @@ button {
         width: 100vw;
         height: 100vh;
         z-index: 10;
-        color: transparent;
+        background-color: black;
+        opacity: 0.3;
     }
     .menu__burger {
         width: 30px;
@@ -944,7 +948,7 @@ button {
         transform: rotate(90deg) ;
     }
     .menu__burger span {
-        border: 1px solid #F1CDB3;
+        border: 1px solid var(--BTN-COLOR);
     }
 }
 @media (max-width: 600px) {
@@ -1038,9 +1042,6 @@ button {
 /* Mobile */
 
 @media (max-width: 400px) {
-    .nav {
-        width: 100%;
-    }
     .friends__title {
         font-size: 25px;
     }
@@ -1135,5 +1136,10 @@ button {
     }
     .footer__puppy {
         flex: 0 0 260px;
+    }
+}
+@media (max-width: 320px) {
+    .nav {
+        width: 100%;
     }
 }

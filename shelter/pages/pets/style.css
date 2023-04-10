@@ -216,7 +216,7 @@ button {
 .header__logo-title {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    padding-bottom: 10px;
     font-family: 'Georgia', serif;
     font-style: normal;
     font-size: 32px;
@@ -562,19 +562,93 @@ button {
     }
 }
 @media (max-width:767px) {
-    .nav {
+     .nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 85%;
+        height: 100%;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background:  var(--BTN-TXT-COLOR);
+        overflow: auto;
+        transition: right 0.8s;
+    }
+    .nav.open {
+        right: 0%;
+    }
+    .nav__list {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        flex-direction: column;
+        gap: 40px;
+        padding-top: 64px;
+        align-items: center;
+        justify-content: center;
+        overflow: auto;
+    }
+    .nav__list-link {
+        font-size: 32px;
+        line-height: 160%;
+        color: #CDCDCD;
+    }
+    .nav__list-link.selected {
+        color: #FAFAFA;
+    }
+    .nav__list-link:not(.selected):hover {
+        color: var(--BG-LIGHT);
+    }
+    
+    .nav__list-link:active , 
+    .nav__list-link:focus {
+        color: var(--BG-LIGHT);
+        border-bottom: 3px solid var(--BTN-COLOR);
+        outline: none;
+    }
+    .nav__list-item {
+        font-size: 23px;
+    }
+    body.noscroll {
+        overflow: hidden;
+    }
+     /* header and burger */
+   
+    .menu__burger-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
         display: none;
+        width: 100vw;
+        height: 100vh;
+        z-index: 10;
+        background-color: black;
+        opacity: 0.3;
     }
     .menu__burger {
         width: 30px;
         height: 22px;
         display: flex;
+        cursor: pointer;
         flex-flow: column nowrap;
         justify-content: space-between;
         align-items: stretch;
+        z-index: 200;
+        transition: all 0.8s;
+    }
+    .menu__burger.open {
+        transform: rotate(90deg) ;
     }
     .menu__burger span {
-        border: 1px solid #000000;
+        border: 1px solid ;
+        border-color: #000000;
+        transition: border-color 0.8s;
+    }
+    .menu__burger.open span {
+        border: 1px solid;
+        border-color: var(--BTN-COLOR);
     }
 }
 
@@ -634,9 +708,15 @@ button {
     }
 }
 @media (max-width: 320px) {
+    @media (max-width: 320px) {
+        .nav {
+            width: 100%;
+        }
+    }
     .slider__item:nth-child(4),
     .slider__item:nth-child(5),
     .slider__item:nth-child(6) {
         display: none;
     }
+
 }

@@ -38,7 +38,7 @@ const getNumberOfCards = () => {
     const screenWidth = window.innerWidth;
     if (screenWidth >= 1280) {
         return 3;
-    } else if (screenWidth >= 768) {
+    } else if (screenWidth <= 1100 && screenWidth >= 600) {
         return 2;
     } else {
         return 1;
@@ -49,12 +49,10 @@ let currentPets = [];
 let previousPets = [];
 
 const generateNewPets = () => {
-    const avaliablePets = pets.filter(pet => !currentPets.includes(pet) && !previousPets.
-    includes(pet));
-    const numberOfCards = getNumberOfCards();
+    const avaliablePets = pets.filter(pet => !currentPets.includes(pet) && !previousPets.includes(pet));
     const newPets = [];
 
-    for (let i = 0; i < numberOfCards; i++) {
+    for (let i = 0; i < 3; i++) {
         const randomIndex = Math.floor(Math.random() * avaliablePets.length);
         newPets.push(avaliablePets[randomIndex]);
         avaliablePets.splice(randomIndex, 1);
@@ -67,6 +65,7 @@ const createBlockTemplate = () => {
     item.classList.add('slider__item');
     return item;
 }
+createBlockTemplate();
 
 // next slide
 const moveRight = () => {
@@ -103,9 +102,7 @@ carousel.addEventListener('animationend', (animationDirection) => {
 
     changedBlock.innerHTML = '';
     for (let i = 0; i < 3; i++) {
-
         const item = createBlockTemplate();
-
         changedBlock.appendChild(item);
         item.innerHTML = `
         <div class="slider__item-img">

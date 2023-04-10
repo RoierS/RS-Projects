@@ -420,7 +420,7 @@ button {
     grid-column: 2 / 3;
 
     overflow: hidden;
-    width: 900px;
+    max-width: 990px;
 }
 .friends__slider {
     display: flex;
@@ -430,34 +430,34 @@ button {
     /* grid-column: 2 / 3; */
 
 
-    gap: 40px;
+    gap: 90px;
 }
 .friends__carousel {
     display: flex;
 
     position: relative;
-    left: -900px;
-    gap: 40px;
+    left: -1080px;
+    gap: 90px;
 }
 
 @keyframes move-right {
-  from {left: -900px;}
-  to {left: -1800px;}
+  from {left: -1080px;}
+  to {left: -2160px;}
 }
 
 .transition-right {
   animation-name: move-right;
-  animation-duration: 4s;
+  animation-duration: 2s;
 }
 
 @keyframes move-left {
-  from {left: -900px;}
+  from {left: -1080px;}
   to {left: 0px;}
 }
 
 .transition-left {
   animation-name: move-left;
-  animation-duration: 4s;
+  animation-duration: 2s;
 }
 
 .hidden {
@@ -528,24 +528,6 @@ button {
     background-color: var(--BTN-HOVER-COLOR);
     outline: none;
 }
-
-
-/* .friends__slider-wrapper {
-    padding-top: 59px;
-    overflow-x: scroll;
-    scroll-snap-type: x mandatory;
-  }
-   */
-  .friends__slider {
-    /* display: flex;
-    gap: 30px;
-    padding: 0 30px; */
-    /* transition: transform 0.6s; */
-  }
-  
-  /* .slider__item {
-    flex: 0 0 270px;
-  } */
 
 
 .rest-wrapper-btn {

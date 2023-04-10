@@ -216,7 +216,7 @@ button {
 .header__logo-title {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    padding-bottom: 10px;
     font-family: 'Georgia', serif;
     font-style: normal;
     font-size: 32px;
@@ -631,6 +631,7 @@ button {
         width: 30px;
         height: 22px;
         display: flex;
+        cursor: pointer;
         flex-flow: column nowrap;
         justify-content: space-between;
         align-items: stretch;

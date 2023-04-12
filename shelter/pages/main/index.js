@@ -26,97 +26,6 @@ navLinks.forEach(navLink => navLink.addEventListener('click', toggleBurger));
 
 // Slider 
 
-const btnNext = document.querySelector('.next-slide');
-const btnPrev = document.querySelector('.prev-slide');
-
-const carousel = document.querySelector('.friends__carousel');
-const rightBlock = document.querySelector('.friends__slider.right');
-const leftBlock = document.querySelector('.friends__slider.left');
-const activeBlock = document.querySelector('.friends__slider.active');
-
-const getNumberOfCards = () => {
-    const screenWidth = window.innerWidth;
-    if (screenWidth >= 1280) {
-        return 3;
-    } else if (screenWidth <= 1100 && screenWidth >= 600) {
-        return 2;
-    } else {
-        return 1;
-    }
-};
-
-let currentPets = [];
-let previousPets = [];
-
-const generateNewPets = () => {
-    const avaliablePets = pets.filter(pet => !currentPets.includes(pet) && !previousPets.includes(pet));
-    const newPets = [];
-
-    for (let i = 0; i < 3; i++) {
-        const randomIndex = Math.floor(Math.random() * avaliablePets.length);
-        newPets.push(avaliablePets[randomIndex]);
-        avaliablePets.splice(randomIndex, 1);
-    }
-    return newPets;
-}
-
-const createBlockTemplate = () => {
-    const item = document.createElement('div');
-    item.classList.add('slider__item');
-    return item;
-}
-createBlockTemplate();
-
-// next slide
-const moveRight = () => {
-    carousel.classList.add('transition-right');
-    btnNext.removeEventListener('click', moveRight);
-    btnPrev.removeEventListener('click', moveLeft);
-}
-
-// prev slide
-const moveLeft = () => {
-    carousel.classList.add('transition-left');
-    btnPrev.removeEventListener('click', moveLeft);
-    btnNext.removeEventListener('click', moveRight);
-}
-
-btnPrev.addEventListener('click', moveLeft);
-btnNext.addEventListener('click', moveRight);
-
-carousel.addEventListener('animationend', (animationDirection) => {
-    let changedBlock;
-    if (animationDirection.animationName === 'move-right') {
-        carousel.classList.remove('transition-right');
-        changedBlock = rightBlock;
-        previousPets = currentPets;
-        currentPets = generateNewPets();
-        activeBlock.innerHTML = rightBlock.innerHTML;
-    } else {
-        carousel.classList.remove('transition-left');
-        changedBlock = leftBlock;
-        previousPets = currentPets;
-        currentPets = generateNewPets();
-        activeBlock.innerHTML = leftBlock.innerHTML;
-    }
-
-    changedBlock.innerHTML = '';
-    for (let i = 0; i < 3; i++) {
-        const item = createBlockTemplate();
-        changedBlock.appendChild(item);
-        item.innerHTML = `
-        <div class="slider__item-img">
-            <img class="item__image" src="${currentPets[i].img}" alt="${currentPets[i].name}">
-        </div>
-        <div class="slider__item-name">${currentPets[i].name}</div>
-        <button class="learn-more__button">Learn more</button>
-        `;
-    }
-
-    btnNext.addEventListener('click', moveRight);
-    btnPrev.addEventListener('click', moveLeft);
-})
-
 
 const pets = [
         {
@@ -208,4 +117,191 @@ const pets = [
           "parasites": ["lice", "fleas"]
         }
       ];
+
+//add json
+// fetch('./js/pets.json').then(resolve => resolve.json()).then(petsJson => {
+//     const currentPet = petsJson.find(el => el.name === slider__item.dataset)
+
+
+
+
+
+
+
+// })
+
+
+const btnNext = document.querySelector('.next-slide');
+const btnPrev = document.querySelector('.prev-slide');
+
+const carousel = document.querySelector('.friends__carousel');
+const rightBlock = document.querySelector('.friends__slider.right');
+const leftBlock = document.querySelector('.friends__slider.left');
+const activeBlock = document.querySelector('.friends__slider.active');
+const activeSliderItems = activeBlock.querySelectorAll('.slider__item');
+
+console.log(activeSliderItems);
+
+
+const getNumberOfCards = () => {
+    const screenWidth = window.innerWidth;
+    if (screenWidth >= 1280) {
+        return 3;
+    } else if (screenWidth <= 1100 && screenWidth >= 600) {
+        return 2;
+    } else {
+        return 1;
+    }
+};
+
+let currentPets = [];
+let previousPets = [];
+
+const generateNewPets = () => {
+    const avaliablePets = pets.filter(pet => !currentPets.includes(pet) && !previousPets.includes(pet));
+    const newPets = [];
+
+    for (let i = 0; i < 3; i++) {
+        const randomIndex = Math.floor(Math.random() * avaliablePets.length);
+        newPets.push(avaliablePets[randomIndex]);
+        avaliablePets.splice(randomIndex, 1);
+    }
+    return newPets;
+}
+
+const createBlockTemplate = () => {
+    const item = document.createElement('div');
+    item.classList.add('slider__item');
+    // activeSliderItems.forEach(item => item.setAttribute('id', `${pets.name}`));
+
+
+    return item;
+}
+createBlockTemplate();
+
+
+
+
+// next slide
+const moveRight = () => {
+    carousel.classList.add('transition-right');
+    btnNext.removeEventListener('click', moveRight);
+    btnPrev.removeEventListener('click', moveLeft);
+}
+
+// prev slide
+const moveLeft = () => {
+    carousel.classList.add('transition-left');
+    btnPrev.removeEventListener('click', moveLeft);
+    btnNext.removeEventListener('click', moveRight);
+}
+
+btnPrev.addEventListener('click', moveLeft);
+btnNext.addEventListener('click', moveRight);
+
+carousel.addEventListener('animationend', (animationDirection) => {
+    let changedBlock;
+    if (animationDirection.animationName === 'move-right') {
+        carousel.classList.remove('transition-right');
+        changedBlock = rightBlock;
+        previousPets = currentPets;
+        currentPets = generateNewPets();
+        activeBlock.innerHTML = rightBlock.innerHTML;
+
+        // console.log(changedBlock)
+        console.log(previousPets)
+        console.log(currentPets)
+        // console.log(activeBlock)
+
+    } else {
+        carousel.classList.remove('transition-left');
+        changedBlock = leftBlock;
+        previousPets = currentPets;
+        currentPets = generateNewPets();
+        activeBlock.innerHTML = leftBlock.innerHTML;
+    }
+
+    changedBlock.innerHTML = '';
+    for (let i = 0; i < 3; i++) {
+        const item = createBlockTemplate();
+
+        changedBlock.appendChild(item);
+        // activeSliderItems.forEach(item => item.setAttribute('data-name', `${previousPets[i].name}`));
+
+        item.setAttribute('data-name', `${currentPets[i].name}`);
+        item.innerHTML = `
+        <div class="slider__item-img" data-name="${currentPets[i].name}">
+            <img class="item__image" src="${currentPets[i].img}" alt="${currentPets[i].name}">
+        </div>
+        <div class="slider__item-name">${currentPets[i].name}</div>
+        <button class="learn-more__button">Learn more</button>
+        `;
+       
+        console.log(currentPets)
+        console.log(previousPets)
+    }
+
+    btnNext.addEventListener('click', moveRight);
+    btnPrev.addEventListener('click', moveLeft);
+});
+
+
+
+let popup;
+activeBlock.addEventListener('click', (e) => {
+
+    if (e.target.classList.contains('slider__item') 
+        || e.target.parentNode.classList.contains('slider__item') 
+        || e.target.parentNode.classList.contains('slider__item-img')) {
+        
+        const currentPet = pets.find(pet => {return pet.name === e.target.closest('div').dataset.name})
+
+        popup = document.createElement('div');
+        popup.classList.add('popup__wrapper');
+        popup.classList.add('popup__wrapper-open');
+        document.body.classList.add('noscroll');
+        
+        const body = document.querySelector('body');
+        body.appendChild(popup);
+        popup.innerHTML = `
+            <div class="popup__overlay">
+                <div class="popup__window">
+                    <div class="popup__img">
+                        <img src="../../assets/images/${currentPet.name}.png" alt="${currentPet.name}">
+                    </div>
+                    <div class="popup__content">
+                        <div class="popup__title">${currentPet.name}</div>
+                        <div class="popup__subtitle">${currentPet.type} - ${currentPet.breed}</div>
+                        <p class="popup__text">${currentPet.description}</p>
+                        <ul class="popup__list">
+                            <li class="popup__item">Age: <span class="popup__age">${currentPet.age}</span></li>
+                            <li class="popup__item">Inoculations: <span class="popup__inoculations">${currentPet.inoculations.join(', ')}</span></li>
+                            <li class="popup__item">Diseases: <span class="popup__diseases">${currentPet.diseases.join(', ')}</span></li>
+                            <li class="popup__item">Parasites: <span class="popup__parasites">${currentPet.parasites.join(', ')}</span></li>
+                        </ul>
+                    </div>
+                    <button class="popup__close"><img src="../../assets/icons/close.svg" alt="close"></button>
+                </div>
+            </div>
+        `; 
+    }
+    popup.addEventListener('click', (e) => {
+        if (e.target.classList.contains('popup__close') || e.target.classList.contains('popup__overlay') || e.target.parentNode.classList.contains('popup__close')) {
+            console.log(e.target)
+            document.body.classList.remove('noscroll');
+            popup.style.visibility = 'hidden';
+            popup.style.opacity = '0';
+            popup.classList.remove('popup__wrapper-open');
+            // popup.classList.remove('popup__wrapper');
+            setTimeout(() => {
+                popup.remove();
+            }, 500)
+            
+        }
+    })
+})
+
+
+
+
     

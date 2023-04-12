@@ -1,6 +1,7 @@
 [
     {
       "name": "Jennifer",
+      "id": "1",
       "img": "../../assets/images/jennifer.png",
       "type": "Dog",
       "breed": "Labrador",
@@ -12,6 +13,7 @@
     },
     {
       "name": "Sophia",
+      "id": "2",
       "img": "../../assets/images/sophia.png",
       "type": "Dog",
       "breed": "Shih tzu",
@@ -23,6 +25,7 @@
     },
     {
       "name": "Woody",
+      "id": "3",
       "img": "../../assets/images/woody.png",
       "type": "Dog",
       "breed": "Golden Retriever",
@@ -34,6 +37,7 @@
     },
     {
       "name": "Scarlett",
+      "id": "4",
       "img": "../../assets/images/scarlett.png",
       "type": "Dog",
       "breed": "Jack Russell Terrier",
@@ -45,6 +49,7 @@
     },
     {
       "name": "Katrine",
+      "id": "5",
       "img": "../../assets/images/katrine.png",
       "type": "Cat",
       "breed": "British Shorthair",
@@ -56,6 +61,7 @@
     },
     {
       "name": "Timmy",
+      "id": "6",
       "img": "../../assets/images/timmy.png",
       "type": "Cat",
       "breed": "British Shorthair",
@@ -67,6 +73,7 @@
     },
     {
       "name": "Freddie",
+      "id": "7",
       "img": "../../assets/images/freddie.png",
       "type": "Cat",
       "breed": "British Shorthair",
@@ -78,6 +85,7 @@
     },
     {
       "name": "Charly",
+      "id": "8",
       "img": "../../assets/images/charly.png",
       "type": "Dog",
       "breed": "Jack Russell Terrier",

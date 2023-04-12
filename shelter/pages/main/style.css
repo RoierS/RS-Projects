@@ -163,6 +163,9 @@ body {
     font-size: 15px;
     line-height: 160%;
 }
+body.noscroll {
+    overflow: hidden;
+}
 a {
     color: inherit;
     text-decoration: none;
@@ -835,8 +838,18 @@ button {
 
 /* POPUP */
 
+
 .popup__wrapper {
-    display: none;
+    
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s;
+}
+.popup__wrapper-open {
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.5s;
+    
 }
 .popup__overlay {
    display: flex;
@@ -849,9 +862,9 @@ button {
    bottom: 0;
    width: 100vw;
    height: 100vh;
-   opacity: ;
+   /* opacity: ;
    visibility: ;
-   transition: ;
+   transition: ; */
    background: rgba(41, 41, 41, 0.6);
 }
 .popup__window {
@@ -901,8 +914,8 @@ button {
     line-height: 110%;
     margin-bottom: 40px;
 }
-.popup__list {
-}
+/* .popup__list {
+} */
 .popup__item {
     font-weight: 700;
     font-size: 15px;
@@ -1108,9 +1121,7 @@ button {
     .nav__list-item {
         font-size: 23px;
     }
-    body.noscroll {
-        overflow: hidden;
-    }
+   
 
      /* header and burger */
    

@@ -960,8 +960,12 @@ button {
     border: 2px solid #F1CDB3;
     background-color: transparent;
     z-index: 50;
+    transition: all 0.5s;
 }
-
+.popup__close:hover {
+    background: var(--BTN-HOVER-COLOR);
+    border: 2px solid var(--BTN-HOVER-COLOR);
+}
 
 
 

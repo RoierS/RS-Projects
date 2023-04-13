@@ -720,7 +720,7 @@ button {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 85%;
+        width: 320px;
         height: 100%;
         z-index: 100;
         display: flex;

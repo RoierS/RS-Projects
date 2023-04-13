@@ -361,12 +361,6 @@ button {
     border-radius: 50%;
     transition: all 0.6s;
 }
-.start-slide,
-.prev-slide {
-    color: var(--TEXT-COLOR);
-    border: 2px solid var(--TEXT-COLOR);
-    cursor: default;
-}
 .current-slide {
     background-color: var(--BTN-COLOR);
     border: 2px solid var(--BTN-COLOR);
@@ -385,6 +379,23 @@ button {
     border: 2px solid var(--BTN-HOVER-COLOR);
     background-color: var(--BTN-HOVER-COLOR);
     outline: none;
+}
+
+.start-slide:disabled,
+.prev-slide:disabled,
+.next-slide:disabled,
+.end-slide:disabled {
+    color: var(--TEXT-COLOR);
+    border: 2px solid var(--TEXT-COLOR);
+    cursor: auto;
+}
+.start-slide:disabled:hover,
+.prev-slide:disabled:hover,
+.next-slide:disabled:hover,
+.end-slide:disabled:hover {
+    color: var(--TEXT-COLOR);
+    border: 2px solid var(--TEXT-COLOR);
+    cursor: auto;
 }
 .pagination {
     display: flex;

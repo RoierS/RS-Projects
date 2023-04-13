@@ -163,6 +163,9 @@ body {
     font-size: 15px;
     line-height: 160%;
 }
+body.noscroll {
+    overflow: hidden;
+}
 a {
     color: inherit;
     text-decoration: none;
@@ -831,6 +834,141 @@ button {
 }
 
 
+
+
+/* POPUP */
+
+
+.popup__wrapper {
+    
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s;
+}
+.popup__wrapper-open {
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.5s;
+    
+}
+.popup__overlay {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: fixed;
+   left: 0;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   width: 100vw;
+   height: 100vh;
+   /* opacity: ;
+   visibility: ;
+   transition: ; */
+   background: rgba(41, 41, 41, 0.6);
+}
+.popup__window {
+    width: 900px;
+    height: 500px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FAFAFA;
+    border-radius: 9px;
+}
+.popup__window:hover {
+    box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+}
+.popup__img {
+    width: 500px;
+    border-radius: 9px 0px 0px 9px;
+}
+.popup__img img {
+    border-bottom-left-radius: 9px;
+    border-top-left-radius: 9px;
+}
+.popup__content {
+    width: 351px;
+    align-self: flex-start;
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: #000000;
+    padding: 50px 20px 29px 0;
+}
+.popup__title {
+    font-family: 'Georgia';
+    font-size: 35px;
+    line-height: 130%;
+    margin-bottom: 10px;
+}
+.popup__subtitle {
+    font-size: 20px;
+    line-height: 115%;
+    margin-bottom: 40px;
+}
+.popup__text {
+    font-size: 15px;
+    line-height: 110%;
+    margin-bottom: 40px;
+}
+/* .popup__list {
+} */
+.popup__item {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 110%;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 14px;
+    
+}
+.popup__item::before {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 4px;
+    height: 4px;
+    top: 7px;
+    left: 0px;
+    border-radius: 50%;
+    background-color: #F1CDB3;
+}
+.popup__age,
+.popup__inoculations,
+.popup__diseases,
+.popup__parasites {
+    font-weight: 400;
+}
+.popup__close {
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    top: -52px;
+    right: -42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 50%;
+    /* border: none; */
+    height: 52px;
+    outline: none;
+    cursor: pointer;
+    border: 2px solid #F1CDB3;
+    background-color: transparent;
+    z-index: 50;
+    transition: all 0.5s;
+}
+.popup__close:hover {
+    background: var(--BTN-HOVER-COLOR);
+    border: 2px solid var(--BTN-HOVER-COLOR);
+}
+
+
+
 /* MEDIA */
 
 @media (max-width: 1150px) {
@@ -987,9 +1125,7 @@ button {
     .nav__list-item {
         font-size: 23px;
     }
-    body.noscroll {
-        overflow: hidden;
-    }
+   
 
      /* header and burger */
    

@@ -375,7 +375,13 @@ button {
 .next-slide:focus,
 .end-slide:hover,
 .end-slide:active,
-.end-slide:focus {
+.end-slide:focus,
+.start-slide:hover,
+.prev-slide:hover,
+.start-slide:active,
+.prev-slide:active,
+.start-slide:focus,
+.prev-slide:focus {
     border: 2px solid var(--BTN-HOVER-COLOR);
     background-color: var(--BTN-HOVER-COLOR);
     outline: none;
@@ -387,6 +393,7 @@ button {
 .end-slide:disabled {
     color: var(--TEXT-COLOR);
     border: 2px solid var(--TEXT-COLOR);
+    background-color: transparent;
     cursor: auto;
 }
 .start-slide:disabled:hover,

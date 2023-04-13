@@ -23,18 +23,7 @@ burgerMenu.addEventListener('click', toggleBurger);
 overlay.addEventListener('click', toggleBurger);
 navLinks.forEach(navLink => navLink.addEventListener('click', toggleBurger));
 
-
 // pagination
-
-
-// {/* <div class="slider__item">
-//     <div class="slider__item-img">
-//         <img class="item__image" src="../../assets/images/katrine.png" alt="Katrine">
-//     </div>
-//     <div class="slider__item-name">Katrine</div>
-//     <button class="learn-more__button">Learn more</button>
-// </div> */}
-
 
 fetch('../../pages/json/pets.json')
     .then((resolve) => resolve.json())
@@ -45,77 +34,31 @@ fetch('../../pages/json/pets.json')
         const firstBtn = document.querySelector('.start-slide');
         const lastBtn = document.querySelector('.end-slide');
         const pageNrBtn = document.querySelector('.current-slide');
-        
-        // const arrPets = new Set();
+    
         let arrPets = [];
         const COUNT_PETS = 48;
-        // const PET_CARDS_PER_PAGE = {
-        //     desktop: 8,
-        //     tablet: 6,
-        //     mobile: 3
-        // }
-
         let currentPage = 1;
         let lastPage;
         let pageSize;
-
-        // const shuffle = (arr) => {
-        //     for (let i = 0; i < arr.length; i++) {
-        //         const j = Math.floor(Math.random() * (i + 1));
-        //         [arr[i], arr[j]] = [arr[j]], arr[i];
-                
-        //     }
-        // }
 
         const getPageSize = () => {
             if(window.innerWidth < 768) pageSize = 'mobile';
             else if (window.innerWidth < 1280) pageSize = 'tablet';
             else pageSize = 'desktop';
         }
-
         getPageSize();
 
         const generateNewPets = () => {
-            // arrPets.clear();
-            // for (let i = 0; i < COUNT_PETS; i++) {
-            //     const petIndex = Math.floor(i / 6);
-            //     arrPets.add(petIndex);
-            // }
-
-            // const randomPetIndexes =  Array.from({length: petsJson.length}, (_, i) => i);
-            // shuffle(randomPetIndexes);
-            // arrPets.length = 0
-            // for (let i = 0; i < COUNT_PETS; i++) {
-            //     const petIndex = randomPetIndexes[i % randomPetIndexes.length];
-            //     arrPets.push(petsJson[petIndex]);
-            // }
-            //     console.log(arrPets);
             const arr = Array.from({ length: COUNT_PETS }, (_, i) => i);
             for (let i = COUNT_PETS - 1; i > 0; i--) {
               const j = Math.floor(Math.random() * (i + 1));
               [arr[i], arr[j]] = [arr[j], arr[i]];
             }
             return arr;
-
-            // const randomPetIndexes =  Array.from({length: COUNT_PETS}, () => Math.floor(Math.random() * petsJson.length));
-            // for (const index of randomPetIndexes) {
-            //     arrPets.add(index);
-                // console.log(arrPets)
-            // }
-
-
-            // for (let i = arrPets.length; i < COUNT_PETS; i++) {
-            //     let randomPet = Math.floor(Math.random() * Math.floor(petsJson.length));
-            //     if (!arrPets.includes(randomPet)) {
-            //         arrPets.push(randomPet);
-            //     }
-            // }
-
         }
+
         arrPets = generateNewPets();
         console.log(arrPets)
-
-        // console.log(generateNewPets())
 
         const showPetsPage = () => {
             getPageSize();
@@ -129,9 +72,6 @@ fetch('../../pages/json/pets.json')
                 lastPage = Math.ceil(COUNT_PETS / 3);
             }
             
-
-
-
             const startIndex = (currentPage - 1) * (pageSize === 'desktop' ? 8 : pageSize === 'tablet' ? 6 : 3);
             const endIndex = startIndex + (pageSize === 'desktop' ? 8 : pageSize === 'tablet' ? 6 : 3);
 
@@ -151,17 +91,12 @@ fetch('../../pages/json/pets.json')
                         <button class="learn-more__button">Learn more</button>
                     `;
                     friendsGrid.appendChild(petCard);
-                    // console.log(pet)
                 }
-            }
-            
-          
-         
+            }  
         }
 
         showPetsPage(1);
-        
-          
+         
         friendsGrid.addEventListener('click', (e) => {
           if (e.target.classList.contains('slider__item') 
           || e.target.parentNode.classList.contains('slider__item') 
@@ -214,10 +149,7 @@ fetch('../../pages/json/pets.json')
               })
             }
         })
-
-
               nextBtn.addEventListener('click', () => {
-
                   currentPage++;
                   pageNrBtn.textContent = currentPage;
                   friendsGrid.removeChild(friendsGrid.firstChild);
@@ -229,7 +161,7 @@ fetch('../../pages/json/pets.json')
                   }
                   prevBtn.removeAttribute('disabled', 'disabled')
                   firstBtn.removeAttribute('disabled', 'disabled')
-              });
+                });
 
               prevBtn.addEventListener('click', () => {
                 currentPage--;
@@ -244,7 +176,31 @@ fetch('../../pages/json/pets.json')
                 nextBtn.removeAttribute('disabled', 'disabled')
                 lastBtn.removeAttribute('disabled', 'disabled')
             });
-
+            
+            lastBtn.addEventListener('click', () => {
+                currentPage = lastPage;
+                pageNrBtn.textContent = currentPage;
+                friendsGrid.removeChild(friendsGrid.firstChild);
+                generateNewPets();
+                showPetsPage();
+                
+                nextBtn.setAttribute('disabled', 'disabled')
+                lastBtn.setAttribute('disabled', 'disabled')
+                prevBtn.removeAttribute('disabled', 'disabled')
+                firstBtn.removeAttribute('disabled', 'disabled')
+            });
+            firstBtn.addEventListener('click', () => {
+                currentPage = 1;
+                pageNrBtn.textContent = currentPage;
+                friendsGrid.removeChild(friendsGrid.firstChild);
+                generateNewPets();
+                showPetsPage();
+    
+                prevBtn.setAttribute('disabled', 'disabled')
+                firstBtn.setAttribute('disabled', 'disabled')
+                nextBtn.removeAttribute('disabled', 'disabled')
+                lastBtn.removeAttribute('disabled', 'disabled')
+            });
 
 
 })

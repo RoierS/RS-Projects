@@ -119,16 +119,7 @@ const pets = [
       ];
 
 //add json
-// fetch('./js/pets.json').then(resolve => resolve.json()).then(petsJson => {
-//     const currentPet = petsJson.find(el => el.name === slider__item.dataset)
 
-
-
-
-
-
-
-// })
 
 
 const btnNext = document.querySelector('.next-slide');
@@ -154,7 +145,7 @@ const getNumberOfCards = () => {
     }
 };
 
-let currentPets = [];
+let currentPets = ['Katrine', 'Jenifer', 'Woody'];
 let previousPets = [];
 
 const generateNewPets = () => {
@@ -174,7 +165,7 @@ const createBlockTemplate = () => {
     item.classList.add('slider__item');
     // activeSliderItems.forEach(item => item.setAttribute('id', `${pets.name}`));
 
-
+    
     return item;
 }
 createBlockTemplate();
@@ -209,8 +200,8 @@ carousel.addEventListener('animationend', (animationDirection) => {
         activeBlock.innerHTML = rightBlock.innerHTML;
 
         // console.log(changedBlock)
-        console.log(previousPets)
-        console.log(currentPets)
+        // console.log(previousPets)
+        // console.log(currentPets)
         // console.log(activeBlock)
 
     } else {
@@ -237,8 +228,8 @@ carousel.addEventListener('animationend', (animationDirection) => {
         <button class="learn-more__button">Learn more</button>
         `;
        
-        console.log(currentPets)
-        console.log(previousPets)
+        // console.log(currentPets)
+        // console.log(previousPets)
     }
 
     btnNext.addEventListener('click', moveRight);
@@ -299,8 +290,14 @@ activeBlock.addEventListener('click', (e) => {
             
         }
     })
-})
 
+})
+// fetch('../../pages/json/pets.json').then(resolve => resolve.json()).then(petsJson => {
+//     console.log(petsJson)
+//     const currentPet = petsJson.find(el => el.name === e.target.closest('div').dataset.name);
+//     console.log(currentPet)
+
+// })
 
 
 

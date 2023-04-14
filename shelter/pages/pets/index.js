@@ -85,7 +85,7 @@ fetch('../../pages/json/pets.json')
                     petCard.setAttribute('data-petnr', `${petsJson.indexOf(pet) + 1}`);
                     petCard.innerHTML = `
                         <div class="slider__item-img" data-petnr="${petsJson.indexOf(pet) + 1}">
-                            <img class="item__image" src="../../assets/images/${pet.name}.png" alt="${pet.name}" data-petnr="${petsJson.indexOf(pet) + 1}">
+                            <img class="item__image" src="../../assets/images/${pet.name.toLowerCase()}.png" alt="${pet.name}" data-petnr="${petsJson.indexOf(pet) + 1}">
                         </div>
                         <div class="slider__item-name" data-petnr="${petsJson.indexOf(pet) + 1}">${pet.name}</div>
                         <button class="learn-more__button">Learn more</button>
@@ -116,7 +116,7 @@ fetch('../../pages/json/pets.json')
                   <div class="popup__overlay">
                       <div class="popup__window">
                           <div class="popup__img">
-                              <img src="../../assets/images/${currentPet.name}.png" alt="${currentPet.name}">
+                              <img src="../../assets/images/${currentPet.name.toLowerCase()}.png" alt="${currentPet.name}">
                           </div>
                           <div class="popup__content">
                               <div class="popup__title">${currentPet.name}</div>

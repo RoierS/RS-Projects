@@ -258,7 +258,7 @@ activeBlock.addEventListener('click', (e) => {
             <div class="popup__overlay">
                 <div class="popup__window">
                     <div class="popup__img">
-                        <img src="../../assets/images/${currentPet.name}.png" alt="${currentPet.name}">
+                        <img src="../../assets/images/${currentPet.name.toLowerCase()}.png" alt="${currentPet.name}">
                     </div>
                     <div class="popup__content">
                         <div class="popup__title">${currentPet.name}</div>

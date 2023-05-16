@@ -31,3 +31,17 @@ wrapper.append(title, boardWrapper);
 modeBlock.append(easyMode, mediumMode, hardMode);
 boardWrapper.append(boardHeader, board, modeBlock);
 boardHeader.append(flagsCount, smile, timer);
+
+const bombsCount = 10;
+const boardSize = 10;
+console.log(board);
+
+function initGame(size, bombs) {
+  const tilesCount = size * size;
+  board.innerHTML = '<button class="board__tile"></button>'.repeat(tilesCount);
+  const tiles = [...board.children];
+}
+
+initGame(boardSize, bombsCount);
+
+

@@ -6,6 +6,7 @@
     margin: 0;
     box-sizing: border-box;
     border: none;
+    user-select: none;
 }
 
 /* General styles */
@@ -25,13 +26,13 @@ button {
 
 .board {
   display: grid;
-  grid-template-columns: (10, 25px);
+  grid-template-columns: repeat(10, 25px);
 }
 
-.tile {
+/* .tile {
   height: 25px;;
   font-size: 16px;
-}
+} */
 
 .header {
   text-align: center;
@@ -42,8 +43,8 @@ button {
 
 .board__wrapper {
   margin: 0 auto;
-  width: 625px;
-  border: 16px solid white;
+  width: 260px;
+  border: 5px solid white;
   border-radius: 5px;
 }
 
@@ -92,7 +93,7 @@ button {
 }
 
 .board {
-  border: 2px solid rgb(143, 30, 30);
+  /* border: 2px solid rgb(143, 30, 30); */
 }
 
 .mode-container {
@@ -109,4 +110,12 @@ button {
   padding: 10px;
   border-radius: 5px;
 
+}
+
+
+.board__tile {
+  width: 25px;
+  height: 25px;;
+  font-size: 16px;
+  border: 2px solid black
 }

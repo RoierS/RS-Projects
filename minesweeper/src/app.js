@@ -34,7 +34,6 @@ boardHeader.append(flagsCount, smile, timer);
 
 let bombsCount = 10;
 let boardSize = 10;
-console.log(board);
 
 function initGame(size, bombs) {
   const tilesCount = size * size;
@@ -49,23 +48,30 @@ easyMode.addEventListener('click', () => {
   board.style.gridTemplateColumns = 'repeat(10, 25px)';
   boardSize = 10;
   initGame(boardSize, bombsCount);
-})
+});
 
 mediumMode.addEventListener('click', () => {
   boardWrapper.style.width = '385px';
   board.style.gridTemplateColumns = 'repeat(15, 25px)';
   boardSize = 15;
   initGame(boardSize, bombsCount);
-})
+});
 
 hardMode.addEventListener('click', () => {
   boardWrapper.style.width = '635px';
   board.style.gridTemplateColumns = 'repeat(25, 25px)';
   boardSize = 25;
   initGame(boardSize, bombsCount);
-})
+});
 
+function placeBombs(bombsAmount) {
+  bombsCount = bombsAmount;
+  const tilesCount = boardSize * boardSize;
+  const bombs = [...Array(tilesCount).keys()].sort(() => Math.random() - 0.5).slice(0, bombsCount);
+  return bombs;
+}
 
+placeBombs(bombsCount);
 
 
 

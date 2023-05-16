@@ -32,8 +32,8 @@ modeBlock.append(easyMode, mediumMode, hardMode);
 boardWrapper.append(boardHeader, board, modeBlock);
 boardHeader.append(flagsCount, smile, timer);
 
-const bombsCount = 10;
-const boardSize = 10;
+let bombsCount = 10;
+let boardSize = 10;
 console.log(board);
 
 function initGame(size, bombs) {
@@ -43,5 +43,33 @@ function initGame(size, bombs) {
 }
 
 initGame(boardSize, bombsCount);
+
+easyMode.addEventListener('click', () => {
+  boardWrapper.style.width = '260px';
+  board.style.gridTemplateColumns = 'repeat(10, 25px)';
+  boardSize = 10;
+  initGame(boardSize, bombsCount);
+})
+
+mediumMode.addEventListener('click', () => {
+  boardWrapper.style.width = '385px';
+  board.style.gridTemplateColumns = 'repeat(15, 25px)';
+  boardSize = 15;
+  initGame(boardSize, bombsCount);
+})
+
+hardMode.addEventListener('click', () => {
+  boardWrapper.style.width = '635px';
+  board.style.gridTemplateColumns = 'repeat(25, 25px)';
+  boardSize = 25;
+  initGame(boardSize, bombsCount);
+})
+
+
+
+
+
+
+
 
 

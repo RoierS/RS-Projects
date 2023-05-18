@@ -6,12 +6,15 @@ const title = createElement('h1', 'header');
 const boardWrapper = createElement('div', 'board__wrapper');
 const boardHeader = createElement('div', 'board__header');
 const flagsCount = createElement('div', 'header__flags-count');
-const changeBombsCount = createElement('input', 'header__bombs-count');
 const smile = createElement('div', 'header__smile');
 const timer = createElement('div', 'header__timer');
 const board = createElement('div', 'board');
 const modeBlock = createElement('div', 'mode-container');
 const gameResult = createElement('div', 'game-result');
+const changeBombsCount = createElement('input', 'select__bombs-count');
+const bombsCountLabel = createElement('label', 'select__bombs--amount');
+const selectBombsAmount = createElement('div', 'select-bombs__container');
+
 
 const easyMode = createElement('button', 'board__easy--mode');
 const mediumMode = createElement('button', 'board__medium--mode');
@@ -23,11 +26,13 @@ startNewGame.textContent = 'New Game';
 let bombsCount = 10;
 
 title.textContent = 'Minesweeper Game';
-changeBombsCount.textContent = '10';
-changeBombsCount.type = 'number';
+changeBombsCount.value = '10';
+changeBombsCount.type = 'range';
 changeBombsCount.min = 10;
 changeBombsCount.max = 99;
 changeBombsCount.value = bombsCount;
+bombsCountLabel.textContent = `Amount of Bombs: ${bombsCount}`;
+
 
 // flagsCount.textContent = bombsCount;
 easyMode.textContent = 'Easy';
@@ -37,8 +42,9 @@ hardMode.textContent = 'Hard';
 document.body.append(wrapper);
 wrapper.append(title, boardWrapper);
 modeBlock.append(easyMode, mediumMode, hardMode);
-boardWrapper.append(boardHeader, board, modeBlock, startNewGame);
-boardHeader.append(flagsCount, changeBombsCount, smile, timer);
+selectBombsAmount.append(changeBombsCount, bombsCountLabel)
+boardWrapper.append(boardHeader, selectBombsAmount, board, modeBlock, startNewGame);
+boardHeader.append(flagsCount, smile, timer);
 
 
 let boardSize = 10;
@@ -55,6 +61,7 @@ changeBombsCount.addEventListener('change', () => {
   bombsCount = parseInt(changeBombsCount.value);
   bombs = [...Array(tilesCount).keys()].sort(() => Math.random() - 0.5).slice(0, bombsCount);
   initGame(boardSize, bombsCount);
+  bombsCountLabel.textContent = `Amount of Bombs: ${bombsCount}`;
  
 })
 
@@ -204,7 +211,12 @@ hardMode.addEventListener('click', () => {
   initGame(boardSize, bombsCount);
 });
 
-
+startNewGame.addEventListener('click', () => {
+  bombsCount = 10;
+  changeBombsCount.value = bombsCount;
+  bombsCountLabel.textContent = `Amount of Bombs: ${bombsCount}`;
+  initGame(boardSize, bombsCount);
+})
 
 
 

@@ -87,18 +87,8 @@ button {
   align-items: center;
 }
 
-.header__smile {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: black;
-  color: bisque;
-  font-size: 20px;
-  width: 50px;
-  height: 35px;
-  border-radius: 5px;
-}
-
+.header__flags-count,
+.header__smile,
 .header__timer {
   display: flex;
   align-items: center;
@@ -106,19 +96,7 @@ button {
   background-color: black;
   color: bisque;
   font-size: 20px;
-  width: 50px;
-  height: 35px;
-  border-radius: 5px;
-}
-
-.header__flags-count {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: black;
-  color: bisque;
-  font-size: 20px;
-  width: 50px;
+  width: 70px;
   height: 35px;
   border-radius: 5px;
 }

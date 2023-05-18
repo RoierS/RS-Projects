@@ -25,7 +25,7 @@ const hardMode = createElement('button', 'board__hard--mode');
 
 const startNewGame = createElement('button', 'board__new-game');
 startNewGame.textContent = 'New Game';
-
+smile.textContent = '0';
 let bombsCount = 10;
 
 title.textContent = 'Minesweeper Game';
@@ -53,6 +53,7 @@ let boardSize = 10;
 let gameOver = false;
 const tilesCount = boardSize * boardSize;
 let firstClick = true;
+let clicksCount = 0;
 
 let bombs = [...Array(tilesCount).keys()].sort(() => Math.random() - 0.5).slice(0, bombsCount);
 
@@ -66,11 +67,10 @@ changeBombsCount.addEventListener('change', () => {
 let timerInterval;
 function startTimer() {
   let seconds = 0;
-  timer.textContent = '0';
-
+  timer.textContent = '⏰ 0';
   timerInterval = setInterval(() => {
     seconds++;
-    timer.textContent = seconds;
+    timer.textContent = `⏰ ${seconds}`;
   }, 1000);
 }
 
@@ -79,18 +79,21 @@ function stopTimer() {
 }
 
 function initGame(size, bombsCount) {
+  board.removeEventListener('click', tileClickHandler);
+  clicksCount = 0;
+  smile.textContent = `🖱️ ${clicksCount}`;
   stopTimer();
-  timer.textContent = '0';
+  timer.textContent = '⏰ 0';
   let flags = 0;
   gameResult.innerHTML = '';
   firstClick = true;
-  flagsCount.textContent = bombsCount;
+  flagsCount.textContent = `🚩 ${bombsCount}`;
   const tilesCount = size * size;
   board.innerHTML = '<button class="board__tile"></button>'.repeat(tilesCount);
   const tiles = [...board.children];
   let closedTiles = tilesCount;
 
-  board.addEventListener('click', (e) => {
+  function tileClickHandler(e) {
     if (!e.target.classList.contains('board__tile')) {
       return;
     }
@@ -98,7 +101,10 @@ function initGame(size, bombsCount) {
     const column = targetTile % size;
     const row = Math.floor(targetTile / size);
     openTile(row, column);
-  });
+    clicksCount++;
+    smile.textContent = `🖱️ ${clicksCount}`;
+  }
+  board.addEventListener('click', tileClickHandler);
 
   tiles.forEach((tile) => {
     tile.addEventListener('contextmenu', (e) => {
@@ -110,12 +116,12 @@ function initGame(size, bombsCount) {
         tile.classList.add('flagged');
         tile.innerHTML = '🚩';
         flags++;
-        flagsCount.textContent = bombsCount - flags;
+        flagsCount.textContent = `🚩 ${bombsCount - flags}`;
       } else {
         tile.classList.remove('flagged');
         tile.innerHTML = '';
         flags--;
-        flagsCount.textContent = bombsCount - flags;
+        flagsCount.textContent = `🚩 ${bombsCount - flags}`;
       }
     });
   });
@@ -154,6 +160,7 @@ function initGame(size, bombsCount) {
         tile.classList.add('disabled');
       });
       stopTimer();
+      board.removeEventListener('click', tileClickHandler);
       return;
     }
 
@@ -164,6 +171,7 @@ function initGame(size, bombsCount) {
         tile.classList.add('disabled');
       });
       stopTimer();
+      board.removeEventListener('click', tileClickHandler);
       return;
     }
 

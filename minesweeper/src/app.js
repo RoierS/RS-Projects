@@ -22,7 +22,7 @@ const mediumMode = createElement('button', 'board__medium--mode');
 const hardMode = createElement('button', 'board__hard--mode');
 
 title.textContent = 'Minesweeper Game';
-flagsCount.textContent = '10';
+// flagsCount.textContent = bombsCount;
 easyMode.textContent = 'Easy';
 mediumMode.textContent = 'Medium';
 hardMode.textContent = 'Hard';
@@ -35,19 +35,18 @@ boardHeader.append(flagsCount, smile, timer);
 
 let bombsCount = 10;
 let boardSize = 10;
+let flags = 0;
+let gameOver = false;
+const tilesCount = boardSize * boardSize;
 
-initGame(boardSize, bombsCount);
-
+const bombs = [...Array(tilesCount).keys()].sort(() => Math.random() - 0.5).slice(0, bombsCount);
 function initGame(size, bombsCount) {
+  flagsCount.textContent = bombsCount;
   const tilesCount = size * size;
   board.innerHTML = '<button class="board__tile"></button>'.repeat(tilesCount);
   const tiles = [...board.children];
   // bombsCount = bombsAmount;
-  const bombs = [...Array(tilesCount).keys()].sort(() => Math.random() - 0.5).slice(0, bombsCount);
-
   let closedTiles = tilesCount;
-  // console.log(closedTiles)
-  // console.log(tilesCount)
 
   board.addEventListener('click', (e) => {
     if (!e.target.classList.contains('board__tile')) {
@@ -60,24 +59,47 @@ function initGame(size, bombsCount) {
 
     openTile(row, column);
   });
-  
-  function isValidTile(row, column) {
-    return row >= 0 && column >= 0
-          && row < boardSize
-          && column < boardSize;
-  }
 
-  function getBombsCount(row, column) {
-    let count = 0;
-    for (let x = -1; x <= 1; x++) {
-      for (let y = -1; y <= 1; y++) {
-        if (isBomb(row + y, column + x)) {
-          count++;
-        }
+
+
+  tiles.forEach((tile) => {
+    tile.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      if (!e.target.classList.contains('board__tile')) {
+        return;
       }
-    }
-    return count;
-  }
+      if (!tile.classList.contains('flagged')) {
+        tile.classList.add('flagged');
+        tile.innerHTML = '🚩';
+        flags++;
+        flagsCount.textContent = bombsCount - flags;
+        console.log(tile);
+      } else {
+        tile.classList.remove('flagged');
+        tile.innerHTML = '';
+        flags--;
+        flagsCount.textContent = bombsCount - flags;
+      }
+  });
+  })
+
+
+  // for (let i = 0; i <= tilesCount; i++) {
+  //   const tile = tiles[i];
+  //   tile.addEventListener('contextmenu', (e) => {
+  //     e.preventDefault();
+  //     if (!e.target.classList.contains('board__tile')) {
+  //       return;
+  //     }
+  //     const targetTile = tiles.indexOf(e.target);
+  //       if (!tile.classList.contains('flagged')) {
+  //         tile.classList.add('flagged');
+  //         tile.innerHTML = '🚩';
+  //         console.log(tile);
+  //       } 
+  //   });
+  //   }
+
 
   function openTile(row, column) {
     if (!isValidTile(row, column)) return;
@@ -96,8 +118,6 @@ function initGame(size, bombsCount) {
     }
 
     closedTiles--;
-    console.log(closedTiles)
-
     if (closedTiles <= bombsCount) {
       alert('you win');
       return;
@@ -116,12 +136,45 @@ function initGame(size, bombsCount) {
     }
   }
 
-  function isBomb(row, column) {
-    if (!isValidTile(row, column)) return false;
-    const tileIndex = row * boardSize + column;
-    return bombs.includes(tileIndex);
-  }
 }
+
+initGame(boardSize, bombsCount);
+
+
+
+function isValidTile(row, column) {
+  return row >= 0 && column >= 0
+        && row < boardSize
+        && column < boardSize;
+}
+
+function isBomb(row, column) {
+  if (!isValidTile(row, column)) return false;
+  const tileIndex = row * boardSize + column;
+  return bombs.includes(tileIndex);
+}
+
+function getBombsCount(row, column) {
+  let count = 0;
+  for (let x = -1; x <= 1; x++) {
+    for (let y = -1; y <= 1; y++) {
+      if (isBomb(row + y, column + x)) {
+        count++;
+      }
+    }
+  }
+  return count;
+}
+
+// function showBombs() {
+//   gameOver = true;
+//   const tiles = [...board.children];
+//   tiles.forEach((tile) => {
+//     if ()
+//   })
+// }
+
+
 
 easyMode.addEventListener('click', () => {
   boardWrapper.style.width = '260px';

@@ -22,6 +22,10 @@ button {
 .wrapper {
   min-height: 100vh;
   margin: 20px auto 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .board {
@@ -118,10 +122,10 @@ button {
   height: 35px;
   border-radius: 5px;
 }
-
+/* 
 .board {
-  /* border: 2px solid rgb(143, 30, 30); */
-}
+  border: 2px solid rgb(143, 30, 30);
+} */
 
 .mode-container {
   display: flex;
@@ -161,4 +165,34 @@ button {
   text-align: center;
   color: beige;
   font-size: 36px;
+}
+
+.disabled {
+  pointer-events: none;
+  background-color: #ccc;
+}
+
+.one {
+  color: crimson;
+}
+.two {
+  color: rgb(20, 220, 60);
+}
+.three {
+  color: rgb(212, 24, 131);
+}
+.four {
+  color: rgb(20, 77, 220);
+}
+.five {
+  color: rgb(163, 220, 20);
+}
+.six {
+  color: rgb(232, 191, 8);
+}
+.seven {
+  color: rgb(5, 198, 241);
+}
+.eight {
+  color: rgb(17, 16, 16);
 }

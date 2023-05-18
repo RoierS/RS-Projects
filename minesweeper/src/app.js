@@ -1,27 +1,34 @@
 import './style.css';
-
-const createElement = (tagName, className) => {
-  const newElement = document.createElement(tagName);
-  newElement.classList.add(className);
-  return newElement;
-};
+import createElement from './components/createElement';
 
 const wrapper = createElement('div', 'wrapper');
 const title = createElement('h1', 'header');
 const boardWrapper = createElement('div', 'board__wrapper');
 const boardHeader = createElement('div', 'board__header');
 const flagsCount = createElement('div', 'header__flags-count');
+const changeBombsCount = createElement('input', 'header__bombs-count');
 const smile = createElement('div', 'header__smile');
 const timer = createElement('div', 'header__timer');
 const board = createElement('div', 'board');
-// console.log(board)
 const modeBlock = createElement('div', 'mode-container');
+const gameResult = createElement('div', 'game-result');
 
 const easyMode = createElement('button', 'board__easy--mode');
 const mediumMode = createElement('button', 'board__medium--mode');
 const hardMode = createElement('button', 'board__hard--mode');
 
+const startNewGame = createElement('button', 'board__new-game');
+startNewGame.textContent = 'New Game';
+
+let bombsCount = 10;
+
 title.textContent = 'Minesweeper Game';
+changeBombsCount.textContent = '10';
+changeBombsCount.type = 'number';
+changeBombsCount.min = 10;
+changeBombsCount.max = 99;
+changeBombsCount.value = bombsCount;
+
 // flagsCount.textContent = bombsCount;
 easyMode.textContent = 'Easy';
 mediumMode.textContent = 'Medium';
@@ -30,33 +37,44 @@ hardMode.textContent = 'Hard';
 document.body.append(wrapper);
 wrapper.append(title, boardWrapper);
 modeBlock.append(easyMode, mediumMode, hardMode);
-boardWrapper.append(boardHeader, board, modeBlock);
-boardHeader.append(flagsCount, smile, timer);
+boardWrapper.append(boardHeader, board, modeBlock, startNewGame);
+boardHeader.append(flagsCount, changeBombsCount, smile, timer);
 
-let bombsCount = 10;
+
 let boardSize = 10;
 let flags = 0;
 let gameOver = false;
 const tilesCount = boardSize * boardSize;
 
-const bombs = [...Array(tilesCount).keys()].sort(() => Math.random() - 0.5).slice(0, bombsCount);
+let firstClick = true;
+
+let bombs = [...Array(tilesCount).keys()].sort(() => Math.random() - 0.5).slice(0, bombsCount);
+
+
+changeBombsCount.addEventListener('change', () => {
+  bombsCount = parseInt(changeBombsCount.value);
+  bombs = [...Array(tilesCount).keys()].sort(() => Math.random() - 0.5).slice(0, bombsCount);
+  initGame(boardSize, bombsCount);
+ 
+})
+
+
 function initGame(size, bombsCount) {
+  firstClick = true;
   flagsCount.textContent = bombsCount;
+  
   const tilesCount = size * size;
   board.innerHTML = '<button class="board__tile"></button>'.repeat(tilesCount);
   const tiles = [...board.children];
-  // bombsCount = bombsAmount;
   let closedTiles = tilesCount;
 
   board.addEventListener('click', (e) => {
     if (!e.target.classList.contains('board__tile')) {
       return;
     }
-
     const targetTile = tiles.indexOf(e.target);
     const column = targetTile % size;
     const row = Math.floor(targetTile / size);
-
     openTile(row, column);
   });
 
@@ -81,25 +99,7 @@ function initGame(size, bombsCount) {
         flagsCount.textContent = bombsCount - flags;
       }
   });
-  })
-
-
-  // for (let i = 0; i <= tilesCount; i++) {
-  //   const tile = tiles[i];
-  //   tile.addEventListener('contextmenu', (e) => {
-  //     e.preventDefault();
-  //     if (!e.target.classList.contains('board__tile')) {
-  //       return;
-  //     }
-  //     const targetTile = tiles.indexOf(e.target);
-  //       if (!tile.classList.contains('flagged')) {
-  //         tile.classList.add('flagged');
-  //         tile.innerHTML = '🚩';
-  //         console.log(tile);
-  //       } 
-  //   });
-  //   }
-
+  });
 
   function openTile(row, column) {
     if (!isValidTile(row, column)) return;
@@ -111,14 +111,31 @@ function initGame(size, bombsCount) {
 
     tile.disabled = true;
 
+    if (firstClick) {
+      firstClick = false;
+      bombs = [...Array(tilesCount).keys()].filter((index) => index !== tileIndex)
+        .sort(() => Math.random() - 0.5).slice(0, bombsCount);
+    }
+
     if (isBomb(row, column)) {
       tile.innerHTML = '💣';
-      alert('LOOOSE')
+      gameResult.innerHTML = 'YOOu LOOOSe!';
+
+      bombs.forEach((bombIndex) => {
+        const bombRow = Math.floor(bombIndex / boardSize);
+        const bombColumn = bombIndex % boardSize;
+        if (tileIndex !== bombIndex) {
+          const bombTile = tiles[bombIndex];
+          bombTile.innerHTML = '💣';
+        }
+      })
+
       return;
     }
 
+
     closedTiles--;
-    if (closedTiles <= bombsCount) {
+    if (closedTiles <= bombsCount && firstClick) {
       alert('you win');
       return;
     }
@@ -165,16 +182,6 @@ function getBombsCount(row, column) {
   }
   return count;
 }
-
-// function showBombs() {
-//   gameOver = true;
-//   const tiles = [...board.children];
-//   tiles.forEach((tile) => {
-//     if ()
-//   })
-// }
-
-
 
 easyMode.addEventListener('click', () => {
   boardWrapper.style.width = '260px';

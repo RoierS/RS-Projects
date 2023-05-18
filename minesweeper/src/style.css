@@ -42,10 +42,15 @@ button {
 }
 
 .board__wrapper {
-  margin: 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  gap: 4px;
+  margin: 0 auto 15px auto;
   width: 260px;
   border: 5px solid white;
   border-radius: 5px;
+
 }
 
 .board__header {
@@ -55,6 +60,19 @@ button {
   justify-content: space-evenly;
   padding: 10px;
 }
+
+.header__bombs-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  color: bisque;
+  font-size: 20px;
+  width: 50px;
+  height: 35px;
+  border-radius: 5px;
+}
+
 
 .header__smile {
   display: flex;
@@ -106,9 +124,11 @@ button {
 
 .board__easy--mode,
 .board__medium--mode,
-.board__hard--mode {
+.board__hard--mode,
+.board__new-game {
   padding: 10px;
   border-radius: 5px;
+  cursor: pointer;
 
 }
 
@@ -118,4 +138,14 @@ button {
   height: 25px;;
   font-size: 16px;
   border: 2px solid black
+}
+.board__tile:hover {
+  background-color: rgb(74, 49, 242);
+}
+
+
+.game-result {
+  text-align: center;
+  color: beige;
+  font-size: 36px;
 }

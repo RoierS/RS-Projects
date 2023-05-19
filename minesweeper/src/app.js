@@ -24,10 +24,15 @@ const gameResult = createElement('div', 'game-result');
 const changeBombsCount = createElement('input', 'select__bombs-count');
 const bombsCountLabel = createElement('label', 'select__bombs--amount');
 const selectBombsAmount = createElement('div', 'select-bombs__container');
+const gameScore = createElement('div', 'score__container');
+const gameScoreButton = createElement('button', 'score__button');
+gameScoreButton.textContent = 'Score Table';
 
 const easyMode = createElement('button', 'board__easy--mode');
 const mediumMode = createElement('button', 'board__medium--mode');
 const hardMode = createElement('button', 'board__hard--mode');
+
+// Sounds
 
 const revealSoundElement = createElement('audio', 'sound-effect');
 revealSoundElement.src = revealSound;
@@ -75,16 +80,17 @@ function timerSoundPlayHandler() {
 
 const startNewGame = createElement('button', 'board__new-game');
 startNewGame.textContent = 'New Game';
+let smileTextContent = smile.textContent;
 smile.textContent = '0';
-let bombsCount = 10;
 
+let bombsCount = 10;
 title.textContent = 'Minesweeper Game';
 changeBombsCount.value = '10';
 changeBombsCount.type = 'range';
 changeBombsCount.min = 10;
 changeBombsCount.max = 99;
 changeBombsCount.value = bombsCount;
-bombsCountLabel.textContent = `Amount of Bombs: ${bombsCount}`;
+bombsCountLabel.textContent = `💣 ${bombsCount}`;
 
 // flagsCount.textContent = bombsCount;
 easyMode.textContent = 'Easy';
@@ -92,18 +98,24 @@ mediumMode.textContent = 'Medium';
 hardMode.textContent = 'Hard';
 
 document.body.append(wrapper);
-wrapper.append(title, boardWrapper, gameResult);
+wrapper.append(title, boardWrapper, gameResult, gameScore);
 modeBlock.append(easyMode, mediumMode, hardMode);
 selectBombsAmount.append(changeBombsCount, bombsCountLabel);
-boardWrapper.append(boardHeader, selectBombsAmount, board, modeBlock, startNewGame);
+boardWrapper.append(boardHeader, selectBombsAmount, board, modeBlock, startNewGame, gameScoreButton);
 boardHeader.append(flagsCount, smile, timer);
 
+
+
+
+//variables
+
 let boardSize = 10;
-// let flags = 0;
-let gameOver = false;
+let flags = 0;
 const tilesCount = boardSize * boardSize;
 let firstClick = true;
 let clicksCount = 0;
+let seconds;
+
 
 let bombs = [...Array(tilesCount).keys()].sort(() => Math.random() - 0.5).slice(0, bombsCount);
 
@@ -111,16 +123,19 @@ changeBombsCount.addEventListener('change', () => {
   bombsCount = parseInt(changeBombsCount.value, 10);
   bombs = [...Array(tilesCount).keys()].sort(() => Math.random() - 0.5).slice(0, bombsCount);
   initGame(boardSize, bombsCount);
-  bombsCountLabel.textContent = `Amount of Bombs: ${bombsCount}`;
+  bombsCountLabel.textContent = `💣 ${bombsCount}`;
 });
+
+// timer
 
 let timerInterval;
 function startTimer() {
-  let seconds = 0;
+  seconds = 0;
   timer.textContent = '⏰ 0';
   timerInterval = setInterval(() => {
     seconds++;
     timer.textContent = `⏰ ${seconds}`;
+    // saveGameState()
   }, 1000);
 }
 
@@ -128,13 +143,17 @@ function stopTimer() {
   clearInterval(timerInterval);
 }
 
+// Start game
+let tileClickHandler;
+
 function initGame(size, bombsCount) {
+  // saveGameState();
   board.removeEventListener('click', tileClickHandler);
   clicksCount = 0;
   smile.textContent = `🖱️ ${clicksCount}`;
   stopTimer();
   timer.textContent = '⏰ 0';
-  let flags = 0;
+  flags = 0;
   gameResult.innerHTML = '';
   firstClick = true;
   flagsCount.textContent = `🚩 ${bombsCount}`;
@@ -143,7 +162,7 @@ function initGame(size, bombsCount) {
   const tiles = [...board.children];
   let closedTiles = tilesCount;
 
-  function tileClickHandler(e) {
+  tileClickHandler = (e) => {
     if (!e.target.classList.contains('board__tile')) {
       return;
     }
@@ -152,6 +171,7 @@ function initGame(size, bombsCount) {
     const row = Math.floor(targetTile / size);
     openTile(row, column);
     clicksCount++;
+    console.log(clicksCount);
     smile.textContent = `🖱️ ${clicksCount}`;
     if (isBomb(row, column)) {
       playSound(bombSoundElement);
@@ -161,7 +181,9 @@ function initGame(size, bombsCount) {
       return;
     }
     playSound(revealSoundElement);
-  }
+    // saveGameState();
+  };
+
   board.addEventListener('click', tileClickHandler);
 
   tiles.forEach((tile) => {
@@ -182,8 +204,11 @@ function initGame(size, bombsCount) {
         flags--;
         flagsCount.textContent = `🚩 ${bombsCount - flags}`;
       }
+      // saveGameState();
     });
   });
+
+  // open tile
 
   function openTile(row, column) {
     if (!isValidTile(row, column)) return;
@@ -215,6 +240,7 @@ function initGame(size, bombsCount) {
           const bombTile = tiles[bombIndex];
           bombTile.innerHTML = '💣';
         }
+        // saveGameState();
       });
 
       tiles.forEach((tile) => {
@@ -222,6 +248,7 @@ function initGame(size, bombsCount) {
       });
       stopTimer();
       board.removeEventListener('click', tileClickHandler);
+      showGameResult(`clicks made: ${clicksCount + 1}, time: ${seconds}`);
       return;
     }
 
@@ -234,9 +261,18 @@ function initGame(size, bombsCount) {
       tiles.forEach((tile) => {
         tile.classList.add('disabled');
       });
+      bombs.forEach((bombIndex) => {
+        if (tileIndex !== bombIndex) {
+          const bombTile = tiles[bombIndex];
+          bombTile.innerHTML = '💣';
+        }
+        // saveGameState();
+      });
       stopTimer();
       board.removeEventListener('click', tileClickHandler);
       stopTimerSound();
+      showGameResult(`clicks made: ${clicksCount + 1}, time: ${seconds}`);
+
       return;
     }
 
@@ -267,6 +303,7 @@ function initGame(size, bombsCount) {
       if (count === 8) {
         tile.classList.add('eight');
       }
+
       return;
     }
 
@@ -279,6 +316,7 @@ function initGame(size, bombsCount) {
 }
 
 initGame(boardSize, bombsCount);
+// saveGameState();
 
 function isValidTile(row, column) {
   return row >= 0 && column >= 0
@@ -304,38 +342,141 @@ function getBombsCount(row, column) {
   return count;
 }
 
+// modes of game
+
 easyMode.addEventListener('click', () => {
-  boardWrapper.style.width = '260px';
-  board.style.gridTemplateColumns = 'repeat(10, 25px)';
+  // boardWrapper.style.width = '260px';
+  // board.style.gridTemplateColumns = 'repeat(10, 25px)';
+ 
+  boardWrapper.classList.add('easy-mode');
+  board.classList.add('board__easy-mode');
+  boardWrapper.classList.remove('medium-mode', 'hard-mode');
+  board.classList.remove('board__medium-mode', 'board__hard-mode');
   boardSize = 10;
   stopTimer();
   stopTimerSound();
+  board.removeEventListener('click', tileClickHandler);
   initGame(boardSize, bombsCount);
 });
 
 mediumMode.addEventListener('click', () => {
-  boardWrapper.style.width = '385px';
-  board.style.gridTemplateColumns = 'repeat(15, 25px)';
+  // boardWrapper.style.width = '385px';
+  // board.style.gridTemplateColumns = 'repeat(15, 25px)';
+  boardWrapper.classList.add('medium-mode');
+  board.classList.add('board__medium-mode');
+  boardWrapper.classList.remove('easy-mode', 'hard-mode');
+  board.classList.remove('board__easy-mode', 'board__hard-mode');
   boardSize = 15;
   stopTimer();
   stopTimerSound();
+  board.removeEventListener('click', tileClickHandler);
   initGame(boardSize, bombsCount);
 });
 
 hardMode.addEventListener('click', () => {
-  boardWrapper.style.width = '635px';
-  board.style.gridTemplateColumns = 'repeat(25, 25px)';
+  // boardWrapper.style.width = '635px';
+  // board.style.gridTemplateColumns = 'repeat(25, 25px)';
+  boardWrapper.classList.add('hard-mode');
+  board.classList.add('board__hard-mode');
+  boardWrapper.classList.remove('easy-mode', 'medium-mode');
+  board.classList.remove('board__easy-mode', 'board__medium-mode');
   boardSize = 25;
   stopTimer();
   stopTimerSound();
+  board.removeEventListener('click', tileClickHandler);
   initGame(boardSize, bombsCount);
 });
+
+// start new game
 
 startNewGame.addEventListener('click', () => {
   bombsCount = 10;
   changeBombsCount.value = bombsCount;
-  bombsCountLabel.textContent = `Amount of Bombs: ${bombsCount}`;
+  bombsCountLabel.textContent = `💣 ${bombsCount}`;
   stopTimer();
   stopTimerSound();
+  board.removeEventListener('click', tileClickHandler);
   initGame(boardSize, bombsCount);
 });
+
+// score table
+
+function saveResult(...result) {
+  let results = localStorage.getItem('minesweeperResults');
+  results = results ? JSON.parse(results) : [];
+  results.push(result);
+  if (results.length > 10) {
+    results.shift();
+  }
+  localStorage.setItem('minesweeperResults', JSON.stringify(results));
+}
+function showGameResult(...result) {
+  saveResult(...result);
+  gameScore.innerHTML = result;
+  showLatestResults();
+}
+
+function showLatestResults() {
+  let results = localStorage.getItem('minesweeperResults');
+  results = results ? JSON.parse(results) : [];
+  const resultsList = createElement('ol', 'score__list');
+  resultsList.textContent = 'Score table:';
+  results.forEach((result) => {
+    const listItem = createElement('li', 'score__list--item');
+    listItem.textContent = result;
+    resultsList.appendChild(listItem);
+  });
+
+  gameScore.innerHTML = '';
+  gameScore.appendChild(resultsList);
+}
+
+gameScoreButton.addEventListener('click', () => {
+  if (!gameScore.classList.contains('show')) {
+    gameScore.classList.add('show');
+  } else {
+    gameScore.classList.remove('show');
+  }
+})
+
+
+
+// function saveGameState() {
+//   const gameState = {
+//     boardSize,
+//     bombsCount,
+//     clicksCount,
+//     flags,
+//     seconds,
+//     firstClick,
+//     smileTextContent,
+
+//   };
+  
+//   localStorage.setItem('minesweeperGameState', JSON.stringify(gameState));
+// }
+
+// document.addEventListener('DOMContentLoaded', () => {
+//   const gameState = localStorage.getItem('minesweeperGameState');
+//   if (gameState) {
+//     const savedState = JSON.parse(gameState);
+//     console.log(savedState);
+//     boardSize = savedState.boardSize;
+//     bombsCount = savedState.bombsCount;
+//     clicksCount = savedState.clicksCount;
+//     flags = savedState.flags;
+//     firstClick = savedState.firstClick;
+//     bombs = savedState.bombs;
+//     smileTextContent = savedState.smileTextContent;
+//     seconds = savedState.seconds;
+    
+//     initGame(boardSize, bombsCount);
+//   }
+// });
+
+// window.addEventListener('beforeunload', () => {
+//   saveGameState();
+// });
+
+
+

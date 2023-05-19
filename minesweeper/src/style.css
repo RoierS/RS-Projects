@@ -54,8 +54,8 @@ button {
   width: 260px;
   border: 5px solid white;
   border-radius: 5px;
-
 }
+
 
 .board__header {
   display: flex;
@@ -78,7 +78,15 @@ button {
   cursor: pointer;
 }
 .select__bombs--amount {
-  color: antiquewhite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  color: bisque;
+  font-size: 20px;
+  width: 70px;
+  height: 35px;
+  border-radius: 5px;
 }
 
 .select-bombs__container {
@@ -173,4 +181,68 @@ button {
 }
 .eight {
   color: rgb(17, 16, 16);
+}
+
+/* 
+@media (max-width: 600px) {
+  .board {
+    grid-template-columns: repeat(10, 1fr);
+  }
+  .board__wrapper {
+    max-width: 90%;
+  }
+  .board__tile {
+    width: 3.5vw;
+    height: 3.5vw;
+  
+  }
+} */
+
+.board__wrapper.easy-mode {
+  width: 260px;
+}
+
+.board__wrapper.medium-mode {
+  width: 385px;
+}
+
+.board__wrapper.hard-mode {
+ width: 635px;
+}
+
+.board__easy-mode {
+  grid-template-columns: repeat(10, 25px);
+}
+.board__medium-mode {
+  grid-template-columns: repeat(15, 25px);
+}
+.board__hard-mode {
+  grid-template-columns: repeat(25, 25px);
+}
+
+
+.score__list--item {
+  color: whitesmoke;
+  font-size: 20px;
+}
+.score__list {
+  color: white;
+  font-weight: 600;
+  font-size: 30px;
+  text-align: center;
+}
+.score__button {
+  font-size: 20px;
+}
+
+.score__container {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 1s ease;
+}
+
+.score__container.show {
+  visibility: visible;
+  opacity: 1;
+
 }

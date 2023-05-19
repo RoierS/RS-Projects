@@ -19,6 +19,13 @@ module.exports = {
         type: 'asset/resource',
       },
       {
+        test: /\.(mp3|wav)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'audio/[name][ext]',
+        },
+      },
+      {
         test: /\.html$/i,
         use: 'html-loader',
       },

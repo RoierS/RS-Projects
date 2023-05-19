@@ -4,6 +4,12 @@
 /* eslint-disable no-plusplus */
 import './style.css';
 import createElement from './components/createElement';
+import revealSound from './audio/reveal_sound.mp3';
+import flagSound from './audio/flag_sound.mp3';
+import bombSound from './audio/bomb_sound.mp3';
+import winSound from './audio/win_sound.mp3';
+import timerSound from './audio/timer_sound.mp3';
+import gameOverSound from './audio/game-over_sound.mp3';
 
 const wrapper = createElement('div', 'wrapper');
 const title = createElement('h1', 'header');
@@ -22,6 +28,50 @@ const selectBombsAmount = createElement('div', 'select-bombs__container');
 const easyMode = createElement('button', 'board__easy--mode');
 const mediumMode = createElement('button', 'board__medium--mode');
 const hardMode = createElement('button', 'board__hard--mode');
+
+const revealSoundElement = createElement('audio', 'sound-effect');
+revealSoundElement.src = revealSound;
+
+const flagSoundElement = createElement('audio', 'sound-effect');
+flagSoundElement.src = flagSound;
+
+const bombSoundElement = createElement('audio', 'sound-effect');
+bombSoundElement.src = bombSound;
+
+const winSoundElement = createElement('audio', 'sound-effect');
+winSoundElement.src = winSound;
+
+const timerSoundElement = createElement('audio', 'sound-effect');
+timerSoundElement.src = timerSound;
+
+const gameOverSoundElement = createElement('audio', 'sound-effect');
+gameOverSoundElement.src = gameOverSound;
+
+function playSound(soundElement) {
+  soundElement.currentTime = 0;
+  soundElement.play();
+}
+
+function playTimerSound() {
+  timerSoundElement.currentTime = 0;
+  timerSoundElement.loop = true;
+  timerSoundElement.volume = 0.3;
+  timerSoundElement.addEventListener('canplaythrough', timerSoundPlayHandler);
+
+  if (timerSoundElement.readyState >= 2) {
+    timerSoundElement.play();
+  }
+}
+
+function stopTimerSound() {
+  timerSoundElement.pause();
+  timerSoundElement.currentTime = 0;
+  timerSoundElement.removeEventListener('canplaythrough', timerSoundPlayHandler);
+}
+
+function timerSoundPlayHandler() {
+  timerSoundElement.play();
+}
 
 const startNewGame = createElement('button', 'board__new-game');
 startNewGame.textContent = 'New Game';
@@ -103,6 +153,14 @@ function initGame(size, bombsCount) {
     openTile(row, column);
     clicksCount++;
     smile.textContent = `🖱️ ${clicksCount}`;
+    if (isBomb(row, column)) {
+      playSound(bombSoundElement);
+      setTimeout(() => {
+        playSound(gameOverSoundElement);
+      }, 2000);
+      return;
+    }
+    playSound(revealSoundElement);
   }
   board.addEventListener('click', tileClickHandler);
 
@@ -117,6 +175,7 @@ function initGame(size, bombsCount) {
         tile.innerHTML = '🚩';
         flags++;
         flagsCount.textContent = `🚩 ${bombsCount - flags}`;
+        playSound(flagSoundElement);
       } else {
         tile.classList.remove('flagged');
         tile.innerHTML = '';
@@ -137,6 +196,7 @@ function initGame(size, bombsCount) {
     tile.disabled = true;
 
     if (firstClick) {
+      playTimerSound();
       firstClick = false;
       bombs = [...Array(tilesCount).keys()].filter((index) => index !== tileIndex)
         .sort(() => Math.random() - 0.5).slice(0, bombsCount);
@@ -145,6 +205,7 @@ function initGame(size, bombsCount) {
 
     if (isBomb(row, column)) {
       tile.innerHTML = '💣';
+      stopTimerSound();
       gameResult.innerHTML = 'YOOu LOOOSe!';
 
       bombs.forEach((bombIndex) => {
@@ -167,11 +228,15 @@ function initGame(size, bombsCount) {
     closedTiles--;
     if (closedTiles <= bombsCount) {
       gameResult.innerHTML = 'You Win!';
+      setTimeout(() => {
+        playSound(winSoundElement);
+      }, 2000);
       tiles.forEach((tile) => {
         tile.classList.add('disabled');
       });
       stopTimer();
       board.removeEventListener('click', tileClickHandler);
+      stopTimerSound();
       return;
     }
 
@@ -244,6 +309,7 @@ easyMode.addEventListener('click', () => {
   board.style.gridTemplateColumns = 'repeat(10, 25px)';
   boardSize = 10;
   stopTimer();
+  stopTimerSound();
   initGame(boardSize, bombsCount);
 });
 
@@ -252,6 +318,7 @@ mediumMode.addEventListener('click', () => {
   board.style.gridTemplateColumns = 'repeat(15, 25px)';
   boardSize = 15;
   stopTimer();
+  stopTimerSound();
   initGame(boardSize, bombsCount);
 });
 
@@ -260,6 +327,7 @@ hardMode.addEventListener('click', () => {
   board.style.gridTemplateColumns = 'repeat(25, 25px)';
   boardSize = 25;
   stopTimer();
+  stopTimerSound();
   initGame(boardSize, bombsCount);
 });
 
@@ -268,5 +336,6 @@ startNewGame.addEventListener('click', () => {
   changeBombsCount.value = bombsCount;
   bombsCountLabel.textContent = `Amount of Bombs: ${bombsCount}`;
   stopTimer();
+  stopTimerSound();
   initGame(boardSize, bombsCount);
 });

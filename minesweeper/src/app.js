@@ -81,7 +81,7 @@ function timerSoundPlayHandler() {
 
 const startNewGame = createElement('button', 'board__new-game');
 startNewGame.textContent = 'New Game';
-let smileTextContent = smile.textContent;
+// let smileTextContent = smile.textContent;
 smile.textContent = '0';
 
 let bombsCount = 10;
@@ -98,18 +98,31 @@ easyMode.textContent = 'Easy';
 mediumMode.textContent = 'Medium';
 hardMode.textContent = 'Hard';
 
+const body = document.querySelector('body');
+const toggleThemeBtn = createElement('button', 'toggle-theme-btn');
+toggleThemeBtn.textContent = body.classList.contains('dark') ? '🌝' : '🌚';
+const toggleTheme = () => {
+  if (body.classList.contains('dark')) {
+    toggleThemeBtn.textContent = '🌚';
+    body.classList.remove('dark');
+  } else {
+    toggleThemeBtn.textContent = '🌝';
+    body.classList.add('dark');
+  }
+};
+
+toggleThemeBtn.addEventListener('click', toggleTheme);
+
 document.body.append(wrapper);
-wrapper.append(title, boardWrapper, gameResult, gameScore);
+wrapper.append(title, boardWrapper, gameResult, gameScore, toggleThemeBtn);
 modeBlock.append(easyMode, mediumMode, hardMode);
 selectBombsAmount.append(changeBombsCount, bombsCountLabel);
 boardContainer.append(board);
+// eslint-disable-next-line max-len
 boardWrapper.append(boardHeader, selectBombsAmount, boardContainer, modeBlock, startNewGame, gameScoreButton);
 boardHeader.append(flagsCount, smile, timer);
 
-
-
-
-//variables
+// variables
 
 let boardSize = 10;
 let flags = 0;
@@ -117,7 +130,6 @@ const tilesCount = boardSize * boardSize;
 let firstClick = true;
 let clicksCount = 0;
 let seconds;
-
 
 let bombs = [...Array(tilesCount).keys()].sort(() => Math.random() - 0.5).slice(0, bombsCount);
 
@@ -173,7 +185,7 @@ function initGame(size, bombsCount) {
     const row = Math.floor(targetTile / size);
     openTile(row, column);
     clicksCount++;
-    console.log(clicksCount);
+
     smile.textContent = `🖱️ ${clicksCount}`;
     if (isBomb(row, column)) {
       playSound(bombSoundElement);
@@ -236,8 +248,8 @@ function initGame(size, bombsCount) {
       gameResult.innerHTML = 'YOOu LOOOSe!';
 
       bombs.forEach((bombIndex) => {
-        const bombRow = Math.floor(bombIndex / boardSize);
-        const bombColumn = bombIndex % boardSize;
+        // const bombRow = Math.floor(bombIndex / boardSize);
+        // const bombColumn = bombIndex % boardSize;
         if (tileIndex !== bombIndex) {
           const bombTile = tiles[bombIndex];
           bombTile.innerHTML = '💣';
@@ -347,9 +359,6 @@ function getBombsCount(row, column) {
 // modes of game
 
 easyMode.addEventListener('click', () => {
-  // boardWrapper.style.width = '260px';
-  // board.style.gridTemplateColumns = 'repeat(10, 25px)';
- 
   boardWrapper.classList.add('easy-mode');
   board.classList.add('board__easy-mode');
   boardWrapper.classList.remove('medium-mode', 'hard-mode');
@@ -362,8 +371,6 @@ easyMode.addEventListener('click', () => {
 });
 
 mediumMode.addEventListener('click', () => {
-  // boardWrapper.style.width = '385px';
-  // board.style.gridTemplateColumns = 'repeat(15, 25px)';
   boardWrapper.classList.add('medium-mode');
   board.classList.add('board__medium-mode');
   boardWrapper.classList.remove('easy-mode', 'hard-mode');
@@ -376,8 +383,6 @@ mediumMode.addEventListener('click', () => {
 });
 
 hardMode.addEventListener('click', () => {
-  // boardWrapper.style.width = '635px';
-  // board.style.gridTemplateColumns = 'repeat(25, 25px)';
   boardWrapper.classList.add('hard-mode');
   board.classList.add('board__hard-mode');
   boardWrapper.classList.remove('easy-mode', 'medium-mode');
@@ -448,8 +453,6 @@ gameScoreButton.addEventListener('click', () => {
   }
 });
 
-
-
 // function saveGameState() {
 //   const gameState = {
 //     boardSize,
@@ -459,9 +462,8 @@ gameScoreButton.addEventListener('click', () => {
 //     seconds,
 //     firstClick,
 //     smileTextContent,
-
 //   };
-  
+
 //   localStorage.setItem('minesweeperGameState', JSON.stringify(gameState));
 // }
 
@@ -478,7 +480,6 @@ gameScoreButton.addEventListener('click', () => {
 //     bombs = savedState.bombs;
 //     smileTextContent = savedState.smileTextContent;
 //     seconds = savedState.seconds;
-    
 //     initGame(boardSize, bombsCount);
 //   }
 // });
@@ -486,6 +487,3 @@ gameScoreButton.addEventListener('click', () => {
 // window.addEventListener('beforeunload', () => {
 //   saveGameState();
 // });
-
-
-

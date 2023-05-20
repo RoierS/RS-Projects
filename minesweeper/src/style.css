@@ -10,14 +10,58 @@
 }
 
 /* General styles */
+body {
+  --primary-color: rgb(22, 38, 125);
+  --secondary-color: rgb(47, 73, 226);
+  --text-color: whitesmoke;
+  --bg-color: rgb(255 255 255 / 57%);
+  --bg-color-alt: #f1f1f1;
+  --btn-color: rgb(240, 248, 255);
+  --highlight-color: rgb(74, 49, 242);
+  --score-color: whitesmoke;
+  --score-bg-color: rgb(39, 28, 49);
+  --score-list-color: white;
+  --score-button-color: black;
+  --score-button-bg-color: rgb(240, 248, 255);
+  --tile-bg-color: white;
+}
+
+body.dark {
+  --primary-color: #333333;
+  --secondary-color: #444444;
+  --text-color: white;
+  --bg-color: #111111;
+  --bg-color-alt: #222222;
+  --btn-color: #888888;
+  --highlight-color: #555555;
+  --score-color: #cccccc;
+  --score-bg-color: #111111;
+  --score-list-color: #dddddd;
+  --score-button-color: #ffffff;
+  --score-button-bg-color: #222222;
+  --tile-bg-color: #a3a389;
+}
 
 body {
-  background: linear-gradient(0deg, rgb(22 38 125),rgb(47, 73, 226));
+  background: linear-gradient(0deg, var(--primary-color), var(--secondary-color));
 }
 
 button {
   font-size: inherit;
   cursor: pointer;
+}
+.toggle-theme-btn {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  border-radius: 50%;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
 }
 
 .wrapper {
@@ -36,7 +80,7 @@ button {
 
 .header {
   text-align: center;
-  color: whitesmoke;
+  color: var(--text-color);
   margin-bottom: 20px;
 }
 
@@ -47,7 +91,7 @@ button {
   justify-content: space-evenly;
   gap: 5px;
   margin: 0 auto 15px auto;
-  border: 5px solid white;
+  border: 5px solid var(--text-color);
   border-radius: 5px;
 }
 .board__container {
@@ -66,7 +110,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: black;
+  background-color: var(--bg-color);
   color: bisque;
   font-size: 20px;
   width: 60%;
@@ -79,8 +123,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: black;
-  color: bisque;
+  background-color: var(--bg-color);
+  color: var(--score-button-color);
   font-size: 20px;
   width: 30%;
   height: 35px;
@@ -99,8 +143,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: black;
-  color: bisque;
+  background-color: var(--bg-color);
+  color: var(--score-button-color);
   font-size: 20px;
   width: 30%;
   height: 35px;
@@ -122,7 +166,8 @@ button {
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
-  background-color: rgb(240, 248, 255);;
+  background-color: var(--btn-color);
+  opacity: 1;
   transition: all 0.3s;
 }
 
@@ -130,7 +175,7 @@ button {
 .board__medium--mode:hover,
 .board__hard--mode:hover,
 .board__new-game:hover {
-  background-color: rgba(240, 248, 255, 0.8);
+  opacity: 0.6;
 }
 
 .board__new-game {
@@ -147,10 +192,11 @@ button {
   align-items: center;
   font-size: 16px;
   border: 2px solid black;
+  background-color: var(--tile-bg-color);
   transition: all 0.3s;
 }
 .board__tile:hover {
-  background-color: rgb(74, 49, 242);
+  background-color: var(--highlight-color);
 }
 
 .game-result {
@@ -214,37 +260,38 @@ button {
 }
 
 .score__list--item {
-  color: whitesmoke;
+  color: var(--score-list-color);
   font-size: 20px;
 }
 .score__list {
-  color: white;
+  color: var(--score-list-color);
   font-weight: 600;
   font-size: 30px;
   text-align: center;
 }
 .score__button {
-  color: black;
+  color: var(--score-button-color);
   font-size: 20px;
-  background-color: rgb(240, 248, 255);
+  background-color: var(--score-button-bg-color);
   transition: all 0.5s;
   width: 50%;
   align-self: center;
   margin-bottom: 10px;
   border-radius: 5px;
+  opacity: 1;
   padding: 5px;
 }
 
 .score__button:hover {
-  color: aliceblue;
-  background-color: rgba(240, 248, 255, 0.5);
+  background-color: var(--score-button-bg-color);
+  opacity: 0.6;
 }
 
 .score__container {
   visibility: hidden;
   opacity: 0;
   padding: 5px 20px 5px 40px;
-  background-color: rgb(39, 28, 49);
+  background-color: var(--score-bg-color);
   border-radius: 5px;
   max-width: 400px;
   width: 60%;
@@ -284,3 +331,4 @@ button {
     border: 1px solid black;
   }
 }
+

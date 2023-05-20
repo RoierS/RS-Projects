@@ -19,6 +19,7 @@ const flagsCount = createElement('div', 'header__flags-count');
 const smile = createElement('div', 'header__smile');
 const timer = createElement('div', 'header__timer');
 const board = createElement('div', 'board');
+const boardContainer = createElement('div', 'board__container');
 const modeBlock = createElement('div', 'mode-container');
 const gameResult = createElement('div', 'game-result');
 const changeBombsCount = createElement('input', 'select__bombs-count');
@@ -101,7 +102,8 @@ document.body.append(wrapper);
 wrapper.append(title, boardWrapper, gameResult, gameScore);
 modeBlock.append(easyMode, mediumMode, hardMode);
 selectBombsAmount.append(changeBombsCount, bombsCountLabel);
-boardWrapper.append(boardHeader, selectBombsAmount, board, modeBlock, startNewGame, gameScoreButton);
+boardContainer.append(board);
+boardWrapper.append(boardHeader, selectBombsAmount, boardContainer, modeBlock, startNewGame, gameScoreButton);
 boardHeader.append(flagsCount, smile, timer);
 
 
@@ -419,6 +421,12 @@ function showGameResult(...result) {
 function showLatestResults() {
   let results = localStorage.getItem('minesweeperResults');
   results = results ? JSON.parse(results) : [];
+
+  if (results.length === 0) {
+    gameScore.innerHTML = 'No results to display.';
+    return;
+  }
+
   const resultsList = createElement('ol', 'score__list');
   resultsList.textContent = 'Score table:';
   results.forEach((result) => {
@@ -433,11 +441,12 @@ function showLatestResults() {
 
 gameScoreButton.addEventListener('click', () => {
   if (!gameScore.classList.contains('show')) {
+    showLatestResults();
     gameScore.classList.add('show');
   } else {
     gameScore.classList.remove('show');
   }
-})
+});
 
 
 

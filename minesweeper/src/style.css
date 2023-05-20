@@ -14,6 +14,7 @@
 body {
   background: linear-gradient(0deg, rgb(22 38 125),rgb(47, 73, 226));
 }
+
 button {
   font-size: inherit;
   cursor: pointer;
@@ -33,29 +34,25 @@ button {
   grid-template-columns: repeat(10, 25px);
 }
 
-/* .tile {
-  height: 25px;;
-  font-size: 16px;
-} */
-
 .header {
   text-align: center;
   color: whitesmoke;
   margin-bottom: 20px;
-  
 }
 
 .board__wrapper {
+  max-width: 700px;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-evenly;
   gap: 5px;
   margin: 0 auto 15px auto;
-  width: 260px;
   border: 5px solid white;
   border-radius: 5px;
 }
-
+.board__container {
+  align-self: center;
+}
 
 .board__header {
   display: flex;
@@ -72,11 +69,12 @@ button {
   background-color: black;
   color: bisque;
   font-size: 20px;
-  width: 150px;
+  width: 60%;
   height: 35px;
   border-radius: 5px;
   cursor: pointer;
 }
+
 .select__bombs--amount {
   display: flex;
   align-items: center;
@@ -84,7 +82,7 @@ button {
   background-color: black;
   color: bisque;
   font-size: 20px;
-  width: 70px;
+  width: 30%;
   height: 35px;
   border-radius: 5px;
 }
@@ -104,14 +102,10 @@ button {
   background-color: black;
   color: bisque;
   font-size: 20px;
-  width: 70px;
+  width: 30%;
   height: 35px;
   border-radius: 5px;
 }
-/* 
-.board {
-  border: 2px solid rgb(143, 30, 30);
-} */
 
 .mode-container {
   display: flex;
@@ -120,16 +114,25 @@ button {
   padding: 5px;
 }
 
-
 .board__easy--mode,
 .board__medium--mode,
 .board__hard--mode,
 .board__new-game {
+  width: 30%;
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
-
+  background-color: rgb(240, 248, 255);;
+  transition: all 0.3s;
 }
+
+.board__easy--mode:hover,
+.board__medium--mode:hover,
+.board__hard--mode:hover,
+.board__new-game:hover {
+  background-color: rgba(240, 248, 255, 0.8);
+}
+
 .board__new-game {
   width: 140px;
   align-self: center;
@@ -139,13 +142,16 @@ button {
 .board__tile {
   width: 25px;
   height: 25px;;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 16px;
-  border: 2px solid black
+  border: 2px solid black;
+  transition: all 0.3s;
 }
 .board__tile:hover {
   background-color: rgb(74, 49, 242);
 }
-
 
 .game-result {
   text-align: center;
@@ -183,27 +189,14 @@ button {
   color: rgb(17, 16, 16);
 }
 
-/* 
-@media (max-width: 600px) {
-  .board {
-    grid-template-columns: repeat(10, 1fr);
-  }
-  .board__wrapper {
-    max-width: 90%;
-  }
-  .board__tile {
-    width: 3.5vw;
-    height: 3.5vw;
-  
-  }
-} */
 
 .board__wrapper.easy-mode {
   width: 260px;
 }
 
 .board__wrapper.medium-mode {
-  width: 385px;
+
+  width: 70%;
 }
 
 .board__wrapper.hard-mode {
@@ -220,7 +213,6 @@ button {
   grid-template-columns: repeat(25, 25px);
 }
 
-
 .score__list--item {
   color: whitesmoke;
   font-size: 20px;
@@ -232,17 +224,63 @@ button {
   text-align: center;
 }
 .score__button {
+  color: black;
   font-size: 20px;
+  background-color: rgb(240, 248, 255);
+  transition: all 0.5s;
+  width: 50%;
+  align-self: center;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.score__button:hover {
+  color: aliceblue;
+  background-color: rgba(240, 248, 255, 0.5);
 }
 
 .score__container {
   visibility: hidden;
   opacity: 0;
+  padding: 5px 20px 5px 40px;
+  background-color: rgb(39, 28, 49);
+  border-radius: 5px;
+  max-width: 400px;
+  width: 60%;
   transition: all 1s ease;
 }
 
 .score__container.show {
   visibility: visible;
   opacity: 1;
+}
 
+/* media */
+
+@media (max-width: 600px) {
+  .board__wrapper.medium-mode {
+    width: 80%;
+  }
+
+  .board__wrapper.hard-mode {
+    width: 99%;
+  }
+  
+  .board__container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .board__hard-mode {
+    grid-template-columns: repeat(25, 19px);
+  }
+
+  .board__hard-mode .board__tile {
+    width: 19px;
+    height: 19px;
+    border: 1px solid black;
+  }
 }

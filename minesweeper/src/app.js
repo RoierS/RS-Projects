@@ -80,7 +80,7 @@ function timerSoundPlayHandler() {
 }
 
 const startNewGame = createElement('button', 'board__new-game');
-startNewGame.textContent = 'New Game';
+startNewGame.textContent = '🎮 New Game';
 // let smileTextContent = smile.textContent;
 smile.textContent = '0';
 
@@ -94,9 +94,9 @@ changeBombsCount.value = bombsCount;
 bombsCountLabel.textContent = `💣 ${bombsCount}`;
 
 // flagsCount.textContent = bombsCount;
-easyMode.textContent = 'Easy';
-mediumMode.textContent = 'Medium';
-hardMode.textContent = 'Hard';
+easyMode.innerHTML = '💪 <br> Easy';
+mediumMode.innerHTML = '💪💪 <br> Medium';
+hardMode.innerHTML = '💪💪💪 <br> Hard';
 
 const body = document.querySelector('body');
 const toggleThemeBtn = createElement('button', 'toggle-theme-btn');
@@ -114,7 +114,7 @@ const toggleTheme = () => {
 toggleThemeBtn.addEventListener('click', toggleTheme);
 
 document.body.append(wrapper);
-wrapper.append(title, boardWrapper, gameResult, gameScore, toggleThemeBtn);
+wrapper.append(toggleThemeBtn, title, boardWrapper, gameResult, gameScore);
 modeBlock.append(easyMode, mediumMode, hardMode);
 selectBombsAmount.append(changeBombsCount, bombsCountLabel);
 boardContainer.append(board);
@@ -452,6 +452,8 @@ gameScoreButton.addEventListener('click', () => {
     gameScore.classList.remove('show');
   }
 });
+
+// local storage not finished((
 
 // function saveGameState() {
 //   const gameState = {

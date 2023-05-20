@@ -24,6 +24,7 @@ body {
   --score-button-color: black;
   --score-button-bg-color: rgb(240, 248, 255);
   --tile-bg-color: white;
+  --tile-bg-color-disabled: rgba(148, 148, 146, 0.8);
 }
 
 body.dark {
@@ -53,7 +54,7 @@ button {
 .toggle-theme-btn {
   width: 40px;
   height: 40px;
-  position: absolute;
+  /* position: absolute; */
   top: 5px;
   left: 5px;
   border-radius: 50%;
@@ -86,6 +87,7 @@ button {
 
 .board__wrapper {
   max-width: 700px;
+  width: 50%;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-evenly;
@@ -198,6 +200,13 @@ button {
 .board__tile:hover {
   background-color: var(--highlight-color);
 }
+.board__tile:disabled {
+  background-color: var(--tile-bg-color-disabled);
+}
+.board__tile:disabled:hover {
+  background-color: var(--tile-bg-color-disabled);
+  /* pointer-events: none; */
+}
 
 .game-result {
   text-align: center;
@@ -237,7 +246,7 @@ button {
 
 
 .board__wrapper.easy-mode {
-  width: 260px;
+  width: 50%;
 }
 
 .board__wrapper.medium-mode {
@@ -300,12 +309,20 @@ button {
 
 .score__container.show {
   visibility: visible;
-  opacity: 1;
+  opacity: 0.6;
 }
 
 /* media */
 
 @media (max-width: 600px) {
+  .board__wrapper {
+    width: 85%;
+  }
+
+  .board__wrapper.easy-mode {
+    width: 85%;
+  }
+  
   .board__wrapper.medium-mode {
     width: 80%;
   }

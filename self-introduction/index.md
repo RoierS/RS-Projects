@@ -1,7 +1,7 @@
-**Self introduction link:**
-https://youtu.be/KrqS9vJ2V9s
+**Self-introduction link:**
+[Self-introduction video (Roman Iermoliuk)](https://youtu.be/KrqS9vJ2V9s)
 
-**Self introduction text:**
+**Self-introduction text:**
 
 &emsp;Hi everyone, My name is Roman, I'm from Warsaw, and this is my first video on YouTube. I want to tell you about myself and how I got into programming and RS School. 
 

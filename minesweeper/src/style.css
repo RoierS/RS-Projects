@@ -349,3 +349,12 @@ button {
   }
 }
 
+.audio__on {
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  font-size: 35px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}

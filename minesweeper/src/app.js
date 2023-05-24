@@ -33,6 +33,26 @@ const easyMode = createElement('button', 'board__easy--mode');
 const mediumMode = createElement('button', 'board__medium--mode');
 const hardMode = createElement('button', 'board__hard--mode');
 
+const audioOn = createElement('button', 'audio__on');
+audioOn.textContent = audioOn.classList.contains('off') ? '🔇' : '🔉';
+
+audioOn.addEventListener('click', toggleAudio);
+
+let isAudioPlaying = true;
+
+function toggleAudio() {
+  if (isAudioPlaying) {
+    stopTimerSound();
+    audioOn.textContent = '🔇';
+    audioOn.classList.add('off');
+    isAudioPlaying = false;
+  } else {
+    audioOn.textContent = '🔉';
+    audioOn.classList.remove('off');
+    isAudioPlaying = true;
+  }
+}
+
 // Sounds
 
 const revealSoundElement = createElement('audio', 'sound-effect');
@@ -56,6 +76,7 @@ gameOverSoundElement.src = gameOverSound;
 function playSound(soundElement) {
   soundElement.currentTime = 0;
   soundElement.play();
+  isAudioPlaying = true;
 }
 
 function playTimerSound() {
@@ -66,6 +87,7 @@ function playTimerSound() {
 
   if (timerSoundElement.readyState >= 2) {
     timerSoundElement.play();
+    isAudioPlaying = true;
   }
 }
 
@@ -73,10 +95,12 @@ function stopTimerSound() {
   timerSoundElement.pause();
   timerSoundElement.currentTime = 0;
   timerSoundElement.removeEventListener('canplaythrough', timerSoundPlayHandler);
+  isAudioPlaying = false;
 }
 
 function timerSoundPlayHandler() {
   timerSoundElement.play();
+  isAudioPlaying = true;
 }
 
 const startNewGame = createElement('button', 'board__new-game');
@@ -114,7 +138,7 @@ const toggleTheme = () => {
 toggleThemeBtn.addEventListener('click', toggleTheme);
 
 document.body.append(wrapper);
-wrapper.append(toggleThemeBtn, title, boardWrapper, gameResult, gameScore);
+wrapper.append(toggleThemeBtn, audioOn, title, boardWrapper, gameResult, gameScore);
 modeBlock.append(easyMode, mediumMode, hardMode);
 selectBombsAmount.append(changeBombsCount, bombsCountLabel);
 boardContainer.append(board);
@@ -180,6 +204,9 @@ function initGame(size, bombsCount) {
     if (!e.target.classList.contains('board__tile')) {
       return;
     }
+    if (e.target.classList.contains('flagged')) {
+      return;
+    }
     const targetTile = tiles.indexOf(e.target);
     const column = targetTile % size;
     const row = Math.floor(targetTile / size);
@@ -187,15 +214,17 @@ function initGame(size, bombsCount) {
     clicksCount++;
 
     smile.textContent = `🖱️ ${clicksCount}`;
-    if (isBomb(row, column)) {
-      playSound(bombSoundElement);
-      setTimeout(() => {
-        playSound(gameOverSoundElement);
-      }, 2000);
-      return;
+
+    if (!audioOn.classList.contains('off')) {
+      if (isBomb(row, column)) {
+        playSound(bombSoundElement);
+        setTimeout(() => {
+          playSound(gameOverSoundElement);
+        }, 2000);
+        return;
+      }
+      playSound(revealSoundElement);
     }
-    playSound(revealSoundElement);
-    // saveGameState();
   };
 
   board.addEventListener('click', tileClickHandler);
@@ -211,9 +240,13 @@ function initGame(size, bombsCount) {
         tile.innerHTML = '🚩';
         flags++;
         flagsCount.textContent = `🚩 ${bombsCount - flags}`;
-        playSound(flagSoundElement);
+        if (isAudioPlaying) {
+          // playTimerSound();
+          playSound(flagSoundElement);
+        }
       } else {
         tile.classList.remove('flagged');
+
         tile.innerHTML = '';
         flags--;
         flagsCount.textContent = `🚩 ${bombsCount - flags}`;
@@ -233,9 +266,12 @@ function initGame(size, bombsCount) {
     if (tile.disabled === true) return;
 
     tile.disabled = true;
-
-    if (firstClick) {
+    if (isAudioPlaying || !audioOn.classList.contains('off')) {
       playTimerSound();
+    } else if (audioOn.classList.contains('off')) {
+      stopTimerSound();
+    }
+    if (firstClick) {
       firstClick = false;
       bombs = [...Array(tilesCount).keys()].filter((index) => index !== tileIndex)
         .sort(() => Math.random() - 0.5).slice(0, bombsCount);
@@ -269,9 +305,12 @@ function initGame(size, bombsCount) {
     closedTiles--;
     if (closedTiles <= bombsCount) {
       gameResult.innerHTML = 'You Win!';
-      setTimeout(() => {
-        playSound(winSoundElement);
-      }, 2000);
+      if (isAudioPlaying) {
+        // playTimerSound();
+        setTimeout(() => {
+          playSound(winSoundElement);
+        }, 2000);
+      }
       tiles.forEach((tile) => {
         tile.classList.add('disabled');
       });

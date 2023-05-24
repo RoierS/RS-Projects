@@ -45,6 +45,7 @@ body.dark {
 
 body {
   background: linear-gradient(0deg, var(--primary-color), var(--secondary-color));
+  overflow-x: hidden;
 }
 
 button {

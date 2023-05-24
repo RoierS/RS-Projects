@@ -287,7 +287,6 @@ function initGame(size, bombsCount) {
 
     if (isBomb(row, column)) {
       tile.innerHTML = '💣';
-      
       // stopTimerSound();
       gameResult.innerHTML = 'YOOu LOOOSe!';
 

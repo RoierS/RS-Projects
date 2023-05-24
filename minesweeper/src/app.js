@@ -246,6 +246,7 @@ function initGame(size, bombsCount) {
         tile.classList.add('flagged');
         tile.innerHTML = '🚩';
         flags++;
+        bombsCountLabel.textContent = `💣 ${bombsCount - flags}`;
         flagsCount.textContent = `🚩 ${bombsCount - flags}`;
         if (isAudioPlaying) {
           // playTimerSound();
@@ -256,6 +257,7 @@ function initGame(size, bombsCount) {
 
         tile.innerHTML = '';
         flags--;
+        bombsCountLabel.textContent = `💣 ${bombsCount - flags}`;
         flagsCount.textContent = `🚩 ${bombsCount - flags}`;
       }
       // saveGameState();

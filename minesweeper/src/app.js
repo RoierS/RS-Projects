@@ -42,11 +42,14 @@ let isAudioPlaying = true;
 
 function toggleAudio() {
   if (isAudioPlaying) {
-    stopTimerSound();
+    // stopTimerSound();
     audioOn.textContent = '🔇';
     audioOn.classList.add('off');
     isAudioPlaying = false;
   } else {
+    // if (!isAudioPlaying) {
+    //   playTimerSound();
+    // }
     audioOn.textContent = '🔉';
     audioOn.classList.remove('off');
     isAudioPlaying = true;
@@ -79,29 +82,29 @@ function playSound(soundElement) {
   isAudioPlaying = true;
 }
 
-function playTimerSound() {
-  timerSoundElement.currentTime = 0;
-  timerSoundElement.loop = true;
-  timerSoundElement.volume = 0.3;
-  timerSoundElement.addEventListener('canplaythrough', timerSoundPlayHandler);
+// function playTimerSound() {
+//   timerSoundElement.currentTime = 0;
+//   timerSoundElement.loop = true;
+//   timerSoundElement.volume = 0.3;
+//   timerSoundElement.addEventListener('canplaythrough', timerSoundPlayHandler);
 
-  if (timerSoundElement.readyState >= 2) {
-    timerSoundElement.play();
-    isAudioPlaying = true;
-  }
-}
+//   if (timerSoundElement.readyState >= 2) {
+//     timerSoundElement.play();
+//     isAudioPlaying = true;
+//   }
+// }
 
-function stopTimerSound() {
-  timerSoundElement.pause();
-  timerSoundElement.currentTime = 0;
-  timerSoundElement.removeEventListener('canplaythrough', timerSoundPlayHandler);
-  isAudioPlaying = false;
-}
+// function stopTimerSound() {
+//   timerSoundElement.pause();
+//   timerSoundElement.currentTime = 0;
+//   timerSoundElement.removeEventListener('canplaythrough', timerSoundPlayHandler);
+//   isAudioPlaying = false;
+// }
 
-function timerSoundPlayHandler() {
-  timerSoundElement.play();
-  isAudioPlaying = true;
-}
+// function timerSoundPlayHandler() {
+//   timerSoundElement.play();
+//   isAudioPlaying = true;
+// }
 
 const startNewGame = createElement('button', 'board__new-game');
 startNewGame.textContent = '🎮 New Game';
@@ -221,9 +224,13 @@ function initGame(size, bombsCount) {
         setTimeout(() => {
           playSound(gameOverSoundElement);
         }, 2000);
+        // stopTimerSound();
         return;
       }
       playSound(revealSoundElement);
+      // if (!isAudioPlaying) {
+      //   playTimerSound();
+      // }
     }
   };
 
@@ -266,11 +273,11 @@ function initGame(size, bombsCount) {
     if (tile.disabled === true) return;
 
     tile.disabled = true;
-    if (isAudioPlaying || !audioOn.classList.contains('off')) {
-      playTimerSound();
-    } else if (audioOn.classList.contains('off')) {
-      stopTimerSound();
-    }
+    // if (isAudioPlaying || !audioOn.classList.contains('off')) {
+    //   playTimerSound();
+    // } else if (audioOn.classList.contains('off')) {
+    //   stopTimerSound();
+    // }
     if (firstClick) {
       firstClick = false;
       bombs = [...Array(tilesCount).keys()].filter((index) => index !== tileIndex)
@@ -280,7 +287,8 @@ function initGame(size, bombsCount) {
 
     if (isBomb(row, column)) {
       tile.innerHTML = '💣';
-      stopTimerSound();
+      
+      // stopTimerSound();
       gameResult.innerHTML = 'YOOu LOOOSe!';
 
       bombs.forEach((bombIndex) => {
@@ -323,7 +331,7 @@ function initGame(size, bombsCount) {
       });
       stopTimer();
       board.removeEventListener('click', tileClickHandler);
-      stopTimerSound();
+      // stopTimerSound();
       showGameResult(`clicks made: ${clicksCount + 1}, time: ${seconds}`);
 
       return;
@@ -404,7 +412,7 @@ easyMode.addEventListener('click', () => {
   board.classList.remove('board__medium-mode', 'board__hard-mode');
   boardSize = 10;
   stopTimer();
-  stopTimerSound();
+  // stopTimerSound();
   board.removeEventListener('click', tileClickHandler);
   initGame(boardSize, bombsCount);
 });
@@ -416,7 +424,7 @@ mediumMode.addEventListener('click', () => {
   board.classList.remove('board__easy-mode', 'board__hard-mode');
   boardSize = 15;
   stopTimer();
-  stopTimerSound();
+  // stopTimerSound();
   board.removeEventListener('click', tileClickHandler);
   initGame(boardSize, bombsCount);
 });
@@ -428,7 +436,7 @@ hardMode.addEventListener('click', () => {
   board.classList.remove('board__easy-mode', 'board__medium-mode');
   boardSize = 25;
   stopTimer();
-  stopTimerSound();
+  // stopTimerSound();
   board.removeEventListener('click', tileClickHandler);
   initGame(boardSize, bombsCount);
 });
@@ -440,7 +448,7 @@ startNewGame.addEventListener('click', () => {
   changeBombsCount.value = bombsCount;
   bombsCountLabel.textContent = `💣 ${bombsCount}`;
   stopTimer();
-  stopTimerSound();
+  // stopTimerSound();
   board.removeEventListener('click', tileClickHandler);
   initGame(boardSize, bombsCount);
 });
@@ -502,7 +510,8 @@ gameScoreButton.addEventListener('click', () => {
 //     flags,
 //     seconds,
 //     firstClick,
-//     smileTextContent,
+//     board: board.innerHTML,
+//     // smileTextContent,
 //   };
 
 //   localStorage.setItem('minesweeperGameState', JSON.stringify(gameState));
@@ -519,8 +528,9 @@ gameScoreButton.addEventListener('click', () => {
 //     flags = savedState.flags;
 //     firstClick = savedState.firstClick;
 //     bombs = savedState.bombs;
-//     smileTextContent = savedState.smileTextContent;
+//     // smileTextContent = savedState.smileTextContent;
 //     seconds = savedState.seconds;
+//     board = savedState.board;
 //     initGame(boardSize, bombsCount);
 //   }
 // });

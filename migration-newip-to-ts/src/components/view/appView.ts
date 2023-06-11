@@ -1,7 +1,7 @@
 import News from "./news/news";
 import Sources, { Source } from "./sources/sources";
 
-interface Article {
+export interface Article {
   title: string;
   description: string;
   url: string;
@@ -24,7 +24,7 @@ export class AppView {
 
   public drawNews(data: { articles?: Article[] }): void {
     const values = data?.articles ? data?.articles : [];
-    this.news.draw(values);
+    this.news.draw(values as Article[]);
   }
 
   drawSources(data: { sources?: Source[] }): void {

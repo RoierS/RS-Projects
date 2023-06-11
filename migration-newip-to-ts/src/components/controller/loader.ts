@@ -2,7 +2,7 @@ enum HttpMethod {
   GET = "GET",
 }
 
-interface LoaderOptions {
+export interface LoaderOptions {
   [data: string]: string;
 }
 

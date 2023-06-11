@@ -5,7 +5,7 @@ import "./sources.css";
 //   SourceItemName = "source__item-name",
 // }
 
-interface Source {
+export interface Source {
   name: string;
   id: string;
 }

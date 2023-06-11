@@ -2,3 +2,4 @@ webpack
 .eslintrc.js
 package.json
 tsconfig.json
+webpack.config.js

@@ -20,6 +20,6 @@
       "class-methods-use-this": "off",
       "import/extensions": "off",
       "prettier/prettier": "error",
-      "@typescript-eslint/no-explicit-any"
+      "@typescript-eslint/no-explicit-any": "error"
   }
 }

@@ -18,6 +18,7 @@
     color: #70d6ff;
     transition: 0.25s;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .source__item:hover,
@@ -31,4 +32,29 @@
 .source__item-name {
     font-weight: 400;
     white-space: nowrap;
+}
+.sources.buttons {
+    scrollbar-width: thin;
+    scrollbar-color: #888888 #716e6e;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.sources.buttons::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 5px;
+}
+
+.sources.buttons::-webkit-scrollbar-track {
+    background-color: #6e6c6c;
+    border-radius: 5px;
+}
+.sources.buttons::-webkit-scrollbar-thumb {
+    background-color: #30c5ff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.5s;
+    
+}
+.sources.buttons:hover::-webkit-scrollbar-thumb:hover {
+    background-color: #3fcc59;;
 }

@@ -1,13 +1,13 @@
 import "./sources.css";
 
-// enum ElementType {
-//   SourceItem = "source__item",
-//   SourceItemName = "source__item-name",
-// }
-
 export interface Source {
   name: string;
   id: string;
+  description: string;
+  url: string;
+  category: string;
+  language: string;
+  country: string;
 }
 
 class Sources {

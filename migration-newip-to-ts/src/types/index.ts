@@ -1,17 +1,19 @@
-export interface NewsAPIResponse {
-  status: string;
-  sourses: NewsSource[];
-}
+// import News from "../components/view/news/news";
 
-export interface NewsSource {
-  id: string;
-  name: string;
-  description: string;
-  url: string;
-  category: string;
-  language: string;
-  country: string;
-}
+// export interface NewsAPIResponse {
+//   status: string;
+//   sourses: NewsSource[];
+// }
+
+// export interface NewsSource {
+//   id: string;
+//   name: string;
+//   description: string;
+//   url: string;
+//   category: string;
+//   language: string;
+//   country: string;
+// }
 
 export interface NewsItem {
   urlToImage: string | undefined;

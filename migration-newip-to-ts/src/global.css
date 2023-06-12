@@ -11,6 +11,7 @@ header {
 header h1 {
     font-size: 40px;
     font-weight: 800;
+    text-align: center;
 }
 
 footer {
@@ -21,14 +22,15 @@ footer {
 }
 footer .copyright {
     font-size: 14px;
-    color: #333;
+    color: #fff;
     text-align: center;
 }
 footer .copyright a {
-    color: #444;
+    color: #fff;
+    transition: color 0.8s;
 }
 footer .copyright a:hover {
-    color: #555;
+    color: #8f8e8e;
 }
 footer .copyright:before {
     content: '©';

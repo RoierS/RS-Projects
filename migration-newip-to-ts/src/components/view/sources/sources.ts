@@ -11,19 +11,24 @@ export interface Source {
 }
 
 class Sources {
-  private fragment: DocumentFragment;
+  private sourceContainer: HTMLElement | null;
   private sourceItemTemp: HTMLTemplateElement | null;
+  private data: Source[];
 
   constructor() {
-    this.fragment = document.createDocumentFragment();
+    this.sourceContainer = document.querySelector(".sources");
     this.sourceItemTemp = document.querySelector<HTMLTemplateElement>(
       "#sourceItemTemp"
     );
+    this.data = [];
   }
 
   public draw(data: Source[]): void {
-    data.forEach((item) => {
-      if (!this.sourceItemTemp) {
+    this.clearSources();
+
+    this.data = data;
+    this.data.forEach((item) => {
+      if (!this.sourceContainer || !this.sourceItemTemp) {
         return;
       }
       const sourceClone = this.sourceItemTemp.content?.cloneNode(
@@ -42,14 +47,27 @@ class Sources {
       );
       if (sourceItem) {
         sourceItem.setAttribute("data-source-id", item.id);
+        sourceItem.setAttribute("data-category", item.category);
       }
 
-      this.fragment.append(sourceClone);
+      this.sourceContainer.append(sourceClone);
     });
+  }
 
+  public filterByCategory(category: string): void {
+    if (category === "") {
+      this.draw(this.data);
+    }
+    const filteredData = this.data.filter(
+      (item: Source) => item.category === category
+    );
+    this.draw(filteredData);
+  }
+
+  private clearSources(): void {
     const sourceContainer = document.querySelector(".sources");
     if (sourceContainer) {
-      sourceContainer.append(this.fragment);
+      sourceContainer.innerHTML = "";
     }
   }
 }

@@ -1,6 +1,6 @@
 import AppController from "../controller/controller";
 import { Article, AppView } from "../view/appView";
-import { Source } from "../view/sources/sources";
+import Sources, { Source } from "../view/sources/sources";
 
 interface DataArticles {
   articles?: Article[] | undefined;
@@ -9,10 +9,12 @@ interface DataArticles {
 class App {
   private controller: AppController<DataArticles>;
   private view: AppView;
+  private sources: Sources;
 
   constructor() {
     this.controller = new AppController();
     this.view = new AppView();
+    this.sources = new Sources();
   }
 
   public start(): void {
@@ -25,9 +27,18 @@ class App {
       );
     }
 
-    this.controller.getSources((data: DataArticles) =>
-      this.view.drawSources(data)
-    );
+    const categoryFilter = document.querySelector(
+      "#category-select"
+    ) as HTMLSelectElement;
+    categoryFilter.addEventListener("change", () => {
+      const selectedCategory = categoryFilter.value;
+      this.sources.filterByCategory(selectedCategory);
+    });
+
+    this.controller.getSources((data: DataArticles) => {
+      this.view.drawSources(data);
+      this.sources.draw(data.sources ?? []);
+    });
   }
 }
 

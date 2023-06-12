@@ -48,6 +48,13 @@ footer .copyright:before {
     transition: transform 0.7s;
   }
   
-  .github:hover {
+.github:hover {
     transform: rotate(360deg) scale(1.2);
   }
+.rss {
+    width: 80px;
+    transition: transform 0.7s;
+}
+.rss:hover {
+    transform: scale(1.1);
+}

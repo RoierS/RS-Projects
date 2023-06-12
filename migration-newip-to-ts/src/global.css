@@ -2,6 +2,11 @@ body {
     color: #fff;
     background: #17181c;
     font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    min-height: 100vh;
 }
 
 header {
@@ -13,12 +18,15 @@ header h1 {
     font-weight: 800;
     text-align: center;
 }
-
+main {
+    flex: 1 1 auto;
+}
 footer {
     height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 10px;
 }
 footer .copyright {
     font-size: 14px;
@@ -35,3 +43,11 @@ footer .copyright a:hover {
 footer .copyright:before {
     content: '©';
 }
+.github {
+    width: 35px;
+    transition: transform 0.7s;
+  }
+  
+  .github:hover {
+    transform: rotate(360deg) scale(1.2);
+  }

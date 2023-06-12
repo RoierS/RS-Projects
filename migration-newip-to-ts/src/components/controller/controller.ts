@@ -2,17 +2,22 @@ import AppLoader from "./appLoader";
 
 type LoaderResCallBack<T> = (data: T) => void;
 
+enum Endpoint {
+  Sources = "sources",
+  Everything = "everything",
+}
+
 class AppController<T> extends AppLoader {
-  getSources(callback: LoaderResCallBack<T>) {
+  public getSources(callback: LoaderResCallBack<T>) {
     super.getResp(
       {
-        endpoint: "sources",
+        endpoint: Endpoint.Sources,
       },
       callback
     );
   }
 
-  getNews(e: Event, callback: LoaderResCallBack<T>) {
+  public getNews(e: Event, callback: LoaderResCallBack<T>) {
     let target = e.target as HTMLElement;
     const newsContainer = e.currentTarget as HTMLElement;
 
@@ -23,7 +28,7 @@ class AppController<T> extends AppLoader {
           newsContainer.setAttribute("data-source", sourceId || "");
           super.getResp(
             {
-              endpoint: "everything",
+              endpoint: Endpoint.Everything,
               options: {
                 sources: sourceId || "",
               },

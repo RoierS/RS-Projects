@@ -13,31 +13,45 @@ export interface Source {
 class Sources {
   private sourceContainer: HTMLElement | null;
   private sourceItemTemp: HTMLTemplateElement | null;
-  private data: Source[];
+  private allData: Source[];
+  private filteredData: Source[];
 
   constructor() {
     this.sourceContainer = document.querySelector(".sources");
     this.sourceItemTemp = document.querySelector<HTMLTemplateElement>(
       "#sourceItemTemp"
     );
-    this.data = [];
+    this.allData = [];
+    this.filteredData = [];
   }
 
   public draw(data: Source[]): void {
+    this.allData = data;
+    this.filteredData = data;
+    this.renderSources();
+  }
+  private renderSources(): void {
+    if (!this.sourceContainer || !this.sourceItemTemp) {
+      return;
+    }
+
     this.clearSources();
 
-    this.data = data;
-    this.data.forEach((item) => {
-      if (!this.sourceContainer || !this.sourceItemTemp) {
+    this.filteredData.forEach((item) => {
+      const sourceContent = this.sourceItemTemp?.content;
+
+      if (!sourceContent) {
         return;
       }
-      const sourceClone = this.sourceItemTemp.content?.cloneNode(
+
+      const sourceClone = this.sourceItemTemp?.content.cloneNode(
         true
       ) as DocumentFragment;
 
       const sourceItemName = sourceClone.querySelector<HTMLElement>(
         ".source__item-name"
       );
+
       if (sourceItemName) {
         sourceItemName.textContent = item.name;
       }
@@ -45,29 +59,29 @@ class Sources {
       const sourceItem = sourceClone.querySelector<HTMLElement>(
         ".source__item"
       );
+
       if (sourceItem) {
         sourceItem.setAttribute("data-source-id", item.id);
         sourceItem.setAttribute("data-category", item.category);
       }
-
-      this.sourceContainer.append(sourceClone);
+      this.sourceContainer?.append(sourceClone);
     });
   }
 
   public filterByCategory(category: string): void {
     if (category === "") {
-      this.draw(this.data);
+      this.filteredData = this.allData;
+    } else {
+      this.filteredData = this.allData.filter(
+        (item: Source) => item.category === category
+      );
     }
-    const filteredData = this.data.filter(
-      (item: Source) => item.category === category
-    );
-    this.draw(filteredData);
+    this.renderSources();
   }
 
   private clearSources(): void {
-    const sourceContainer = document.querySelector(".sources");
-    if (sourceContainer) {
-      sourceContainer.innerHTML = "";
+    if (this.sourceContainer) {
+      this.sourceContainer.innerHTML = "";
     }
   }
 }

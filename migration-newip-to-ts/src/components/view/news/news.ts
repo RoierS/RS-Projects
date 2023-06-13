@@ -30,7 +30,7 @@ class News {
       );
       if (metaPhoto) {
         metaPhoto.style.backgroundImage = `url(${
-          item.urlToImage || "img/news_placeholder.jpg"
+          item.urlToImage || "../../../assets/img/news-placeholder.png"
         })`;
       }
 

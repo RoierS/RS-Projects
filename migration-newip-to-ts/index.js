@@ -315,7 +315,7 @@
         const o = r(t(24));
         class s extends o.default {
           constructor() {
-            super("https://rss-news-api.onrender.com/", {
+            super("https://news-proxy.spanb4.shop/", {
               apiKey: "437ed32951354fc0b63df437b21af3d9",
             });
           }

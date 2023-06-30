@@ -1,3 +1,5 @@
+import "./style.css";
+
 class Game {
   private currentLevel: number;
 
@@ -18,4 +20,3 @@ class Game {
 
 const game = new Game();
 game.startGame();
- 

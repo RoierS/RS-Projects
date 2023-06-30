@@ -1,7 +1,9 @@
 webpack
-.eslintrc.js
+eslintrc
 package.json
 tsconfig.json
-webpack.config.js
-webpack.dev.config.js
-webpack.prod.config.js
+webpack.config
+webpack.dev.config
+webpack.prod.config
+webpack.*.js
+.eslintrc.js

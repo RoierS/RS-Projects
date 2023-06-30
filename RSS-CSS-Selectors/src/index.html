@@ -4,11 +4,75 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
   <title>RSS CSS Selectors</title>
 </head>
 <body>
-  <div id="app"></div>
+  <div class="wrapper
+  ">
+    <header class="header">
+      <h1>RSS CSS Selectors</h1>
+    </header>
+    <main class="main">
+      <section class="left-block">
+        <h2 class="task">Select the plates</h2>
+        <a href="#" class="help">Need help?</a>
+        <div class="gameboard-wrapper">
+          <div class="gameboard">
+            <div class="gameboard__surface"></div>
+            <div class="gameboard__tags"></div>
+            <div class="gameboard__table">
+            </div>
+          </div>
+          <div class="edge">
+            <div class="leg"></div>
+            <div class="leg"></div>
+          </div>
+        </div>
+        <div class="editor-wrapper">
+          <div class="editor">
+            <div class="editor__header">
+              CSS view
+              <p class="file-name">style.css</p>
+            </div>
+            <div class="css-field">
+              <div class="rows-count">1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15</div>
+              <div class="input-field">
+                <input class="input-css" type="text" placeholder="Write CSS selector here">
+                <button class="enter-btn" value="Enter">Enter</button>
+                <div class="styles-example">
+                  {
+                    <br>
+                    /* style will be here*/
+                    <br>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="editor html-result">
+            <div class="editor__header">HTML view
+              <p class="file-name">index.html</p>
+            </div>
+            <div class="html-field">
+              <div class="rows-count">1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15</div>
+              <div class="html-field__view"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="right-block">
+        <div class="level-header">
+          <h2 class="choose-level">Choose a level</h2>
+        </div>
+        <div class="levels">
+          <a href="#" class="level-name">level 1</a>
+        </div>
+        <a href="#" class="reset-btn"></a>
+      </section>
+    </main>
+    <footer class="footer">
+    </footer>
+  </div>
   <script src="dist/bundle.js"></script>
 </body>
 </html>

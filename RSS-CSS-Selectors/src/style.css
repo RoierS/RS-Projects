@@ -78,7 +78,7 @@ body {
 
 .gameboard {
   position: relative;
-  min-height: 150px;
+  height: 150px;
   min-width: 250px;
   transform: rotateX(30deg);
   transform-origin: bottom;
@@ -99,7 +99,13 @@ body {
 }
 
 .gameboard__table {
-
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 100%;
+  position: relative;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 
 .edge {
@@ -236,7 +242,11 @@ body {
 }
 
 .levels {
-
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 10px;
 }
 
 .level-name {
@@ -249,4 +259,33 @@ body {
 
 .footer {
 
+}
+
+plate {
+  width: 100px;
+  height: 100px;
+  background: white;
+  border-radius: 100px;
+  position: relative;
+}
+
+apple, orange {
+  width: 50px;
+  height: 50px;
+  background: rgb(193, 13, 13);
+  border-radius: 50px;
+  position: absolute;
+  z-index: 69;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+orange {
+  background: rgb(231, 160, 7);
+}
+
+.small {
+  width: 25px;
+  height: 25px;
 }

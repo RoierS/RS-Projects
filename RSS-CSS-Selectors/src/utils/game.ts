@@ -1,5 +1,6 @@
 import { Level } from "../types/types";
 import { loadLevel } from "./levelLoader";
+import { levels } from "../levels/levels";
 
 class Game {
   gameboard: HTMLElement | null;
@@ -24,53 +25,7 @@ class Game {
     this.htmlFieldView = document.querySelector(".html-field__view");
     this.task = document.querySelector(".task");
     this.currentLevel = 0;
-    this.levels = [
-      {
-        name: "Level 1",
-        toDo: "Select the plates",
-        selector: "plate",
-        htmlCode: `
-        <plate></plate>
-        <plate></plate>
-        `,
-      },
-      {
-        name: "Level 2",
-        toDo: "Select the apple on the plate",
-        selector: "plate apple",
-        htmlCode: `
-        <plate>
-          <apple></apple>
-        </plate>
-        `,
-      },
-      {
-        name: "Level 3",
-        toDo: "Select the small apple on the plate",
-        selector: ".small",
-        htmlCode: `
-        <plate>
-          <apple></apple>
-        </plate>
-        <plate>
-          <apple class="small"></apple>
-        </plate>
-        `,
-      },
-      {
-        name: "Level 4",
-        toDo: "Select the only small apple on the plate",
-        selector: "apple.small",
-        htmlCode: `
-        <plate>
-          <orange class="small"></orange>
-        </plate>
-        <plate>
-          <apple class="small"></apple>
-        </plate>
-        `,
-      },
-    ];
+    this.levels = levels;
   }
 
   checkWin(correctSelector: string): void {

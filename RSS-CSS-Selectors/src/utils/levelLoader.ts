@@ -25,4 +25,9 @@ export function loadLevel(game: Game, levelIndex: number): void {
   game.enterBtn?.removeEventListener("click", game.checkWinHandler);
   console.log(level.selector);
   game.enterBtn?.addEventListener("click", game.checkWinHandler);
+
+  const selectedElements = document.querySelectorAll(level.selector);
+  selectedElements.forEach((element) => {
+    element.classList.add("selectMe");
+  });
 }

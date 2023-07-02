@@ -279,6 +279,16 @@ apple, orange {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  box-shadow: 0px 10px 13px 1px rgb(87, 84, 84);
+}
+
+apple.selectMe {
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+}
+apple.small.selectMe {
+  top: calc(50% - 12.5px);
+  left: calc(50% - 12.5px);
 }
 
 orange {
@@ -288,4 +298,17 @@ orange {
 .small {
   width: 25px;
   height: 25px;
+}
+
+.selectMe {
+  animation: jump 1s infinite;
+}
+
+
+@keyframes jump {
+  0% { transform: translateY(0) skewY(3deg) scaleX(1); }
+  20% { transform: translateY(-15px) skewY(1deg) scaleY(0.9); }
+  50% { transform: translateY(0) skewY(-5deg) scaleX(1); }
+  70% { transform: translateY(-15px) skewY(-1deg) scaleY(0.9); }
+  100% { transform: translateY(0) skewY(5deg) scaleX(1); }
 }

@@ -6,7 +6,7 @@ const EslintPlugin = require("eslint-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const baseConfig = {
-  entry: path.resolve(__dirname, "src/index.ts"),
+  entry: path.resolve(__dirname, "src/main.ts"),
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),

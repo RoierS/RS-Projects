@@ -95,10 +95,6 @@ body {
   box-shadow: 0px 30px 20px rgba(22, 21, 21, 0.3);
 }
 
-.gameboard__tags {
-
-}
-
 .gameboard__table {
   display: flex;
   flex-direction: row;
@@ -168,10 +164,6 @@ body {
   background: rgba(30, 15, 66, 0.15);
 }
 
-.file-name {
-
-}
-
 .css-field {
   flex: 1 1 50%;
   display: flex;
@@ -199,10 +191,6 @@ body {
   line-height: 1.5;
   
 }
-.styles-example {
-
-}
-
 
 .html-result {
   background: dimgray;
@@ -282,8 +270,42 @@ body {
   background-color:rgb(231, 160, 7);
 }
 
-.footer {
+footer {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+footer .copyright {
+  font-size: 14px;
+  color: #fff;
+  text-align: center;
+}
+footer .copyright a {
+  color: #fff;
+  transition: color 0.8s;
+}
+footer .copyright a:hover {
+  color: #8f8e8e;
+}
+footer .copyright:before {
+  content: '©';
+}
+.github {
+  width: 35px;
+  transition: transform 0.7s;
+}
 
+.github:hover {
+  transform: rotate(360deg) scale(1.2);
+}
+.rss {
+  width: 80px;
+  transition: transform 0.7s;
+}
+.rss:hover {
+  transform: scale(1.1);
 }
 
 plate {

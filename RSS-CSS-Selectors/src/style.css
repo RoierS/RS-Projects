@@ -466,6 +466,9 @@ apple orange {
   padding: 5px;
 }
 
+plate :not(orange) {
+  background-color: red;
+}
 
 
 @media (max-width: 600px) {
@@ -473,5 +476,6 @@ apple orange {
     flex-direction: column;
   }
 }
+
 
 

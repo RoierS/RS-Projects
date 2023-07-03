@@ -17,6 +17,9 @@ const handleEnterPress = (event: KeyboardEvent) => {
 document.removeEventListener("keydown", handleEnterPress);
 document.addEventListener("keydown", handleEnterPress);
 
+// eslint-disable-next-line no-alert
+alert("Please rewiew this work at last day of cross-check");
+
 // const levelLinks = document.querySelectorAll(".level-name");
 // levelLinks.forEach((link, levelIndex) => {
 //   link.addEventListener("click", () => {

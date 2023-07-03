@@ -488,11 +488,6 @@ apple orange {
   padding: 5px;
 }
 
-plate :not(orange) {
-  background-color: red;
-}
-
-
 @media (max-width: 600px) {
   .editor-wrapper {
     flex-direction: column;

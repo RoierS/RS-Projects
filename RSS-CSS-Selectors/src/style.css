@@ -373,7 +373,8 @@ apple orange melon {
 }
 
 apple orange {
-  top: -16%
+  top: -55%;
+  left: 0;
 }
 
 
@@ -381,8 +382,96 @@ apple orange {
   list-style-type: none;
 }
 
+.win-animation {
+  animation-name: jump-out;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes jump-out {
+  0% {transform: translateY(0);
+}
+20% {
+    transform: translateY(-100px);
+}
+40% {
+    transform: translateY(0);
+}
+100% {
+    transform: translateY(-1500px);
+}
+}
+
+.lose-animation {
+  animation-name: shake;
+  animation-duration: 0.5s;
+  animation-iteration-count: 2;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  50% { transform: translateX(10px); }
+  75% { transform: translateX(-10px); }
+  100% { transform: translateX(0); }
+}
+
+/* modal win */
+
+.modal {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 50%;
+  height: 30%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  box-shadow: 2px 3px 4px;
+}
+.modal__content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  max-width: 400px;
+  text-align: center;
+  border-radius: 10px;
+}
+.close {
+  color: #aaa;
+  display: inline-block;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  transition: color .6s;
+}
+
+.close:hover,
+.close:focus {
+  color: #ca7f07;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.new-game-btn {
+  margin-top: 10px;
+  padding: 5px;
+}
+
+
+
 @media (max-width: 600px) {
   .editor-wrapper {
     flex-direction: column;
   }
 }
+
+

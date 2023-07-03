@@ -5,6 +5,9 @@ import { Game } from "./game";
 export function loadLevel(game: Game, levelIndex: number): void {
   const { gameboard, htmlFieldView, task, inputCss, levelsList } = game;
 
+  // current rule selector
+  console.log(game.levels[levelIndex].selector);
+
   if (!gameboard || !htmlFieldView || !task || !inputCss || !levelsList) return;
 
   gameboard.innerHTML = "";
@@ -13,6 +16,8 @@ export function loadLevel(game: Game, levelIndex: number): void {
   levelsList.innerHTML = "";
 
   const level = game.levels[levelIndex];
+  const ruleSelector = level.selector;
+
   task.innerText = level.toDo;
   gameboard.innerHTML = level.htmlCode;
 
@@ -25,11 +30,19 @@ export function loadLevel(game: Game, levelIndex: number): void {
     game.htmlFieldView?.appendChild(lineElement);
   });
 
-  const selectedElements = document.querySelectorAll(level.selector);
+  const selectedElements = document.querySelectorAll(ruleSelector);
   selectedElements.forEach((element) => {
+    const children = element.querySelectorAll("*");
+    children.forEach((child) => {
+      child.classList.add("selectMe");
+    });
     element.classList.add("selectMe");
   });
 
+  // rule selector
+  console.log(level.selector);
+
+  // generate levels list items
   game.levels.forEach((lvl, index) => {
     const listItem = document.createElement("li");
     listItem.classList.add("level-name");
@@ -42,22 +55,13 @@ export function loadLevel(game: Game, levelIndex: number): void {
     levelsList.appendChild(listItem);
   });
 
-  const handleEnterPress = (event: KeyboardEvent) => {
-    if (event.key === "Enter") {
-      game.checkWinHandler();
-    }
-  };
-
   game.enterBtn?.removeEventListener("click", game.checkWinHandler);
-  console.log(level.selector);
   game.enterBtn?.addEventListener("click", game.checkWinHandler);
-
-  document.addEventListener("keydown", handleEnterPress);
 
   const levelLinks = document.querySelectorAll(".level-name");
   levelLinks.forEach((link, index) => {
     link.addEventListener("click", () => {
-      document.removeEventListener("keydown", handleEnterPress);
+      console.log(index);
       loadLevel(game, index);
     });
   });

@@ -46,4 +46,14 @@ export const levels: Level[] = [
     </plate>
     `,
   },
+  {
+    name: "Level 5",
+    toDo: "Select the melon on the plate",
+    selector: "melon",
+    htmlCode: `
+    <plate>
+      <melon></melon>
+    </plate>
+    `,
+  },
 ];

@@ -267,7 +267,22 @@ plate {
   background: white;
   border-radius: 100px;
   position: relative;
+  box-shadow: 0px 10px 13px 1px rgb(87, 84, 84);
+  border-bottom: solid 6px #b3b2b2;
 }
+
+plate:before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: calc(50% - 32.5px);
+  top: calc(50% - 32.5px);
+  height: 65px;
+  width: 65px;
+  border-radius: 60px;
+  border-top: solid 6px #b3b2b2;
+  opacity: 0.5;
+} 
 
 apple, orange {
   width: 50px;
@@ -279,7 +294,7 @@ apple, orange {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0px 10px 13px 1px rgb(87, 84, 84);
+  box-shadow: 0px 10px 13px 1px rgb(87, 84, 84), inset -1px -3px 8px 0px rgb(87, 84, 84);
 }
 
 apple.selectMe {
@@ -301,14 +316,29 @@ orange {
 }
 
 .selectMe {
-  animation: jump 1s infinite;
+  animation: jump 1.2s infinite;
 }
 
 
 @keyframes jump {
-  0% { transform: translateY(0) skewY(3deg) scaleX(1); }
-  20% { transform: translateY(-15px) skewY(1deg) scaleY(0.9); }
-  50% { transform: translateY(0) skewY(-5deg) scaleX(1); }
-  70% { transform: translateY(-15px) skewY(-1deg) scaleY(0.9); }
-  100% { transform: translateY(0) skewY(5deg) scaleX(1); }
+  0% { transform: translateY(0) skewY(3deg); }
+  20% { transform: translateY(-15px) skewY(1deg); }
+  50% { transform: translateY(0) skewY(-5deg); }
+  70% { transform: translateY(-15px) skewY(-1deg); }
+  100% { transform: translateY(0) skewY(5deg); }
+}
+
+melon {
+  width: 60px;
+  height: 45px;
+  background-color: #ffb80b;
+  border-radius: 50%;
+  position: absolute;
+  top: calc(50% - 22.5px);
+  left: calc(50% - 30px);
+  box-shadow: 0px 10px 13px 1px rgb(87, 84, 84), inset -1px -3px 8px 0px rgb(87, 84, 84);
+}
+
+.current-level {
+  color: red;
 }

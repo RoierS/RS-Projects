@@ -13,6 +13,8 @@ class Game {
 
   task: HTMLElement | null;
 
+  levelsList: HTMLElement | null;
+
   currentLevel: number;
 
   levels: Level[];
@@ -24,6 +26,7 @@ class Game {
     this.enterBtn = document.querySelector(".enter-btn");
     this.htmlFieldView = document.querySelector(".html-field__view");
     this.task = document.querySelector(".task");
+    this.levelsList = document.querySelector(".levels");
     this.currentLevel = 0;
     this.levels = levels;
   }
@@ -46,6 +49,17 @@ class Game {
 
   initGame(): void {
     this.currentLevel = 0;
+    this.levels.forEach((level, index) => {
+      const listItem = document.createElement("li");
+      listItem.classList.add("level-name");
+      listItem.textContent = level.name;
+
+      if (index === this.currentLevel) {
+        listItem.classList.add("current-level");
+      }
+      this.levelsList?.appendChild(listItem);
+    });
+
     loadLevel(this, this.currentLevel);
   }
 }

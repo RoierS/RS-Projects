@@ -42,13 +42,22 @@ export function loadLevel(game: Game, levelIndex: number): void {
     levelsList.appendChild(listItem);
   });
 
+  const handleEnterPress = (event: KeyboardEvent) => {
+    if (event.key === "Enter") {
+      game.checkWinHandler();
+    }
+  };
+
   game.enterBtn?.removeEventListener("click", game.checkWinHandler);
   console.log(level.selector);
   game.enterBtn?.addEventListener("click", game.checkWinHandler);
 
+  document.addEventListener("keydown", handleEnterPress);
+
   const levelLinks = document.querySelectorAll(".level-name");
   levelLinks.forEach((link, index) => {
     link.addEventListener("click", () => {
+      document.removeEventListener("keydown", handleEnterPress);
       loadLevel(game, index);
     });
   });

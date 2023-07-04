@@ -1,6 +1,7 @@
-// import { levels } from "../levels/levels";
-// import { Level } from "../types/types";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import Prism from "prismjs";
 import { Game } from "./game";
+import "../prismjs/prism.css";
 
 export function loadLevel(game: Game, levelIndex: number): void {
   const { gameboard, htmlFieldView, task, inputCss, levelsList } = game;
@@ -21,14 +22,14 @@ export function loadLevel(game: Game, levelIndex: number): void {
   task.innerText = level.toDo;
   gameboard.innerHTML = level.htmlCode;
 
-  const lines = level.htmlCode.trim().split("\n");
-  lines.forEach((line) => {
-    const lineElement = document.createElement("div");
-    lineElement.textContent = line;
-    lineElement.classList.add("code-line");
+  const codeLines = level.htmlCode;
+  const highlightedCode = Prism.highlight(
+    codeLines,
+    Prism.languages.markup,
+    "markup"
+  );
 
-    game.htmlFieldView?.appendChild(lineElement);
-  });
+  htmlFieldView.innerHTML = `<pre class="line"><code class="language-markup">${highlightedCode}</code></pre>`;
 
   const selectedElements = document.querySelectorAll(ruleSelector);
   selectedElements.forEach((element) => {

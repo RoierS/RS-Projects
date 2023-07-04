@@ -19,12 +19,13 @@ body {
 }
 .wrapper {
   min-height: 100vh;
+  max-width: 1200px;
   margin: 20px auto 20px;
   padding: 10px;
   display: flex;
   flex-direction: column;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -33,9 +34,6 @@ body {
 .header {
   width: 100%;
   text-align: center;
-  /* position: fixed;
-  top: 0;
-  left: 0; */
 }
 
 /* Main */
@@ -43,10 +41,9 @@ body {
   width: calc(100% - 20px);
   display: flex;
   flex-wrap: nowrap;
-
 }
 
-
+/* left block */
 .left-block {
   width: 80%;
   background-color: #9990cb;
@@ -140,7 +137,6 @@ body {
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: stretch;
-  /* gap: 10px; */
   border: solid 5px rgba(44, 25, 83, 0.3);
   border-radius: 5px;
   overflow: hidden;
@@ -150,7 +146,7 @@ body {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  flex: 1 1 50%;
+  width: 50%;
   background: aliceblue;
   line-height: 1.5;
   font-size: 16px;
@@ -165,7 +161,7 @@ body {
 }
 
 .css-field {
-  flex: 1 1 50%;
+  /* flex: 1 1 50%; */
   display: flex;
 }
 
@@ -189,7 +185,6 @@ body {
   border: 2px solid black;
   padding: 0 5px 0 5px;
   line-height: 1.5;
-  
 }
 
 .html-result {
@@ -197,7 +192,7 @@ body {
 }
 
 .html-field {
-  flex: 1 1 50%;
+  /* flex: 1 1 50%; */
   display: flex;
 }
 
@@ -209,7 +204,14 @@ body {
 
 .html-field__view {
   padding: 8px;
+  overflow: auto;
 }
+
+pre {
+  margin-left: -33px;
+  margin-top: -26px;
+}
+
 .input-field {
   line-height: 1.5;
   flex: 1 1 97%;
@@ -217,7 +219,6 @@ body {
 }
 
 /* Right block */
-
 .right-block {
   display: flex;
   flex-direction: column;
@@ -262,6 +263,7 @@ body {
   background-color: #ffb80b;
   transition: width 0.4s;
 }
+
 .level-name:hover::after {
   width: 100%;
 }
@@ -270,6 +272,7 @@ body {
   background-color:rgb(231, 160, 7);
 }
 
+/* footer */
 footer {
   height: 100px;
   display: flex;
@@ -277,21 +280,26 @@ footer {
   justify-content: center;
   gap: 10px;
 }
+
 footer .copyright {
   font-size: 14px;
   color: #fff;
   text-align: center;
 }
+
 footer .copyright a {
   color: #fff;
   transition: color 0.8s;
 }
+
 footer .copyright a:hover {
   color: #8f8e8e;
 }
+
 footer .copyright:before {
   content: '©';
 }
+
 .github {
   width: 35px;
   transition: transform 0.7s;
@@ -300,14 +308,17 @@ footer .copyright:before {
 .github:hover {
   transform: rotate(360deg) scale(1.2);
 }
+
 .rss {
   width: 80px;
   transition: transform 0.7s;
 }
+
 .rss:hover {
   transform: scale(1.1);
 }
 
+/* styles for table elements */
 plate {
   width: 100px;
   height: 100px;
@@ -366,7 +377,6 @@ orange {
   animation: jump 1.2s infinite;
 }
 
-
 @keyframes jump {
   0% { transform: translateY(0) skewY(3deg); }
   20% { transform: translateY(-15px) skewY(1deg); }
@@ -386,9 +396,6 @@ melon {
   box-shadow: 0px 10px 13px 1px rgb(87, 84, 84), inset -1px -3px 8px 0px rgb(87, 84, 84);
 }
 
-.current-level {
-  color: rgb(255, 183, 0);
-}
 
 apple orange melon {
   top: calc(-9% - 22.5px);
@@ -399,6 +406,10 @@ apple orange {
   left: 0;
 }
 
+/* levels  */
+.current-level {
+  color: rgb(255, 183, 0);
+}
 
 .levels {
   list-style-type: none;
@@ -488,6 +499,7 @@ apple orange {
   padding: 5px;
 }
 
+/* media  */
 @media (max-width: 600px) {
   .editor-wrapper {
     flex-direction: column;

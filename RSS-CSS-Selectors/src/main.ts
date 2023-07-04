@@ -1,8 +1,5 @@
 import "./style.css";
 import { Game } from "./utils/game";
-// import { loadLevel } from "./utils/levelLoader";
-// import { levels } from "./levels/levels";
-// import { Level } from "./types/types";
 
 const game = new Game();
 game.initGame();

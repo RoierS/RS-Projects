@@ -7,8 +7,8 @@ export const levels: Level[] = [
     selector: "plate",
     selectorsToSelect: ["plate"],
     htmlCode: `
-    <plate></plate>
-    <plate></plate>
+<plate></plate>
+<plate></plate>
     `,
   },
   {
@@ -17,9 +17,9 @@ export const levels: Level[] = [
     selector: "plate apple",
     selectorsToSelect: ["apple"],
     htmlCode: `
-    <plate>
-      <apple></apple>
-    </plate>
+<plate>
+  <apple></apple>
+</plate>
     `,
   },
   {
@@ -28,12 +28,12 @@ export const levels: Level[] = [
     selector: ".small",
     selectorsToSelect: [".small"],
     htmlCode: `
-    <plate>
-      <apple></apple>
-    </plate>
-    <plate>
-      <apple class="small"></apple>
-    </plate>
+<plate>
+  <apple></apple>
+</plate>
+<plate>
+  <apple class="small"></apple>
+</plate>
     `,
   },
   {
@@ -42,12 +42,12 @@ export const levels: Level[] = [
     selector: "apple.small",
     selectorsToSelect: ["apple.small"],
     htmlCode: `
-    <plate>
-      <orange class="small"></orange>
-    </plate>
-    <plate>
-      <apple class="small"></apple>
-    </plate>
+<plate>
+  <orange class="small"></orange>
+</plate>
+<plate>
+  <apple class="small"></apple>
+</plate>
     `,
   },
   {
@@ -56,9 +56,9 @@ export const levels: Level[] = [
     selector: "melon",
     selectorsToSelect: ["melon"],
     htmlCode: `
-    <plate>
-      <melon></melon>
-    </plate>
+<plate>
+  <melon></melon>
+</plate>
     `,
   },
   {
@@ -67,13 +67,13 @@ export const levels: Level[] = [
     selector: "plate > *",
     selectorsToSelect: ["apple", "orange", "melon"],
     htmlCode: `
-    <plate>
-      <apple>
-        <orange>
-          <melon></melon>
-        </orange>
-      </apple>
-    </plate>
+<plate>
+  <apple>
+    <orange>
+      <melon></melon>
+    </orange>
+  </apple>
+</plate>
     `,
   },
   {
@@ -82,15 +82,15 @@ export const levels: Level[] = [
     selector: "plate:has(melon), melon",
     selectorsToSelect: ["plate:has(melon)", "melon"],
     htmlCode: `
-    <plate>
-      <orange></orange>
-    </plate>
-    <plate>
-      <apple class="small"></apple>
-    </plate>
-    <plate>
-      <melon></melon>
-    </plate>
+<plate>
+  <orange></orange>
+</plate>
+<plate>
+  <apple class="small"></apple>
+</plate>
+<plate>
+  <melon></melon>
+</plate>
     `,
   },
   {
@@ -99,18 +99,18 @@ export const levels: Level[] = [
     selector: "plate:last-child apple",
     selectorsToSelect: ["plate:last-child apple"],
     htmlCode: `
-    <plate>
-      <apple></apple>
-      <orange></orange>
-    </plate>
-    <plate>
-      <orange></orange>
-      <apple></apple>
-    </plate>
-    <plate>
-      <orange></orange>
-      <apple></apple>
-    </plate>
+<plate>
+  <apple></apple>
+  <orange></orange>
+</plate>
+<plate>
+  <orange></orange>
+  <apple></apple>
+</plate>
+<plate>
+  <orange></orange>
+  <apple></apple>
+</plate>
     `,
   },
   {
@@ -119,19 +119,19 @@ export const levels: Level[] = [
     selector: "plate :not(orange)",
     selectorsToSelect: ["plate :not(orange)"],
     htmlCode: `
-    <plate>
-      <apple></apple>
-      <orange></orange>
-    </plate>
-    <plate>
-      <apple></apple>
-      <orange></orange>
-      <melon></melon>
-    </plate>
-    <plate>
-      <apple></apple>
-      <melon></melon>
-    </plate>
+<plate>
+  <apple></apple>
+  <orange></orange>
+</plate>
+<plate>
+  <apple></apple>
+  <orange></orange>
+  <melon></melon>
+</plate>
+<plate>
+  <apple></apple>
+  <melon></melon>
+</plate>
     `,
   },
   {
@@ -140,19 +140,19 @@ export const levels: Level[] = [
     selector: "plate apple:nth-child(2)",
     selectorsToSelect: ["plate apple:nth-child(2)"],
     htmlCode: `
-    <plate>
-      <apple></apple>
-      <apple></apple>
-      <apple></apple>
-    </plate>
-    <plate>
-      <apple></apple>
-    </plate>
-    <plate>
-      <apple></apple>
-      <apple></apple>
-      <apple></apple>
-    </plate>
+<plate>
+  <apple></apple>
+  <apple></apple>
+  <apple></apple>
+</plate>
+<plate>
+  <apple></apple>
+</plate>
+<plate>
+  <apple></apple>
+  <apple></apple>
+  <apple></apple>
+</plate>
     `,
   },
 ];

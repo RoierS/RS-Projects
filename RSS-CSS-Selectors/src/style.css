@@ -319,8 +319,8 @@ footer .copyright:before {
 
 /* styles for table elements */
 plate {
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
   background: white;
   border-radius: 100px;
   position: relative;
@@ -346,11 +346,11 @@ apple, orange {
   height: 50px;
   background: rgb(193, 13, 13);
   border-radius: 50px;
-  position: absolute;
+  /* position: absolute; */
   z-index: 69;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  /* transform: translate(-50%, -50%); */
   box-shadow: 0px 10px 13px 1px rgb(87, 84, 84), inset -1px -3px 8px 0px rgb(87, 84, 84);
 }
 
@@ -389,7 +389,7 @@ melon {
   height: 45px;
   background-color: #ffb80b;
   border-radius: 50%;
-  position: absolute;
+  /* position: absolute; */
   top: calc(50% - 22.5px);
   left: calc(50% - 30px);
   box-shadow: 0px 10px 13px 1px rgb(87, 84, 84), inset -1px -3px 8px 0px rgb(87, 84, 84);
@@ -524,7 +524,6 @@ apple orange {
   }
 }
 
-
 .tooltip {
   /* opacity: 1;
   visibility: visible; */
@@ -538,3 +537,10 @@ apple orange {
   top: -100px;
 }
 
+.gameboard__table plate  {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}

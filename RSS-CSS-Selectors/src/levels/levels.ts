@@ -78,9 +78,9 @@ export const levels: Level[] = [
   },
   {
     name: "Level 7",
-    toDo: "Select plate and melon",
-    selector: "plate:has(melon), melon",
-    selectorsToSelect: ["plate:has(melon)", "melon"],
+    toDo: "Select only plate with melon",
+    selector: "plate:has(melon)",
+    selectorsToSelect: ["plate:has(melon)"],
     htmlCode: `
 <plate>
   <orange></orange>

@@ -35,6 +35,10 @@ class Game {
   }
 
   loadLevel(levelIndex: number): void {
+    // if (levelIndex === 5) {
+    //   const positionStyle = "absolute";
+    //   .style.setProperty("position", positionStyle);
+    // }
     const level = levels[levelIndex];
     const ruleSelector = level.selector;
 

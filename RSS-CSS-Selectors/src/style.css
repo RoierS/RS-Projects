@@ -544,3 +544,10 @@ apple orange {
   justify-content: center;
   align-items: center;
 }
+
+plate > apple > orange > melon {
+  position: absolute;
+}
+plate > apple > orange {
+  position: absolute;
+}

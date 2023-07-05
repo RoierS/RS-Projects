@@ -457,7 +457,9 @@ apple orange {
   left: 50%;
   top: 50%;
   width: 50%;
+  max-width: 500px;
   height: 30%;
+  padding: 30px;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 100;
@@ -466,11 +468,19 @@ apple orange {
   box-shadow: 2px 3px 4px;
 }
 .modal__content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: space-between;
+  align-items: center;
+  /* height: 80%; */
+  gap: 27px;
   background-color: #fefefe;
   margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
-  max-width: 400px;
+  /* max-width: 400px; */
   text-align: center;
   border-radius: 10px;
 }
@@ -496,12 +506,21 @@ apple orange {
 .new-game-btn {
   margin-top: 10px;
   padding: 5px;
+  border-radius: 5px;
+  background-color: rgb(170, 168, 168);
+}
+
+.new-game-btn:hover {
+  background-color: rgba(170, 168, 168, .7);
 }
 
 /* media  */
 @media (max-width: 600px) {
   .editor-wrapper {
     flex-direction: column;
+  }
+  .editor {
+    width: 100%;
   }
 }
 

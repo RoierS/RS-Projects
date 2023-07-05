@@ -3,6 +3,7 @@ import Prism from "prismjs";
 import "../prismjs/prism.css";
 import { Level } from "../types/types";
 import { levels } from "../levels/levels";
+import { createModal } from "../components/modal";
 
 class Game {
   gameboard: HTMLElement | null;
@@ -101,6 +102,7 @@ class Game {
       if (this.currentLevel === this.levels.length - 1) {
         const modal = document.querySelector(".modal") as HTMLElement | null;
         if (modal) modal.style.display = "block";
+        createModal.call(this);
         return;
       }
 

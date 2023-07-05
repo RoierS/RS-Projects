@@ -64,6 +64,60 @@ class Game {
 
     this.htmlFieldView.innerHTML = `<pre class="line"><code class="language-markup">${highlightedCode}</code></pre>`;
 
+    function createTooltip(element: HTMLElement): HTMLElement {
+      const tooltip = document.createElement("div");
+      tooltip.classList.add("tooltip");
+      if (
+        element.hasAttribute("class") &&
+        element.classList.contains("small")
+      ) {
+        tooltip.textContent = `<${element.tagName.toLowerCase()} class="small"></${element.tagName.toLowerCase()}>`;
+      } else {
+        tooltip.textContent = `<${element.tagName.toLowerCase()}></${element.tagName.toLowerCase()}>`;
+      }
+      element.appendChild(tooltip);
+      return tooltip;
+    }
+
+    const elements = this.gameboard.querySelectorAll<HTMLElement>("*");
+
+    elements.forEach((element) => {
+      element.addEventListener("mouseover", (event) => {
+        event.stopPropagation();
+        const borderStyle = "5px solid rgb(194, 208, 0)";
+        element.style.setProperty("border", borderStyle);
+      });
+
+      element.addEventListener("mouseout", (event) => {
+        event.stopPropagation();
+        element.style.removeProperty("border");
+      });
+    });
+
+    elements.forEach((element) => {
+      let tooltip: HTMLElement | null;
+
+      element.addEventListener("mouseover", (event) => {
+        if (tooltip) {
+          tooltip.style.visibility = "visible";
+          tooltip.style.opacity = "1";
+        } else {
+          tooltip = createTooltip(element);
+          tooltip.style.visibility = "visible";
+          tooltip.style.opacity = "1";
+        }
+        event.stopPropagation();
+      });
+
+      element.addEventListener("mouseout", (event) => {
+        event.stopPropagation();
+        if (tooltip) {
+          tooltip.style.visibility = "hidden";
+          tooltip.style.opacity = "0";
+        }
+      });
+    });
+
     const selectedElements = document.querySelectorAll(ruleSelector);
     selectedElements.forEach((element) => {
       const children = element.querySelectorAll("*");

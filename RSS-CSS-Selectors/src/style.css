@@ -525,4 +525,16 @@ apple orange {
 }
 
 
+.tooltip {
+  /* opacity: 1;
+  visibility: visible; */
+  border-radius: 5px;
+  z-index: 99;
+  position: absolute;
+  padding: 15px;
+  color: #e2dddd;
+  background-color: rgba(128, 87, 21, 0.9);
+  font-size: 24px;
+  top: -100px;
+}
 

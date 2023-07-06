@@ -58,7 +58,7 @@ body {
   padding: 10px 20px;
 }
 
-.help {
+.help-btn {
   display: block;
   text-align: center;
 }
@@ -550,4 +550,23 @@ plate > apple > orange > melon {
 }
 plate > apple > orange {
   position: absolute;
+}
+
+/* help button */
+
+.help-btn {
+  margin: 15px auto;
+  padding: 10px;
+  border-radius: 5px;
+  background: rgba(222, 184, 135);
+  border: 3px solid gray;
+  box-shadow: 0px 0px 3px 5px #c3baba;
+  transition: all 0.8s;
+}
+
+.help-btn:hover {
+  transform: scale(1.02);
+  background: rgba(222, 184, 135, 0.9);
+  border: 3px solid rgb(52, 51, 51);
+  box-shadow: 0px 0px 3px 5px #847e7e;
 }

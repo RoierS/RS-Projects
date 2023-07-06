@@ -16,6 +16,8 @@ class Game {
 
   task: HTMLElement | null;
 
+  helpBtn: HTMLElement | null;
+
   levelsList: HTMLElement | null;
 
   currentLevel: number;
@@ -26,7 +28,7 @@ class Game {
     this.gameboard = document.querySelector(".gameboard__table");
     this.inputCss = document.querySelector(".input-css");
     this.enterBtn = document.querySelector(".enter-btn");
-    this.enterBtn = document.querySelector(".enter-btn");
+    this.helpBtn = document.querySelector(".help-btn");
     this.htmlFieldView = document.querySelector(".html-field__view");
     this.task = document.querySelector(".task");
     this.levelsList = document.querySelector(".levels");
@@ -34,11 +36,24 @@ class Game {
     this.levels = levels;
   }
 
+  showHelp() {
+    this.helpBtn?.addEventListener("click", () => {
+      const { selector } = this.levels[this.currentLevel];
+      const inputCss = this.inputCss as HTMLInputElement;
+      let currentIndex = 0;
+
+      const typeSelector = () => {
+        if (currentIndex < selector.length) {
+          inputCss.value += selector[currentIndex];
+          currentIndex += 1;
+          setTimeout(typeSelector, 100);
+        }
+      };
+      typeSelector();
+    });
+  }
+
   loadLevel(levelIndex: number): void {
-    // if (levelIndex === 5) {
-    //   const positionStyle = "absolute";
-    //   .style.setProperty("position", positionStyle);
-    // }
     const level = levels[levelIndex];
     const ruleSelector = level.selector;
 
@@ -197,10 +212,6 @@ class Game {
   checkWinHandler = (): void => {
     const currentLevel = this.levels[this.currentLevel];
     const correctSelector = currentLevel.selector;
-
-    console.log(currentLevel);
-    console.log(correctSelector);
-
     this.checkWin(correctSelector);
   };
 
@@ -210,6 +221,7 @@ class Game {
 
   initGame(): void {
     this.loadLevel(this.currentLevel);
+    this.showHelp();
   }
 }
 

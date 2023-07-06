@@ -295,6 +295,7 @@ class Game {
 
   levelLinkClickHandler(levelIndex: number): void {
     this.loadLevel(levelIndex);
+    this.saveProgress();
   }
 
   resetProgress(): void {

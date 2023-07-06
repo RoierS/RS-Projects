@@ -14,6 +14,7 @@ export function createModal(this: Game): void {
 
   newGameBtn?.addEventListener("click", () => {
     if (!modal) return;
+    this.resetProgress();
     modal.style.display = "none";
     this.levelLinkClickHandler(0);
   });

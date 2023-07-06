@@ -38,7 +38,7 @@ body {
 
 /* Main */
 .main {
-  width: calc(100% - 20px);
+  width: 100%;
   display: flex;
   flex-wrap: nowrap;
 }
@@ -275,6 +275,31 @@ pre {
   position: absolute;
   transform: translateY(-50%);
 }
+.info-finished, .info-finished-hint {
+  position: relative;
+  align-self: flex-start;
+  padding-left: 20px;
+  color: antiquewhite;
+  margin-bottom: 8px;
+}
+
+.info-finished::before {
+  content: "✓";
+  color: green;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.info-finished-hint::after {
+  content: "ⓘ";
+  color: orange;
+  left: 0;
+  top: 50%;
+  position: absolute;
+  transform: translateY(-50%);
+}
 
 .reset-btn {
   background-color:rgb(231, 160, 7);
@@ -328,8 +353,8 @@ footer .copyright:before {
 
 /* styles for table elements */
 plate {
-  width: 130px;
-  height: 130px;
+  width: 115px;
+  height: 115px;
   background: white;
   border-radius: 100px;
   position: relative;
@@ -351,8 +376,8 @@ plate:before {
 } 
 
 apple, orange {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background: rgb(193, 13, 13);
   border-radius: 50px;
   /* position: absolute; */
@@ -523,6 +548,9 @@ apple orange {
 
 /* media  */
 @media (max-width: 600px) {
+  .wrapper {
+    padding: 4px;
+  }
   .editor-wrapper {
     flex-direction: column;
   }
@@ -532,8 +560,6 @@ apple orange {
 }
 
 .tooltip {
-  /* opacity: 1;
-  visibility: visible; */
   border-radius: 5px;
   z-index: 99;
   position: absolute;

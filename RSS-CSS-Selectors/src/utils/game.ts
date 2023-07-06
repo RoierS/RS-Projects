@@ -117,7 +117,12 @@ class Game {
   }
 
   loadLevel(levelIndex: number): void {
-    const level = levels[levelIndex];
+    let currentIndex = levelIndex;
+    if (currentIndex < 0 || currentIndex >= levels.length) {
+      currentIndex = 0;
+    }
+
+    const level = levels[currentIndex];
     const ruleSelector = level.selector;
 
     if (
@@ -125,7 +130,9 @@ class Game {
       !this.htmlFieldView ||
       !this.task ||
       !this.inputCss ||
-      !this.levelsList
+      !this.levelsList ||
+      !level ||
+      !level.selector
     )
       return;
 
@@ -214,7 +221,7 @@ class Game {
       listItem.classList.add("level-name");
       listItem.textContent = lvl.name;
 
-      if (index === levelIndex) {
+      if (index === currentIndex) {
         listItem.classList.add("current-level");
       }
 
@@ -236,7 +243,7 @@ class Game {
     this.enterBtn?.removeEventListener("click", this.checkWinHandler);
     this.enterBtn?.addEventListener("click", this.checkWinHandler);
 
-    this.currentLevel = levelIndex;
+    this.currentLevel = currentIndex;
   }
 
   checkWin(correctSelector: string): void {
@@ -246,18 +253,27 @@ class Game {
     const allCompleted = Array.from(listItemElements).every((el) =>
       el.classList.contains("completed")
     );
-
-    if (enteredSelector === correctSelector || allCompleted) {
-      if (this.currentLevel === this.levels.length - 1) {
-        const modal = document.querySelector(".modal") as HTMLElement | null;
-        if (modal) modal.style.display = "block";
+    if (allCompleted) {
+      const modal = document.querySelector(".modal") as HTMLElement | null;
+      if (modal) {
+        modal.style.display = "block";
         createModal.call(this);
-        return;
       }
+      return;
+    }
+
+    if (enteredSelector === correctSelector) {
+      // if (this.currentLevel === this.levels.length - 1) {
+      //   const modal = document.querySelector(".modal") as HTMLElement | null;
+      //   if (modal) modal.style.display = "block";
+      //   createModal.call(this);
+      //   return;
+      // }
       this.isLevelCompleted[this.currentLevel] = true;
       this.isLevelCompletedWithHint[this.currentLevel] = true;
       this.saveProgress();
       this.currentLevel += 1;
+
       selectMeElements.forEach((element) => {
         element.classList.add("win-animation");
         element.addEventListener(
@@ -268,6 +284,7 @@ class Game {
           { once: true }
         );
       });
+
       setTimeout(() => {
         this.loadLevel(this.currentLevel);
       }, 1000);

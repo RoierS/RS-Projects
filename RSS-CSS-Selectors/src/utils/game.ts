@@ -18,22 +18,85 @@ class Game {
 
   helpBtn: HTMLElement | null;
 
+  resetBtn: HTMLElement | null;
+
   levelsList: HTMLElement | null;
 
   currentLevel: number;
 
   levels: Level[];
 
+  isLevelCompleted: boolean[];
+
+  isLevelCompletedWithHint: boolean[];
+
   constructor() {
     this.gameboard = document.querySelector(".gameboard__table");
     this.inputCss = document.querySelector(".input-css");
     this.enterBtn = document.querySelector(".enter-btn");
     this.helpBtn = document.querySelector(".help-btn");
+    this.resetBtn = document.querySelector(".reset-btn");
     this.htmlFieldView = document.querySelector(".html-field__view");
     this.task = document.querySelector(".task");
     this.levelsList = document.querySelector(".levels");
-    this.currentLevel = 0;
+    this.currentLevel = parseInt(
+      localStorage.getItem("currentLevel") || "0",
+      10
+    );
     this.levels = levels;
+    this.isLevelCompleted = JSON.parse(
+      localStorage.getItem("isLevelCompleted") || "[]"
+    );
+    this.isLevelCompletedWithHint = JSON.parse(
+      localStorage.getItem("isLevelCompletedWithHint") || "[]"
+    );
+  }
+
+  saveProgress(): void {
+    localStorage.setItem("currentLevel", this.currentLevel.toString());
+    localStorage.setItem(
+      "isLevelCompleted",
+      JSON.stringify(this.isLevelCompleted)
+    );
+    localStorage.setItem(
+      "isLevelCompletedWithHint",
+      JSON.stringify(this.isLevelCompletedWithHint)
+    );
+  }
+
+  loadSavedProgress(): void {
+    const savedCurrentLevel = parseInt(
+      localStorage.getItem("currentLevel") || "0",
+      10
+    );
+
+    if (
+      !Number.isNaN(savedCurrentLevel) &&
+      savedCurrentLevel >= 0 &&
+      savedCurrentLevel < levels.length
+    ) {
+      this.currentLevel = savedCurrentLevel;
+    }
+
+    const savedIsLevelCompleted = JSON.parse(
+      localStorage.getItem("isLevelCompleted") || "[]"
+    );
+    if (
+      Array.isArray(savedIsLevelCompleted) &&
+      savedIsLevelCompleted.length === levels.length
+    ) {
+      this.isLevelCompleted = savedIsLevelCompleted;
+    }
+
+    const savedIsLevelCompletedWithHint = JSON.parse(
+      localStorage.getItem("isLevelCompletedWithHint") || "[]"
+    );
+    if (
+      Array.isArray(savedIsLevelCompletedWithHint) &&
+      savedIsLevelCompletedWithHint.length === levels.length
+    ) {
+      this.isLevelCompletedWithHint = savedIsLevelCompletedWithHint;
+    }
   }
 
   showHelp() {
@@ -155,6 +218,14 @@ class Game {
         listItem.classList.add("current-level");
       }
 
+      if (this.isLevelCompleted[index]) {
+        listItem.classList.add("completed");
+      }
+
+      if (this.isLevelCompletedWithHint[index]) {
+        listItem.classList.add("completed-with-hint");
+      }
+
       listItem.addEventListener("click", () => {
         this.levelLinkClickHandler(index);
       });
@@ -171,14 +242,21 @@ class Game {
   checkWin(correctSelector: string): void {
     const enteredSelector = this.inputCss?.value;
     const selectMeElements = document.querySelectorAll(".selectMe");
-    if (enteredSelector === correctSelector) {
+    const listItemElements = document.querySelectorAll(".level-name");
+    const allCompleted = Array.from(listItemElements).every((el) =>
+      el.classList.contains("completed")
+    );
+
+    if (enteredSelector === correctSelector || allCompleted) {
       if (this.currentLevel === this.levels.length - 1) {
         const modal = document.querySelector(".modal") as HTMLElement | null;
         if (modal) modal.style.display = "block";
         createModal.call(this);
         return;
       }
-
+      this.isLevelCompleted[this.currentLevel] = true;
+      this.isLevelCompletedWithHint[this.currentLevel] = true;
+      this.saveProgress();
       this.currentLevel += 1;
       selectMeElements.forEach((element) => {
         element.classList.add("win-animation");
@@ -219,9 +297,21 @@ class Game {
     this.loadLevel(levelIndex);
   }
 
+  resetProgress(): void {
+    this.currentLevel = 0;
+    this.isLevelCompleted = new Array(levels.length).fill(false);
+    this.isLevelCompletedWithHint = new Array(levels.length).fill(false);
+    this.saveProgress();
+    this.loadLevel(this.currentLevel);
+  }
+
   initGame(): void {
+    this.loadSavedProgress();
     this.loadLevel(this.currentLevel);
     this.showHelp();
+    this.resetBtn?.addEventListener("click", () => {
+      this.resetProgress();
+    });
   }
 }
 

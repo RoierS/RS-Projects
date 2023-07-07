@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require("path");
 const { merge } = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
@@ -8,20 +8,20 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const baseConfig = {
   entry: path.resolve(__dirname, "src/main.ts"),
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: "ts-loader",
         exclude: /node_modules/,
       },
       {
         test: /\.js$/,
-        use: 'eslint-loader',
-        enforce: 'pre',
+        use: "eslint-loader",
+        enforce: "pre",
         exclude: /node_modules/,
       },
       {
@@ -35,11 +35,11 @@ const baseConfig = {
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: [".tsx", ".ts", ".js"],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'src', 'index.html'),
+      template: path.resolve(__dirname, "src", "index.html"),
       filename: "index.html",
     }),
     new CleanWebpackPlugin(),
@@ -47,7 +47,7 @@ const baseConfig = {
     new CopyWebpackPlugin({
       patterns: [{ from: "./src/assets", to: "assets" }],
     }),
-  ]
+  ],
 };
 
 module.exports = ({ mode }) => {

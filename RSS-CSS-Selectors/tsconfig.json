@@ -13,5 +13,13 @@
       "*": ["node_modules/*"],
       "@levels/*": ["src/types/*"]
     }
-  }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/tests/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

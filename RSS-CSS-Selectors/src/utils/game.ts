@@ -65,7 +65,7 @@ class Game {
   }
 
   loadSavedProgress(): void {
-    const savedCurrentLevel = parseInt(
+    const savedCurrentLevel: number = parseInt(
       localStorage.getItem("currentLevel") || "0",
       10
     );
@@ -78,7 +78,7 @@ class Game {
       this.currentLevel = savedCurrentLevel;
     }
 
-    const savedIsLevelCompleted = JSON.parse(
+    const savedIsLevelCompleted: boolean[] = JSON.parse(
       localStorage.getItem("isLevelCompleted") || "[]"
     );
     if (
@@ -88,7 +88,7 @@ class Game {
       this.isLevelCompleted = savedIsLevelCompleted;
     }
 
-    const savedIsLevelCompletedWithHint = JSON.parse(
+    const savedIsLevelCompletedWithHint: boolean[] = JSON.parse(
       localStorage.getItem("isLevelCompletedWithHint") || "[]"
     );
     if (
@@ -99,13 +99,13 @@ class Game {
     }
   }
 
-  showHelp() {
+  showHelp(): void {
     this.helpBtn?.addEventListener("click", () => {
-      const { selector } = this.levels[this.currentLevel];
+      const { selector }: { selector: string } = this.levels[this.currentLevel];
       const inputCss = this.inputCss as HTMLInputElement;
       let currentIndex = 0;
 
-      const typeSelector = () => {
+      const typeSelector = (): void => {
         if (currentIndex < selector.length) {
           inputCss.value += selector[currentIndex];
           currentIndex += 1;
@@ -117,13 +117,13 @@ class Game {
   }
 
   loadLevel(levelIndex: number): void {
-    let currentIndex = levelIndex;
+    let currentIndex: number = levelIndex;
     if (currentIndex < 0 || currentIndex >= levels.length) {
       currentIndex = 0;
     }
 
-    const level = levels[currentIndex];
-    const ruleSelector = level.selector;
+    const level: Level = levels[currentIndex];
+    const ruleSelector: string = level.selector;
 
     if (
       !this.gameboard ||
@@ -144,8 +144,8 @@ class Game {
     this.task.innerText = level.toDo;
     this.gameboard.innerHTML = level.htmlCode;
 
-    const codeLines = level.htmlCode;
-    const highlightedCode = Prism.highlight(
+    const codeLines: string = level.htmlCode;
+    const highlightedCode: string = Prism.highlight(
       codeLines,
       Prism.languages.markup,
       "markup"
@@ -154,7 +154,7 @@ class Game {
     this.htmlFieldView.innerHTML = `<pre class="line"><code class="language-markup">${highlightedCode}</code></pre>`;
 
     function createTooltip(element: HTMLElement): HTMLElement {
-      const tooltip = document.createElement("div");
+      const tooltip: HTMLElement = document.createElement("div");
       tooltip.classList.add("tooltip");
       if (
         element.hasAttribute("class") &&
@@ -168,7 +168,8 @@ class Game {
       return tooltip;
     }
 
-    const elements = this.gameboard.querySelectorAll<HTMLElement>("*");
+    const elements: NodeListOf<HTMLElement> =
+      this.gameboard.querySelectorAll<HTMLElement>("*");
 
     elements.forEach((element) => {
       element.addEventListener("mouseover", (event) => {
@@ -207,9 +208,10 @@ class Game {
       });
     });
 
-    const selectedElements = document.querySelectorAll(ruleSelector);
+    const selectedElements: NodeListOf<Element> =
+      document.querySelectorAll(ruleSelector);
     selectedElements.forEach((element) => {
-      const children = element.querySelectorAll("*");
+      const children: NodeListOf<Element> = element.querySelectorAll("*");
       children.forEach((child) => {
         child.classList.add("selectMe");
       });
@@ -217,7 +219,7 @@ class Game {
     });
 
     levels.forEach((lvl, index) => {
-      const listItem = document.createElement("li");
+      const listItem: HTMLElement = document.createElement("li");
       listItem.classList.add("level-name");
       listItem.textContent = lvl.name;
 
@@ -247,28 +249,29 @@ class Game {
   }
 
   checkWin(correctSelector: string): void {
-    const enteredSelector = this.inputCss?.value;
-    const selectMeElements = document.querySelectorAll(".selectMe");
-    const listItemElements = document.querySelectorAll(".level-name");
-    const allCompleted = Array.from(listItemElements).every((el) =>
+    const enteredSelector: string | undefined = this.inputCss?.value;
+    const selectMeElements: NodeListOf<Element> =
+      document.querySelectorAll(".selectMe");
+    const listItemElements: NodeListOf<Element> =
+      document.querySelectorAll(".level-name");
+    const allCompleted: boolean = Array.from(listItemElements).every((el) =>
       el.classList.contains("completed")
     );
-    if (allCompleted) {
-      const modal = document.querySelector(".modal") as HTMLElement | null;
-      if (modal) {
-        modal.style.display = "block";
-        createModal.call(this);
-      }
-      return;
-    }
 
     if (enteredSelector === correctSelector) {
-      // if (this.currentLevel === this.levels.length - 1) {
-      //   const modal = document.querySelector(".modal") as HTMLElement | null;
-      //   if (modal) modal.style.display = "block";
-      //   createModal.call(this);
-      //   return;
-      // }
+      const modal: HTMLElement | null = document.querySelector(".modal");
+      if (allCompleted) {
+        if (modal) {
+          modal.style.display = "block";
+          createModal.call(this);
+        }
+        return;
+      }
+      if (this.currentLevel === this.levels.length - 1 && allCompleted) {
+        if (modal) modal.style.display = "block";
+        createModal.call(this);
+        return;
+      }
       this.isLevelCompleted[this.currentLevel] = true;
       this.isLevelCompletedWithHint[this.currentLevel] = true;
       this.saveProgress();
@@ -305,8 +308,8 @@ class Game {
   }
 
   checkWinHandler = (): void => {
-    const currentLevel = this.levels[this.currentLevel];
-    const correctSelector = currentLevel.selector;
+    const currentLevel: Level = this.levels[this.currentLevel];
+    const correctSelector: string = currentLevel.selector;
     this.checkWin(correctSelector);
   };
 
@@ -317,8 +320,10 @@ class Game {
 
   resetProgress(): void {
     this.currentLevel = 0;
-    this.isLevelCompleted = new Array(levels.length).fill(false);
-    this.isLevelCompletedWithHint = new Array(levels.length).fill(false);
+    this.isLevelCompleted = new Array<boolean>(levels.length).fill(false);
+    this.isLevelCompletedWithHint = new Array<boolean>(levels.length).fill(
+      false
+    );
     this.saveProgress();
     this.loadLevel(this.currentLevel);
   }

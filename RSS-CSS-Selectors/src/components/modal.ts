@@ -1,11 +1,10 @@
 import { Game } from "../utils/game";
 
-export function createModal(this: Game): void {
-  const modal = document.querySelector(".modal") as HTMLElement | null;
-  const closeBtn = document.querySelector(".close") as HTMLElement | null;
-  const newGameBtn = document.querySelector(
-    ".new-game-btn"
-  ) as HTMLElement | null;
+export function createModal<T extends Game>(this: T): void {
+  const modal: HTMLElement | null = document.querySelector(".modal");
+  const closeBtn: HTMLElement | null = document.querySelector(".close");
+  const newGameBtn: HTMLElement | null =
+    document.querySelector(".new-game-btn");
 
   closeBtn?.addEventListener("click", () => {
     if (!modal) return;

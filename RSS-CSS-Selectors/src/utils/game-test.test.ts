@@ -6,7 +6,7 @@ describe("Game", () => {
 
   beforeEach(() => {
     game = new Game();
-
+    game.helpBtn = document.createElement("button");
     localStorageMock = {};
 
     Object.defineProperty(window, "localStorage", {
@@ -21,6 +21,11 @@ describe("Game", () => {
       },
       writable: true,
     });
+    game.loadSavedProgress();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   describe("saveProgress", () => {
@@ -33,6 +38,39 @@ describe("Game", () => {
       );
       expect(localStorageMock.isLevelCompletedWithHint).toBe(
         JSON.stringify(game.isLevelCompletedWithHint)
+      );
+    });
+  });
+
+  // describe("loadSavedProgress", () => {
+  //   test("should load current level, isLevelCompleted, and isLevelCompletedWithHint from local storage", () => {
+  //     // localStorageMock.currentLevel = "2";
+  //     console.log(localStorageMock.currentLevel);
+  //     console.log(game.currentLevel);
+  //     localStorageMock.isLevelCompleted = JSON.stringify([true, false, true]);
+  //     localStorageMock.isLevelCompletedWithHint = JSON.stringify([
+  //       false,
+  //       true,
+  //       true,
+  //     ]);
+  //     game.saveProgress();
+
+  //     // expect(game.currentLevel).toBe(2);
+  //     expect(game.isLevelCompleted).toEqual([true, false, true]);
+  //     expect(game.isLevelCompletedWithHint).toEqual([false, true, true]);
+  //   });
+  // });
+
+  describe("showHelp", () => {
+    test("should add event listener to helpBtn", () => {
+      const addEventListenerMock = jest.spyOn(
+        game.helpBtn as HTMLElement,
+        "addEventListener"
+      );
+      game.showHelp();
+      expect(addEventListenerMock).toHaveBeenCalledWith(
+        "click",
+        expect.any(Function)
       );
     });
   });

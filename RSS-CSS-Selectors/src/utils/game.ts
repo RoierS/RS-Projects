@@ -100,20 +100,23 @@ class Game {
   }
 
   showHelp(): void {
-    this.helpBtn?.addEventListener("click", () => {
-      const { selector }: { selector: string } = this.levels[this.currentLevel];
-      const inputCss = this.inputCss as HTMLInputElement;
-      let currentIndex = 0;
+    if (this.helpBtn) {
+      this.helpBtn.addEventListener("click", () => {
+        const { selector }: { selector: string } =
+          this.levels[this.currentLevel];
+        const inputCss = this.inputCss as HTMLInputElement;
+        let currentIndex = 0;
 
-      const typeSelector = (): void => {
-        if (currentIndex < selector.length) {
-          inputCss.value += selector[currentIndex];
-          currentIndex += 1;
-          setTimeout(typeSelector, 100);
-        }
-      };
-      typeSelector();
-    });
+        const typeSelector = (): void => {
+          if (currentIndex < selector.length) {
+            inputCss.value += selector[currentIndex];
+            currentIndex += 1;
+            setTimeout(typeSelector, 100);
+          }
+        };
+        typeSelector();
+      });
+    }
   }
 
   loadLevel(levelIndex: number): void {

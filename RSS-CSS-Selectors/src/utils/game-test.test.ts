@@ -7,6 +7,11 @@ describe("Game", () => {
   beforeEach(() => {
     game = new Game();
     game.helpBtn = document.createElement("button");
+    document.body.innerHTML = `
+      <div class="gameboard__table"></div>
+      <input class="input-css" type="text" />
+      <button class="enter-btn"></button>
+    `;
     localStorageMock = {};
 
     Object.defineProperty(window, "localStorage", {
@@ -26,6 +31,7 @@ describe("Game", () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+    document.body.innerHTML = "";
   });
 
   describe("saveProgress", () => {
@@ -42,25 +48,6 @@ describe("Game", () => {
     });
   });
 
-  // describe("loadSavedProgress", () => {
-  //   test("should load current level, isLevelCompleted, and isLevelCompletedWithHint from local storage", () => {
-  //     // localStorageMock.currentLevel = "2";
-  //     console.log(localStorageMock.currentLevel);
-  //     console.log(game.currentLevel);
-  //     localStorageMock.isLevelCompleted = JSON.stringify([true, false, true]);
-  //     localStorageMock.isLevelCompletedWithHint = JSON.stringify([
-  //       false,
-  //       true,
-  //       true,
-  //     ]);
-  //     game.saveProgress();
-
-  //     // expect(game.currentLevel).toBe(2);
-  //     expect(game.isLevelCompleted).toEqual([true, false, true]);
-  //     expect(game.isLevelCompletedWithHint).toEqual([false, true, true]);
-  //   });
-  // });
-
   describe("showHelp", () => {
     test("should add event listener to helpBtn", () => {
       const addEventListenerMock = jest.spyOn(
@@ -72,6 +59,49 @@ describe("Game", () => {
         "click",
         expect.any(Function)
       );
+    });
+  });
+
+  describe("checkWin", () => {
+    test("should handle a correct selector and advance to the next level", () => {
+      game.currentLevel = 0;
+      game.levels = [
+        {
+          name: "Level 1",
+          toDo: "Select the plates",
+          selector: "plate",
+          selectorsToSelect: ["plate"],
+          htmlCode: `
+            <plate></plate>
+            <plate></plate>
+          `,
+        },
+        {
+          name: "Level 2",
+          toDo: "Select the apple on the plate",
+          selector: "plate apple",
+          selectorsToSelect: ["apple"],
+          htmlCode: `
+            <plate>
+              <apple></apple>
+            </plate>
+            `,
+        },
+      ];
+      game.inputCss = document.querySelector(".input-css");
+      if (!game.inputCss) return;
+      game.inputCss.value = "plate";
+
+      document.body.innerHTML += `
+        <plate></plate>
+        <li class="level-name"></li>
+      `;
+
+      game.checkWin("plate");
+
+      expect(game.currentLevel).toBe(1);
+      expect(game.isLevelCompleted[0]).toBe(true);
+      expect(game.isLevelCompletedWithHint[0]).toBe(true);
     });
   });
 });

@@ -108,4 +108,27 @@ describe("Game", () => {
       expect(game.isLevelCompletedWithHint[0]).toBe(true);
     });
   });
+
+  describe("checkWinHandler", () => {
+    test("should call checkWin method with correct selector", () => {
+      game.currentLevel = 1;
+      game.checkWin = jest.fn();
+      game.checkWinHandler();
+
+      expect(game.checkWin).toHaveBeenCalledWith("plate apple");
+    });
+  });
+
+  describe("levelLinkClickHandler", () => {
+    test("should call loadLevel and saveProgress methods with the correct level index", () => {
+      game.loadLevel = jest.fn();
+      game.saveProgress = jest.fn();
+      const levelIndex = 2;
+
+      game.levelLinkClickHandler(levelIndex);
+
+      expect(game.loadLevel).toHaveBeenCalledWith(levelIndex);
+      expect(game.saveProgress).toHaveBeenCalled();
+    });
+  });
 });

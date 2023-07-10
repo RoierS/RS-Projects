@@ -131,4 +131,26 @@ describe("Game", () => {
       expect(game.saveProgress).toHaveBeenCalled();
     });
   });
+
+  describe("loadLevel", () => {
+    it("should load the specified level", () => {
+      const levelIndex = 0;
+      const level = game.levels[levelIndex];
+
+      game.loadLevel(levelIndex);
+      const gameboard = document.querySelector("gameboard__table");
+      const htmlFieldView = document.querySelector("html-field__view");
+      game.inputCss = document.querySelector(".input-css");
+      const levelList = document.querySelector(".levels");
+      const task = document.querySelector(".task");
+      if (!gameboard || !htmlFieldView || !game.inputCss || !levelList || !task)
+        return;
+
+      expect(gameboard.innerHTML).toBe(level.htmlCode);
+      expect(htmlFieldView.innerHTML).toContain(level.htmlCode);
+      expect(game.inputCss.value).toBe("");
+      expect(levelList.innerHTML).toContain(level.name);
+      expect(task.textContent).toBe(level.toDo);
+    });
+  });
 });

@@ -1,4 +1,4 @@
-import { Game } from "../utils/game";
+import { Game } from "../../utils/game";
 import { createModal } from "./modal";
 
 describe("createModal", () => {

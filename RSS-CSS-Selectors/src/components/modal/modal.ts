@@ -1,4 +1,4 @@
-import { Game } from "../utils/game";
+import { Game } from "../../utils/game";
 
 export function createModal<T extends Game>(this: T): void {
   const modal: HTMLElement | null = document.querySelector(".modal");

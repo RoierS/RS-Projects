@@ -10,8 +10,35 @@ describe("Game", () => {
     document.body.innerHTML = `
       <div class="gameboard__table"></div>
       <input class="input-css" type="text" />
+      <div class="html-field__view"></div>
+      <div class="task"></div>
       <button class="enter-btn"></button>
+      <div class="gameboard__table></div>">
+      <ul class="levels"></ul>
     `;
+    game.levels = [
+      {
+        name: "Level 1",
+        toDo: "Select the plates",
+        selector: "plate",
+        selectorsToSelect: ["plate"],
+        htmlCode: `
+          <plate></plate>
+          <plate></plate>
+        `,
+      },
+      {
+        name: "Level 2",
+        toDo: "Select the apple on the plate",
+        selector: "plate apple",
+        selectorsToSelect: ["apple"],
+        htmlCode: `
+          <plate>
+            <apple></apple>
+          </plate>
+          `,
+      },
+    ];
     localStorageMock = {};
 
     Object.defineProperty(window, "localStorage", {
@@ -65,29 +92,6 @@ describe("Game", () => {
   describe("checkWin", () => {
     test("should handle a correct selector and advance to the next level", () => {
       game.currentLevel = 0;
-      game.levels = [
-        {
-          name: "Level 1",
-          toDo: "Select the plates",
-          selector: "plate",
-          selectorsToSelect: ["plate"],
-          htmlCode: `
-            <plate></plate>
-            <plate></plate>
-          `,
-        },
-        {
-          name: "Level 2",
-          toDo: "Select the apple on the plate",
-          selector: "plate apple",
-          selectorsToSelect: ["apple"],
-          htmlCode: `
-            <plate>
-              <apple></apple>
-            </plate>
-            `,
-        },
-      ];
       game.inputCss = document.querySelector(".input-css");
       if (!game.inputCss) return;
       game.inputCss.value = "plate";

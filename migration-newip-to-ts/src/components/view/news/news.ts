@@ -1,5 +1,6 @@
 import "./news.css";
 import { NewsItem } from "../../../types/index";
+import newsPlaceholderImage from "../../../assets/img/news-placeholder.png";
 
 class News {
   public draw(data: NewsItem[]): void {
@@ -30,7 +31,7 @@ class News {
       );
       if (metaPhoto) {
         metaPhoto.style.backgroundImage = `url(${
-          item.urlToImage || "../../../assets/img/news-placeholder.png"
+          item.urlToImage || newsPlaceholderImage
         })`;
       }
 

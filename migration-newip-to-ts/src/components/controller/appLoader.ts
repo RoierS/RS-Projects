@@ -10,7 +10,7 @@ class AppLoader extends Loader {
       apiKey: "437ed32951354fc0b63df437b21af3d9",
     };
 
-    super("https://newsapi.org/v2/", options);
+    super("https://rss-news-api.onrender.com/", options);
   }
 }
 

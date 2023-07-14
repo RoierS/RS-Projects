@@ -3,8 +3,8 @@ import { Article, AppView } from "../view/appView";
 import Sources, { Source } from "../view/sources/sources";
 
 interface DataArticles {
-  articles?: Article[] | undefined;
-  sources?: Source[] | undefined;
+  articles?: Article[];
+  sources?: Source[];
 }
 class App {
   private controller: AppController<DataArticles>;
@@ -37,7 +37,7 @@ class App {
 
     this.controller.getSources((data: DataArticles) => {
       this.view.drawSources(data);
-      this.sources.draw(data.sources ?? []);
+      this.sources.draw(data.sources || []);
     });
   }
 }

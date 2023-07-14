@@ -1,7 +1,3 @@
-enum HttpMethod {
-  GET = "GET",
-}
-
 export interface LoaderOptions {
   [data: string]: string;
 }
@@ -25,7 +21,7 @@ class Loader {
       console.error("No callback for GET response");
     }
   ): void {
-    this.load(HttpMethod.GET, endpoint, callback, options);
+    this.load("GET", endpoint, callback, options);
   }
 
   private errorHandler(res: Response): Response {
@@ -52,7 +48,7 @@ class Loader {
   }
 
   private load<T>(
-    method: HttpMethod,
+    method: "GET",
     endpoint: string,
     callback: LoaderCallBack<T>,
     options: LoaderOptions = {}

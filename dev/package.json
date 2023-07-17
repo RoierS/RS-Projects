@@ -1,0 +1,12 @@
+{
+  "name": "async-race",
+  "version": "1.0.0",
+  "description": "async-race task for RS school",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Roman Iermoliuk",
+  "license": "ISC"
+}

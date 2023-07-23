@@ -1,14 +1,22 @@
 import "./style.css";
-import {
-  // getCars,
-  getCar,
-  // createCar,
-  // updateCar,
-  // deleteCar,
-  // deleteAllCars,
-  startStopCarEngine,
-  switchCarEngineToDriveMode,
-} from "./api/api";
+
+import { displayGarage } from "./views/garage/garage";
+import Header from "./views/header/header";
+
+const header = new Header();
+header.render();
+
+displayGarage();
+// import {
+//   // getCars,
+//   // getCar,
+//   // createCar,
+//   // updateCar,
+// // deleteCar,
+//   // deleteAllCars,
+//   // startStopCarEngine,
+//   // switchCarEngineToDriveMode,
+// } from "./api/api";
 
 // const someCar = {
 //   name: "Mamba",
@@ -21,10 +29,10 @@ import {
 
 // createCar(someCar);
 // updateCar(8, newCar);
-getCar(3);
+// getCar(3);
 // deleteAllCars();
 // getCars();
 
 // getCars().then((data) => console.log(data));
-startStopCarEngine(2, "started");
-switchCarEngineToDriveMode(2);
+// startStopCarEngine(2, "started");
+// switchCarEngineToDriveMode(2);

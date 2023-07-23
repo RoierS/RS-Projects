@@ -1,4 +1,23 @@
-div {
-  width: 50px;
-  background-image: url(./assets/img/sportscar-bw.svg);
-}
+/* .car-item::before {
+  content: url('./assets/img/car-img.svg');
+  width: 200px;
+  height: 100%;
+  position: absolute;
+  transform: scaleX(-1);
+  background: bisque;
+} */
+/* 
+.car-item {
+  list-style-type: none;
+  position: relative;
+  padding: 0.5em 0.5em 0.5em 2em;
+} */
+/* .car-list {
+  display: flex;
+  gap: 10px;
+  flex-flow: column nowrap;
+} */
+
+/* .car-item {
+  background-image: url(./assets/img/car-img.svg);
+} */

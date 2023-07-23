@@ -1,23 +1,17 @@
-/* .car-item::before {
-  content: url('./assets/img/car-img.svg');
-  width: 200px;
-  height: 100%;
-  position: absolute;
+.car-image {
   transform: scaleX(-1);
-  background: bisque;
-} */
-/* 
-.car-item {
-  list-style-type: none;
-  position: relative;
-  padding: 0.5em 0.5em 0.5em 2em;
-} */
-/* .car-list {
-  display: flex;
-  gap: 10px;
-  flex-flow: column nowrap;
-} */
+  width: 200px;
+}
 
-/* .car-item {
-  background-image: url(./assets/img/car-img.svg);
-} */
+.flag-image {
+  position: absolute;
+  top: 50%;
+  right: 190px;
+  width: 66px;
+  transform: translateY(-50%);
+}
+
+.car-block__track {
+  position: relative;
+  background-color: rgb(204, 211, 224);
+}

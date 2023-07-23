@@ -1,4 +1,4 @@
-import { createNewElement } from "../../components/createNewElement";
+import { createNewElement } from "../../utils/createNewElement";
 
 class Header {
   header: HTMLElement | null;

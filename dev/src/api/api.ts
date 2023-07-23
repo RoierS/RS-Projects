@@ -11,62 +11,59 @@ enum HttpMethod {
   PATCH = "PATCH",
 }
 
-async function request<T>(
+export async function request<T>(
   url: string,
   method: string = HttpMethod.GET,
   body: object | null = null,
 ): Promise<T> {
-  try {
-    const options: RequestInit = {
-      method,
-      headers: {
-        "Content-Type": "application/json",
-        "X-Total-Count": "4",
-      },
-    };
 
-    if (body) {
-      options.body = JSON.stringify(body);
-    }
-    const response = await fetch(`${BASE_URL}${url}`, options);
+  const options: RequestInit = {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      "X-Total-Count": "4",
+    },
+  };
 
-    if (!response.ok) {
-      if (response.status === 429) {
-        throw new Error("Too many requests. Please try again later.");
-      } else {
-        throw new Error(`Request failed. Status: ${response.status}`);
-      }
-    }
-
-    const data: T = await response.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw error;
+  if (body) {
+    options.body = JSON.stringify(body);
   }
+  const response = await fetch(`${BASE_URL}${url}`, options);
+
+  if (!response.ok) {
+    if (response.status === 429) {
+      throw new Error("Too many requests. Please try again later.");
+    } else if (response.status === 500) {
+      throw new Error(
+        "Car has been stopped suddenly. It's engine was broken down.",
+      );
+    } else {
+      throw new Error(`Request failed. Status: ${response.status}`);
+    }
+  }
+
+  const data: T = await response.json();
+  return data;
 }
 
-export async function getCars(page = 1, limit = 10): Promise<Car[]> {
+export async function getCars(page = 1, limit = 7): Promise<Car[]> {
   const data: Car[] = await request(`/garage?_page=${page}&_limit=${limit}`);
-  // console.log(data);
+  console.log(data);
   return data;
 }
 
 export async function getCar(carId: number): Promise<Car> {
   const data: Car = await request(`/garage/${carId}`, HttpMethod.GET);
-  // console.log(data);
   return data;
 }
 
 export async function createCar(car: Car): Promise<Car> {
   const data: Car = await request(`/garage`, HttpMethod.POST, car);
-  // console.log(data);
   return data;
 }
 
 export async function updateCar(carId: number, car: Car): Promise<Car> {
   const data: Car = await request(`/garage/${carId}`, HttpMethod.PUT, car);
-  // console.log(data);
   return data;
 }
 
@@ -77,6 +74,8 @@ export async function deleteCar(carId: number): Promise<void> {
 export async function deleteAllCars(): Promise<void> {
   try {
     const cars = await getCars();
+    console.log(cars);
+    console.log(cars.length);
 
     if (cars.length > 4) {
       const excessCars = cars.slice(4);
@@ -109,10 +108,18 @@ export async function startStopCarEngine(
 
 export async function switchCarEngineToDriveMode(
   carId: number,
-): Promise<{ success: boolean }> {
-  const data = await request<{ success: boolean }>(
-    `/engine?id=${carId}&status=drive`,
-    HttpMethod.PATCH,
-  );
-  return data;
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const data = await request<{ success: boolean }>(
+      `/engine?id=${carId}&status=drive`,
+      HttpMethod.PATCH,
+    );
+    return data;
+  } catch (error) {
+    console.log("Car has been stopped suddenly. It's engine was broken down.");
+    return {
+      success: false,
+      error: "Car has been stopped suddenly. It's engine was broken down.",
+    };
+  }
 }

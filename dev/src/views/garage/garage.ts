@@ -45,6 +45,8 @@ class Garage {
 
   totalCount: number;
 
+  abortController: AbortController | null;
+
   // animationRequestId: number | null;
 
   constructor() {
@@ -60,6 +62,7 @@ class Garage {
     this.resetRaceButton = null;
     this.raceButton = null;
     this.totalCount = 1;
+    this.abortController = null;
     this.addEventListeners();
     // this.animationRequestId = null;
   }
@@ -314,7 +317,9 @@ class Garage {
       if (stopButton && startButton) {
         startButton.disabled = true;
         stopButton.disabled = false;
-        this.startAnimation(car);
+        const controller = new AbortController();
+        const { signal } = controller;
+        this.startAnimation(car, signal);
       }
     } catch (error) {
       console.log(error);
@@ -393,6 +398,18 @@ class Garage {
         this.raceButton.disabled = false;
         this.resetRaceButton.disabled = true;
       }
+      if (this.abortController) {
+        this.abortController.abort();
+        this.abortController = null;
+        const cars = document.querySelectorAll(".car-image");
+        cars.forEach(async (carElement) => {
+          const carId = carElement.id;
+          const car: Car = {
+            id: +carId,
+          };
+          await startStopCarEngine(car.id!, "stopped");
+        });
+      }
       this.displayCars();
     } catch (error) {
       console.error("Error reset cars", error);
@@ -400,6 +417,8 @@ class Garage {
   }
 
   async handleRaceClick(): Promise<void> {
+    this.abortController = new AbortController();
+    const { signal } = this.abortController;
     const cars = document.querySelectorAll(".car-image");
     const animations = Array.from(cars).map(async (carElement) => {
       const carId = carElement.id;
@@ -408,19 +427,12 @@ class Garage {
         id: +carId,
       };
 
-      return this.startAnimation(car);
+      return this.startAnimation(car, signal);
     });
 
     await Promise.all(animations).then(() => {
       console.log("All cars started racing!");
     });
-    // if (
-    //   // this.raceButton?.disabled === false &&
-    //   this.resetRaceButton?.disabled === true
-    // ) {
-    //   // this.raceButton.disabled = true;
-    //   this.resetRaceButton.disabled = false;
-    // }
     this.disableRaceAndStartButtons();
   }
 
@@ -526,7 +538,7 @@ class Garage {
     this.selectedCar = null;
   }
 
-  async startAnimation(car: Car) {
+  async startAnimation(car: Car, signal: AbortSignal) {
     let animationRequestId: number | null = null;
     const { velocity, distance } = await startStopCarEngine(car.id!, "started");
     const animationTime = Math.round(distance / velocity);
@@ -564,7 +576,7 @@ class Garage {
 
     animationRequestId = requestAnimationFrame(step);
 
-    switchCarEngineToDriveMode(car.id!)
+    switchCarEngineToDriveMode(car.id!, signal)
       .then((response) => {
         console.log(response);
         if (!response.success) {
@@ -602,29 +614,14 @@ class Garage {
       startStopCarEngine(car.id!, "stopped").then((data) =>
         console.log(data, car.name, "Car stopped", car),
       );
+      // if (this.abortController !== null) {
+      //   this.abortController.abort();
+      //   this.abortController = null;
+      // }
       this.displayCars();
     } catch (error) {
       console.error("Error stop cars", error);
     }
-    // const carImage = document.getElementById(`${car.id}`) as HTMLElement;
-    // console.log(carImage);
-    // try {
-    //   startStopCarEngine(car.id!, "stopped").then((data) =>
-    //     console.log(data, car.name, "Car stopped", car),
-    //   );
-
-    //   // if (animationRequestId !== null) {
-    //   //   console.log(animationRequestId);
-    //   //   cancelAnimationFrame(animationRequestId!);
-    //   // }
-    //   // await startStopCarEngine(car.id!, "stopped");
-    //   console.log(car.name, "Engine stopped.");
-    // } catch (error) {
-    //   console.error(
-    //     // "Car has been stopped suddenly. It's engine was broken down.",
-    //     error,
-    //   );
-    // }
   }
 }
 export default Garage;

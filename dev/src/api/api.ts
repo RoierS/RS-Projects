@@ -15,6 +15,7 @@ export async function request<T>(
   url: string,
   method: string = HttpMethod.GET,
   body: object | null = null,
+  signal: AbortSignal | null = null,
 ): Promise<T> {
   const options: RequestInit = {
     method,
@@ -22,6 +23,7 @@ export async function request<T>(
       "Content-Type": "application/json",
       "X-Total-Count": "4",
     },
+    signal,
   };
 
   if (body) {
@@ -114,11 +116,14 @@ export async function startStopCarEngine(
 
 export async function switchCarEngineToDriveMode(
   carId: number,
+  signal: AbortSignal,
 ): Promise<{ success: boolean; error?: string }> {
   try {
     const data = await request<{ success: boolean }>(
       `/engine?id=${carId}&status=drive`,
       HttpMethod.PATCH,
+      null,
+      signal,
     );
     return data;
   } catch (error) {

@@ -7,6 +7,7 @@ import {
   updateCar,
   startStopCarEngine,
   switchCarEngineToDriveMode,
+  getTotalCarCount,
   // request,
   // deleteAllCars,
 } from "../../api/api";
@@ -36,6 +37,10 @@ class Garage {
   raceButton: HTMLButtonElement | null;
 
   selectedCar: Car | null;
+
+  currentPage: number = 1;
+
+  carsPerPage: number = 7;
 
   // animationRequestId: number | null;
 
@@ -88,6 +93,7 @@ class Garage {
           <button class="buttons buttons__generate">Generate cars</button>
         </div>
       </div>
+      <div class="pagination-container"></div>
       <div class="car-list"></div>
     `;
 
@@ -110,7 +116,7 @@ class Garage {
 
   async displayCars(): Promise<void> {
     try {
-      const cars: Car[] = await getCars();
+      const cars: Car[] = await getCars(this.currentPage, this.carsPerPage);
 
       if (this.garageContainer) {
         const carList = this.garageContainer.querySelector(".car-list");
@@ -122,9 +128,67 @@ class Garage {
           });
         }
       }
+      const totalCount = await getTotalCarCount();
+      const totalPages = Math.ceil(totalCount / this.carsPerPage);
+
+      this.renderPaginationButtons(totalPages);
     } catch (error) {
       console.error("errror", error);
     }
+  }
+
+  renderPaginationButtons(totalPages: number): void {
+    if (this.garageContainer) {
+      const paginationContainer = this.garageContainer.querySelector(
+        ".pagination-container",
+      );
+
+      if (paginationContainer) {
+        paginationContainer.innerHTML = "";
+
+        const prevButton = createNewElement(
+          "button",
+          "pagination-prev-button",
+        ) as HTMLButtonElement;
+        prevButton.textContent = "Previous";
+        prevButton.disabled = this.currentPage === 1;
+        prevButton.addEventListener("click", () =>
+          this.handlePrevButtonClick(),
+        );
+        paginationContainer.appendChild(prevButton);
+
+        const currentPageBlock = createNewElement(
+          "div",
+          "current-page",
+        ) as HTMLElement;
+
+        currentPageBlock.textContent = `${this.currentPage}`;
+        paginationContainer.appendChild(currentPageBlock);
+
+        const nextButton = createNewElement(
+          "button",
+          "pagination-next-button",
+        ) as HTMLButtonElement;
+        nextButton.textContent = "Next";
+        nextButton.disabled = this.currentPage === totalPages;
+        nextButton.addEventListener("click", () =>
+          this.handleNextButtonClick(),
+        );
+        paginationContainer.appendChild(nextButton);
+      }
+    }
+  }
+
+  handlePrevButtonClick(): void {
+    if (this.currentPage > 1) {
+      this.currentPage -= 1;
+      this.displayCars();
+    }
+  }
+
+  handleNextButtonClick(): void {
+    this.currentPage += 1;
+    this.displayCars();
   }
 
   async createRandomCars(): Promise<void> {
@@ -265,16 +329,14 @@ class Garage {
 
   async handleRaceClick(): Promise<void> {
     const cars = document.querySelectorAll(".car-image");
-    const animations = Array.from(cars).map((carElement) => {
+    const animations = Array.from(cars).map(async (carElement) => {
       const carId = carElement.id;
 
       const car: Car = {
         id: +carId,
       };
 
-      return this.startAnimation(car).catch((error) => {
-        throw new Error(error);
-      });
+      return this.startAnimation(car);
     });
 
     await Promise.all(animations).then(() => {
@@ -460,4 +522,3 @@ class Garage {
   }
 }
 export default Garage;
-

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { generateRandomName } from "../../utils/generateRandomName";
 import { generateRandomColor } from "../../utils/generateRandomColor";
 import {
@@ -58,8 +59,8 @@ class Garage {
     this.generateCarsButton = null;
     this.resetRaceButton = null;
     this.raceButton = null;
-    this.addEventListeners();
     this.totalCount = 1;
+    this.addEventListeners();
     // this.animationRequestId = null;
   }
 
@@ -276,12 +277,6 @@ class Garage {
 
         const selectCarButton = carBlock.querySelector(".select-car-button");
         const removeCarButton = carBlock.querySelector(".remove-car-button");
-        const startButton = carBlock.querySelector(
-          ".start-car-button",
-        ) as HTMLButtonElement;
-        const stopButton = carBlock.querySelector(
-          ".stop-car-button",
-        ) as HTMLButtonElement;
 
         selectCarButton?.addEventListener("click", () =>
           this.handleSelectedCar(car),
@@ -290,12 +285,55 @@ class Garage {
           this.handleRemoveCar(car),
         );
 
-        startButton?.addEventListener("click", () => this.startAnimation(car));
+        const startButton = carBlock.querySelector(
+          ".start-car-button",
+        ) as HTMLButtonElement;
+        const stopButton = carBlock.querySelector(
+          ".stop-car-button",
+        ) as HTMLButtonElement;
+        stopButton.disabled = true;
 
-        stopButton?.addEventListener("click", () => this.stopAnimation(car));
+        startButton.addEventListener("click", () =>
+          this.handleStartCarClick(car, startButton, stopButton),
+        );
+        stopButton.addEventListener("click", () =>
+          this.handleStopCarClick(car, startButton, stopButton),
+        );
 
         carList.appendChild(carBlock);
       }
+    }
+  }
+
+  handleStartCarClick(
+    car: Car,
+    startButton: HTMLButtonElement,
+    stopButton: HTMLButtonElement,
+  ) {
+    try {
+      if (stopButton && startButton) {
+        startButton.disabled = true;
+        stopButton.disabled = false;
+        this.startAnimation(car);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  handleStopCarClick(
+    car: Car,
+    startButton: HTMLButtonElement,
+    stopButton: HTMLButtonElement,
+  ) {
+    try {
+      if (stopButton && startButton) {
+        startButton.disabled = false;
+        stopButton.disabled = true;
+        this.stopAnimation(car);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -322,6 +360,7 @@ class Garage {
     }
 
     if (this.resetRaceButton) {
+      this.resetRaceButton.disabled = true;
       this.resetRaceButton.addEventListener(
         "click",
         this.handleResetRaceClick.bind(this),
@@ -329,6 +368,7 @@ class Garage {
     }
 
     if (this.raceButton) {
+      this.raceButton.disabled = false;
       this.raceButton.addEventListener(
         "click",
         this.handleRaceClick.bind(this),
@@ -346,6 +386,13 @@ class Garage {
 
   async handleResetRaceClick(): Promise<void> {
     try {
+      if (
+        this.resetRaceButton?.disabled === false &&
+        this.raceButton?.disabled === true
+      ) {
+        this.raceButton.disabled = false;
+        this.resetRaceButton.disabled = true;
+      }
       this.displayCars();
     } catch (error) {
       console.error("Error reset cars", error);
@@ -366,6 +413,34 @@ class Garage {
 
     await Promise.all(animations).then(() => {
       console.log("All cars started racing!");
+    });
+    // if (
+    //   // this.raceButton?.disabled === false &&
+    //   this.resetRaceButton?.disabled === true
+    // ) {
+    //   // this.raceButton.disabled = true;
+    //   this.resetRaceButton.disabled = false;
+    // }
+    this.disableRaceAndStartButtons();
+  }
+
+  disableRaceAndStartButtons(): void {
+    if (this.raceButton && this.resetRaceButton) {
+      this.raceButton.disabled = true;
+      this.resetRaceButton.disabled = false;
+    }
+
+    const startButtons = document.querySelectorAll(".start-car-button");
+    const stopButtons = document.querySelectorAll(".stop-car-button");
+
+    startButtons.forEach((button) => {
+      const startButton = button as HTMLButtonElement;
+      startButton.disabled = true;
+    });
+
+    stopButtons.forEach((button) => {
+      const stopButton = button as HTMLButtonElement;
+      stopButton.disabled = true;
     });
   }
 
@@ -492,10 +567,8 @@ class Garage {
     switchCarEngineToDriveMode(car.id!)
       .then((response) => {
         console.log(response);
-        // console.log(car.id);
         if (!response.success) {
           cancelAnimationFrame(animationRequestId!);
-          // console.log("Car", car);
           console.log(
             "velocity",
             velocity,
@@ -525,25 +598,33 @@ class Garage {
   }
 
   async stopAnimation(car: Car) {
-    const carImage = document.getElementById(`${car.id}`) as HTMLElement;
-    console.log(carImage);
     try {
       startStopCarEngine(car.id!, "stopped").then((data) =>
         console.log(data, car.name, "Car stopped", car),
       );
-
-      // if (animationRequestId !== null) {
-      //   console.log(animationRequestId);
-      //   cancelAnimationFrame(animationRequestId!);
-      // }
-      // await startStopCarEngine(car.id!, "stopped");
-      console.log(car.name, "Engine stopped.");
+      this.displayCars();
     } catch (error) {
-      console.error(
-        // "Car has been stopped suddenly. It's engine was broken down.",
-        error,
-      );
+      console.error("Error stop cars", error);
     }
+    // const carImage = document.getElementById(`${car.id}`) as HTMLElement;
+    // console.log(carImage);
+    // try {
+    //   startStopCarEngine(car.id!, "stopped").then((data) =>
+    //     console.log(data, car.name, "Car stopped", car),
+    //   );
+
+    //   // if (animationRequestId !== null) {
+    //   //   console.log(animationRequestId);
+    //   //   cancelAnimationFrame(animationRequestId!);
+    //   // }
+    //   // await startStopCarEngine(car.id!, "stopped");
+    //   console.log(car.name, "Engine stopped.");
+    // } catch (error) {
+    //   console.error(
+    //     // "Car has been stopped suddenly. It's engine was broken down.",
+    //     error,
+    //   );
+    // }
   }
 }
 export default Garage;

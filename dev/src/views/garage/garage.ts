@@ -42,6 +42,8 @@ class Garage {
 
   carsPerPage: number = 7;
 
+  totalCount: number;
+
   // animationRequestId: number | null;
 
   constructor() {
@@ -56,9 +58,9 @@ class Garage {
     this.generateCarsButton = null;
     this.resetRaceButton = null;
     this.raceButton = null;
-    // this.animationRequestId = null;
-
     this.addEventListeners();
+    this.totalCount = 1;
+    // this.animationRequestId = null;
   }
 
   initGarage() {
@@ -117,6 +119,7 @@ class Garage {
   async displayCars(): Promise<void> {
     try {
       const cars: Car[] = await getCars(this.currentPage, this.carsPerPage);
+      const totalCount = await getTotalCarCount();
 
       if (this.garageContainer) {
         const carList = this.garageContainer.querySelector(".car-list");
@@ -128,7 +131,6 @@ class Garage {
           });
         }
       }
-      const totalCount = await getTotalCarCount();
       const totalPages = Math.ceil(totalCount / this.carsPerPage);
 
       this.renderPaginationButtons(totalPages);
@@ -162,8 +164,15 @@ class Garage {
           "current-page",
         ) as HTMLElement;
 
-        currentPageBlock.textContent = `${this.currentPage}`;
+        currentPageBlock.textContent = `Page #${this.currentPage}`;
         paginationContainer.appendChild(currentPageBlock);
+
+        const totalCountInfo = createNewElement(
+          "div",
+          "total-count",
+        ) as HTMLElement;
+        totalCountInfo.textContent = `Garage (${this.totalCount})`;
+        currentPageBlock.appendChild(totalCountInfo);
 
         const nextButton = createNewElement(
           "button",
@@ -171,10 +180,22 @@ class Garage {
         ) as HTMLButtonElement;
         nextButton.textContent = "Next";
         nextButton.disabled = this.currentPage === totalPages;
+
         nextButton.addEventListener("click", () =>
           this.handleNextButtonClick(),
         );
         paginationContainer.appendChild(nextButton);
+
+        getTotalCarCount()
+          .then((totalCount) => {
+            this.totalCount = totalCount;
+            totalCountInfo.textContent = `Garage (${this.totalCount})`;
+            nextButton.disabled = this.currentPage === totalPages;
+          })
+          .catch((error) => {
+            console.error("Error fetching total car count:", error);
+          });
+        currentPageBlock.appendChild(totalCountInfo);
       }
     }
   }
@@ -182,12 +203,16 @@ class Garage {
   handlePrevButtonClick(): void {
     if (this.currentPage > 1) {
       this.currentPage -= 1;
+      this.renderPaginationButtons(
+        Math.ceil(this.totalCount / this.carsPerPage),
+      );
       this.displayCars();
     }
   }
 
   handleNextButtonClick(): void {
     this.currentPage += 1;
+    this.renderPaginationButtons(Math.ceil(this.totalCount / this.carsPerPage));
     this.displayCars();
   }
 

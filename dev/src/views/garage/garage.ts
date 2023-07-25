@@ -274,7 +274,7 @@ class Garage {
           <div class="car-image" id="${car.id}">
             ${this.createCarImage(color)}
           </div>
-          <img class="flag-image" src="../assets/img/flag-icon.svg">
+          <img class="flag-image" src="./assets/img/flag-icon.svg">
         </div>
         `;
 
@@ -416,10 +416,25 @@ class Garage {
     }
   }
 
+  showWinnerMessage(winnerMessage: string) {
+    const popupContainer = createNewElement("div", "popup-container");
+    const popupContent = createNewElement("div", "popup-content");
+    popupContainer.appendChild(popupContent);
+    this.garageContainer?.append(popupContainer);
+
+    popupContent.textContent = winnerMessage;
+    popupContainer.style.display = "block";
+    setTimeout(() => {
+      popupContainer.style.display = "none";
+    }, 3000);
+  }
+
   async handleRaceClick(): Promise<void> {
+    const carsDB = await getCars();
     this.abortController = new AbortController();
     const { signal } = this.abortController;
     const cars = document.querySelectorAll(".car-image");
+
     const animations = Array.from(cars).map(async (carElement) => {
       const carId = carElement.id;
 
@@ -430,9 +445,29 @@ class Garage {
       return this.startAnimation(car, signal);
     });
 
-    await Promise.all(animations).then(() => {
-      console.log("All cars started racing!");
+    const animationTimes = await Promise.all(animations);
+    const bigNumber = 9999999;
+    const validAnimationTimes = animationTimes.map((time) => {
+      if (time === -1) {
+        time = bigNumber;
+      }
+      return time;
     });
+    console.log(validAnimationTimes);
+
+    if (validAnimationTimes.length === 0) {
+      console.log("All animations failed. No winner.");
+      return;
+    }
+    const minTime = Math.min(...validAnimationTimes);
+    const winnerCarIndex = validAnimationTimes.indexOf(minTime);
+    const winnerCar = carsDB[winnerCarIndex];
+    const winnerCarName = winnerCar.name;
+
+    const winnerMessage = `${winnerCarName} won the race. Winner time: ${(
+      minTime / 1000
+    ).toFixed(2)}s`;
+    this.showWinnerMessage(winnerMessage);
     this.disableRaceAndStartButtons();
   }
 
@@ -538,7 +573,7 @@ class Garage {
     this.selectedCar = null;
   }
 
-  async startAnimation(car: Car, signal: AbortSignal) {
+  async startAnimation(car: Car, signal: AbortSignal): Promise<number> {
     let animationRequestId: number | null = null;
     const { velocity, distance } = await startStopCarEngine(car.id!, "started");
     const animationTime = Math.round(distance / velocity);
@@ -569,51 +604,50 @@ class Garage {
           trackDistance,
         )}px) scaleX(-1)`;
       }
-      if (animationRequestId !== null) {
-        animationRequestId = requestAnimationFrame(step);
-      }
+      animationRequestId = requestAnimationFrame(step);
     };
 
     animationRequestId = requestAnimationFrame(step);
 
-    switchCarEngineToDriveMode(car.id!, signal)
-      .then((response) => {
-        console.log(response);
-        if (!response.success) {
-          cancelAnimationFrame(animationRequestId!);
-          console.log(
-            "velocity",
-            velocity,
-            "distance",
-            distance,
-            animationRequestId!,
-            "Car",
-            car,
-          );
-        }
-      })
-      .catch((error) => {
+    try {
+      const response = await switchCarEngineToDriveMode(car.id!, signal);
+      console.log(response);
+      if (!response.success) {
         cancelAnimationFrame(animationRequestId!);
-        console.log(animationRequestId);
-        console.error("Error during switchCarEngineToDriveMode:", error);
-      });
-    console.log("Car", car);
-    console.log(
-      "velocity",
-      velocity,
-      "distance",
-      distance,
-      animationRequestId!,
-      "Car",
-      car,
-    );
+        // console.log(
+        //   "velocity",
+        //   velocity,
+        //   "distance",
+        //   distance,
+        //   animationRequestId!,
+        //   "Car",
+        //   car,
+        // );
+        return -1;
+      }
+      return animationTime;
+    } catch (error) {
+      cancelAnimationFrame(animationRequestId!);
+      // console.log(animationRequestId);
+      console.error("Error during switchCarEngineToDriveMode:", error);
+      return -1;
+    }
+
+    // console.log("Car", car);
+    // console.log(
+    //   "velocity",
+    //   velocity,
+    //   "distance",
+    //   distance,
+    //   animationRequestId!,
+    //   "Car",
+    //   car,
+    // );
   }
 
   async stopAnimation(car: Car) {
     try {
-      startStopCarEngine(car.id!, "stopped").then((data) =>
-        console.log(data, car.name, "Car stopped", car),
-      );
+      startStopCarEngine(car.id!, "stopped");
       // if (this.abortController !== null) {
       //   this.abortController.abort();
       //   this.abortController = null;

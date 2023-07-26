@@ -9,6 +9,10 @@ import {
   startStopCarEngine,
   switchCarEngineToDriveMode,
   getTotalCarCount,
+  createWinner,
+  updateWinner,
+  getWinner,
+  getWinners,
   // request,
   // deleteAllCars,
 } from "../../api/api";
@@ -430,7 +434,9 @@ class Garage {
   }
 
   async handleRaceClick(): Promise<void> {
-    const carsDB = await getCars();
+    console.log(getWinners(1, 5));
+    const carsDB = await getCars(this.currentPage, this.carsPerPage);
+    console.log(carsDB);
     this.abortController = new AbortController();
     const { signal } = this.abortController;
     const cars = document.querySelectorAll(".car-image");
@@ -462,11 +468,43 @@ class Garage {
     const minTime = Math.min(...validAnimationTimes);
     const winnerCarIndex = validAnimationTimes.indexOf(minTime);
     const winnerCar = carsDB[winnerCarIndex];
+    console.log(winnerCar);
     const winnerCarName = winnerCar.name;
+    const winnerTime = (minTime / 1000).toFixed(2);
 
-    const winnerMessage = `${winnerCarName} won the race. Winner time: ${(
-      minTime / 1000
-    ).toFixed(2)}s`;
+    const winnerData = {
+      id: winnerCar.id,
+      wins: 1,
+      time: +winnerTime,
+      name: winnerCarName,
+      color: winnerCar.color,
+      // carImg: carSvg,
+    };
+    console.log(winnerData);
+
+    try {
+      const existingWinner = await getWinner(winnerCar.id!);
+      console.log(existingWinner);
+
+      if (existingWinner) {
+        console.log(existingWinner);
+        const updatedWinnerData = {
+          ...existingWinner,
+          wins: existingWinner.wins! + 1,
+          time: winnerData.time,
+        };
+
+        await updateWinner(winnerCar.id!, updatedWinnerData);
+        console.log("Winner updated in the table.");
+      } else {
+        const response = await createWinner(winnerData);
+        console.log("Winner added to the table:", response);
+      }
+    } catch (error) {
+      console.log(`New winner ${winnerCarName} added`);
+    }
+
+    const winnerMessage = `${winnerCarName} won the race. Winner time: ${winnerTime}s`;
     this.showWinnerMessage(winnerMessage);
     this.disableRaceAndStartButtons();
   }
@@ -588,7 +626,6 @@ class Garage {
     const startTime = performance.now();
 
     const step = (currentTime: number) => {
-      // const startTime: number | null = null;
       const timePassed = currentTime - startTime!;
       const progress = timePassed / animationTime;
 
@@ -614,35 +651,14 @@ class Garage {
       console.log(response);
       if (!response.success) {
         cancelAnimationFrame(animationRequestId!);
-        // console.log(
-        //   "velocity",
-        //   velocity,
-        //   "distance",
-        //   distance,
-        //   animationRequestId!,
-        //   "Car",
-        //   car,
-        // );
         return -1;
       }
       return animationTime;
     } catch (error) {
       cancelAnimationFrame(animationRequestId!);
-      // console.log(animationRequestId);
       console.error("Error during switchCarEngineToDriveMode:", error);
       return -1;
     }
-
-    // console.log("Car", car);
-    // console.log(
-    //   "velocity",
-    //   velocity,
-    //   "distance",
-    //   distance,
-    //   animationRequestId!,
-    //   "Car",
-    //   car,
-    // );
   }
 
   async stopAnimation(car: Car) {

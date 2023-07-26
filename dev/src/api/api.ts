@@ -134,3 +134,57 @@ export async function switchCarEngineToDriveMode(
     };
   }
 }
+
+export async function createWinner(newWinner: Car): Promise<Car> {
+  const data: Car = await request(`/winners`, HttpMethod.POST, newWinner);
+  console.log(data);
+  return data;
+  // const response = await fetch("http://127.0.0.1:3000/winners", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify(newWinner),
+  // });
+  // console.log(response);
+  // const data = await response.json();
+  // return data;
+}
+
+export async function updateWinner(
+  id: number,
+  winnerData: { wins: number; time: number },
+): Promise<Car> {
+  const response = await fetch(`${BASE_URL}/winners/${id}`, {
+    method: HttpMethod.PATCH,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(winnerData),
+  });
+
+  if (!response.ok) {
+    if (response.status === 404) {
+      throw new Error("Winner not found.");
+    } else {
+      throw new Error(`Failed to update winner. Status: ${response.status}`);
+    }
+  }
+
+  const data: Car = await response.json();
+  console.log(data);
+  return data;
+}
+
+export async function getWinner(id: number): Promise<Car | null> {
+  const data: Car = await request(`/winners/${id}`, HttpMethod.GET);
+  return data;
+}
+
+export async function getWinners(
+  page: number,
+  limit: number,
+): Promise<Car | null> {
+  const data: Car = await request(`/winners?_page=${page}&_limit=${limit}`);
+  return data;
+}

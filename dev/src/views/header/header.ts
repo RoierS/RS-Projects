@@ -22,6 +22,12 @@ class Header {
     this.main = document.querySelector(".main");
   }
 
+  clearMainContent(): void {
+    if (this.main) {
+      this.main.innerHTML = "";
+    }
+  }
+
   render(): void {
     this.wrapper = createNewElement("div", "wrapper");
     this.header = createNewElement("header", "header");
@@ -29,8 +35,8 @@ class Header {
 
     this.header.innerHTML = `
       <h1 class="header_title">Async Race</h1>
-      <button class="garage-btn">Garage</button>
-      <button class="winners-btn">Winners</button>
+      <button class="garage-btn"><a class="garage-link" href="#/">Garage</a></button>
+      <button class="winners-btn"><a class="winners-link" href="#/winners">Winners</a></button>
     `;
 
     this.garageBtn = this.header.querySelector(".garage-btn");

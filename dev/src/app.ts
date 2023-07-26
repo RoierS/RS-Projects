@@ -24,6 +24,7 @@ function showWinnersPage() {
   // const header = new Header();
   header.clearMainContent();
   const winners = new Winners();
+  winners.loadWinnersData();
   winners.render();
 }
 

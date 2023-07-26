@@ -12,11 +12,12 @@ import {
   createWinner,
   updateWinner,
   getWinner,
-  getWinners,
+  // getWinners,
   // request,
   // deleteAllCars,
 } from "../../api/api";
 import { Car } from "../../models/Car";
+// import Winners from "../winners/Winners";
 import { createNewElement } from "../../utils/createNewElement";
 import { carSvg } from "../../assets/img/carSvg";
 
@@ -434,7 +435,7 @@ class Garage {
   }
 
   async handleRaceClick(): Promise<void> {
-    console.log(getWinners(1, 5));
+    // getWinners(1, 5);
     const carsDB = await getCars(this.currentPage, this.carsPerPage);
     console.log(carsDB);
     this.abortController = new AbortController();
@@ -459,7 +460,7 @@ class Garage {
       }
       return time;
     });
-    console.log(validAnimationTimes);
+    // console.log(validAnimationTimes);
 
     if (validAnimationTimes.length === 0) {
       console.log("All animations failed. No winner.");
@@ -502,6 +503,7 @@ class Garage {
       }
     } catch (error) {
       console.log(`New winner ${winnerCarName} added`);
+      createWinner(winnerData);
     }
 
     const winnerMessage = `${winnerCarName} won the race. Winner time: ${winnerTime}s`;
@@ -648,7 +650,7 @@ class Garage {
 
     try {
       const response = await switchCarEngineToDriveMode(car.id!, signal);
-      console.log(response);
+      // console.log(response);
       if (!response.success) {
         cancelAnimationFrame(animationRequestId!);
         return -1;

@@ -39,28 +39,8 @@ class Header {
       <button class="winners-btn"><a class="winners-link" href="#/winners">Winners</a></button>
     `;
 
-    this.garageBtn = this.header.querySelector(".garage-btn");
-    this.garageBtn?.addEventListener(
-      "click",
-      this.handleGarageClick.bind(this),
-    );
-
-    this.winnersBtn = this.header.querySelector(".winners-btn");
-    this.winnersBtn?.addEventListener(
-      "click",
-      this.handleWinnersClick.bind(this),
-    );
-
     this.wrapper.append(this.header, this.main);
     document.body.prepend(this.wrapper);
-  }
-
-  handleGarageClick(): void {
-    console.log("garagebtn clicked");
-  }
-
-  handleWinnersClick(): void {
-    console.log("winnersbtn clicked");
   }
 }
 

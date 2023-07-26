@@ -49,7 +49,7 @@ export async function request<T>(
 
 export async function getCars(page = 1, limit = 7): Promise<Car[]> {
   const data: Car[] = await request(`/garage?_page=${page}&_limit=${limit}`);
-  console.log(data);
+  // console.log(data);
   return data;
 }
 
@@ -82,8 +82,8 @@ export async function deleteCar(carId: number): Promise<void> {
 export async function deleteAllCars(): Promise<void> {
   try {
     const cars = await getCars();
-    console.log(cars);
-    console.log(cars.length);
+    // console.log(cars);
+    // console.log(cars.length);
 
     if (cars.length > 4) {
       const excessCars = cars.slice(4);
@@ -139,16 +139,6 @@ export async function createWinner(newWinner: Car): Promise<Car> {
   const data: Car = await request(`/winners`, HttpMethod.POST, newWinner);
   console.log(data);
   return data;
-  // const response = await fetch("http://127.0.0.1:3000/winners", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(newWinner),
-  // });
-  // console.log(response);
-  // const data = await response.json();
-  // return data;
 }
 
 export async function updateWinner(
@@ -172,7 +162,7 @@ export async function updateWinner(
   }
 
   const data: Car = await response.json();
-  console.log(data);
+  // console.log(data);
   return data;
 }
 
@@ -181,10 +171,7 @@ export async function getWinner(id: number): Promise<Car | null> {
   return data;
 }
 
-export async function getWinners(
-  page: number,
-  limit: number,
-): Promise<Car | null> {
-  const data: Car = await request(`/winners?_page=${page}&_limit=${limit}`);
+export async function getWinners(page: number, limit: number): Promise<Car[]> {
+  const data: Car[] = await request(`/winners?_page=${page}&_limit=${limit}`);
   return data;
 }

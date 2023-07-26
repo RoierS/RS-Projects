@@ -31,13 +31,15 @@ class Winners {
     }
 
     this.winnersContainer = createNewElement("div", "winners-container");
-    this.winnersContainer.textContent = "Winners Table";
+    const headerWinners = createNewElement("h2", "winners-container__title");
+    headerWinners.textContent = "Winners Table";
+    this.winnersContainer.appendChild(headerWinners);
     main.appendChild(this.winnersContainer);
 
     const total = await getTotalWinnersCount();
     this.totalCount = total;
 
-    const totalPages = Math.ceil(this.totalCount / this.carsPerPage); // ?? this.totalCount === total
+    const totalPages = Math.ceil(this.totalCount / this.carsPerPage);
     await this.loadWinnersData();
     this.renderWinnersTable();
     this.renderPaginationButtons(totalPages);
@@ -47,7 +49,6 @@ class Winners {
     try {
       const winners = await getWinners(this.currentPage, this.carsPerPage);
       this.winnersData = winners;
-      // console.log(this.winnersData);
     } catch (error) {
       console.error("error", error);
     }
@@ -105,6 +106,7 @@ class Winners {
       "button",
       "pagination-prev-button",
     ) as HTMLButtonElement;
+    prevButton.classList.add("buttons");
     prevButton.textContent = "Previous";
     prevButton.disabled = this.currentPage === 1;
     prevButton.addEventListener("click", () => this.handlePrevButtonClick());
@@ -129,6 +131,7 @@ class Winners {
       "button",
       "pagination-next-button",
     ) as HTMLButtonElement;
+    nextButton.classList.add("buttons");
     nextButton.textContent = "Next";
     nextButton.disabled = this.currentPage === totalPages;
 

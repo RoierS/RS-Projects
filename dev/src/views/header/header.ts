@@ -35,8 +35,10 @@ class Header {
 
     this.header.innerHTML = `
       <h1 class="header_title">Async Race</h1>
-      <button class="garage-btn"><a class="garage-link" href="#/">Garage</a></button>
-      <button class="winners-btn"><a class="winners-link" href="#/winners">Winners</a></button>
+      <div class="header__btns-block">
+        <button class="garage-btn"><a class="garage-link" href="#/">Garage</a></button>
+        <button class="winners-btn"><a class="winners-link" href="#/winners">Winners</a></button>
+      </div>
     `;
 
     this.wrapper.append(this.header, this.main);

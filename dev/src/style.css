@@ -1,11 +1,259 @@
+/* Reset */
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+}
+
+:root {
+  --background-color: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(187,62,62,1) 50%, rgba(252,176,69,1) 100%);
+  --track-bg-color: linear-gradient(90deg, rgba(61,60,70,1) 0%, rgba(157,163,177,1) 55%, rgba(136,170,177,1) 100%);
+  --shadow-color: 5px -1px 24px -5px rgba(66, 68, 90, 1);
+  --text-shadow-color: 5px -1px 5px rgba(66, 68, 90, 1);
+  --button-background-color: linear-gradient(to bottom, #d7d6d6 6%, #9d969d 100%);
+  --button-background-color-hover: linear-gradient(to bottom, #978f97 8%, #c3bfbf 100%);
+  --button-font-color: #13292e;
+  --form-block-bg-color: linear-gradient(90deg, rgba(201,199,232,0.4) 0%, rgba(157,163,177,0.4) 55%, rgba(136,170,177,0.4) 100%);
+  --input-bg: rgb(219 214 219);
+  --stop-car-bg-color: linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
+  --stop-car-bg-color-hover: linear-gradient(to bottom, #f24437 5%, #c62d1f 100%);
+  --stop-car-shadow: 3px 4px 0px 0px #79251d;
+  --start-car-shadow: inset 0px 1px 0px 0px #87bb5c;
+	--start-car-bg-color: linear-gradient(to bottom, #7baf02 5%, #668f08 100%);
+  --start-car-bg-color-hover: linear-gradient(to bottom, #6d9808 5%, #73a302 100%);
+}
+
+/* General styles */
+button {
+  font-size: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+html {
+  background: var(--background-color);
+}
+
+body {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+li {
+  list-style-type: none;
+}
+
+.wrapper {
+  min-height: 100vh;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+/* Header */
+.header_title {
+  text-align: center;
+  font-size: 3em;
+  text-transform: uppercase;
+  font-style: oblique;
+  text-shadow: var(--text-shadow-color);
+  margin-bottom: 5px;
+}
+
+.header__btns-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+.garage-btn,
+.winners-btn {
+  display: inline-block;
+	cursor: pointer;
+	font-size: 17px;
+	text-decoration: none;
+  transition: all 0.8s;
+  box-shadow: var(--shadow-color);
+	background: var(--button-background-color);
+	border-radius: 15px;
+	border: 1px solid #d6bcd6;
+}
+
+.garage-btn:hover:not(:disabled),
+.winners-btn:hover:not(:disabled) {
+  background: var(--button-background-color-hover);
+}
+
+.garage-link,
+.winners-link {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  color: var(--button-font-color);
+  text-decoration: none;
+  position: relative;
+	top: 1px;
+  padding: 7px 25px;
+  transition: all 0.8s;
+}
+
+.garage-btn:active,
+.winners-btn:active {
+  position:relative;
+	top:1px;
+}
+
+/* Garage */
+.garage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.garage-container__title,
+.winners-container__title {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--form-block-bg-color);
+  align-self: center;
+  width: 400px;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.form-container__create-car,
+.form-container__update-car {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 15px;
+}
+
+.create-car__car-name-input,
+.update-car__car-name-input {
+  border-radius: 10px;
+  padding: 6px;
+  background: var(--input-bg);
+}
+
+.create-car__car-color-input,
+.update-car__car-color-input {
+  border: none;
+  padding: 0px;
+  inline-size: 50px;
+  block-size: 36px;
+  background: transparent;
+}
+
+.create-car__car-name-input::placeholder,
+.update-car__car-name-input::placeholder {
+  font-style: oblique;
+}
+
+.form-container__buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.buttons {
+  display: inline-block;
+	cursor: pointer;
+	font-size: 17px;
+  padding: 7px 25px;
+	text-decoration: none;
+  transition: all 0.8s;
+  box-shadow: var(--shadow-color);
+	background: var(--button-background-color);
+	border-radius: 15px;
+	border: 1px solid #d6bcd6;
+}
+
+.buttons:hover:not(:disabled) {
+  background: var(--button-background-color-hover);
+}
+
+.buttons:active:not(:disabled) {
+  position:relative;
+	top:1px;
+}
+
+.pagination-container,
+.car-block,
+.winners-table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 400px;
+  align-self: center;
+  padding: 15px;
+  margin-bottom: 10px;
+  background: var(--form-block-bg-color);
+  border-radius: 10px;
+}
+
+.current-page {
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.car-block {
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: stretch;
+  align-self: center;
+  row-gap: 10px;
+  flex-direction: column;
+}
+
+.car-block__control-btns {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: nowrap;
+}
+
+.car-name {
+  font-size: 1.5em;
+  font-style: oblique;
+  text-shadow: var(--text-shadow-color);
+  letter-spacing: 3.2px;
+}
+
 .car-image {
   transform: scaleX(-1);
-  width: 200px;
+  width: 100%;
+  max-width: 200px;
 }
 
 .flag-image {
   position: absolute;
-  top: 50%;
+  top: 70%;
   right: 190px;
   width: 66px;
   transform: translateY(-50%);
@@ -13,88 +261,98 @@
 
 .car-block__track {
   position: relative;
-  background-color: rgb(204, 211, 224);
+  padding: 10px;
+  background: var(--track-bg-color);
+  box-shadow: var(--shadow-color);
+  border-radius: 5px;
 }
+
+.line {
+  position: absolute;
+  top: 87%;
+  left: 5px;
+  z-index: 40;
+  width: 99%;
+  border-bottom: 3px dashed #d4cbcb;
+}
+
+.start-car-button {
+  box-shadow: var(--start-car-shadow);
+	background: var(--start-car-bg-color);
+}
+
+.start-car-button:hover:not(:disabled) {
+  background: var(--start-car-bg-color-hover);
+}
+
+.stop-car-button {
+  margin: 0 15px 7px 0;
+  color: #ffffff;
+	text-shadow: 0px 1px 0px #6a0b04;
+  box-shadow: var(--stop-car-shadow);
+	background: var(--stop-car-bg-color);
+	border: 1px solid #bf2315;
+}
+
+.stop-car-button:hover:not(:disabled) {
+  background: var(--stop-car-bg-color-hover);
+}
+
+/* Winners */
+
+.winners-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.winners-table {
+  width: auto;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 2px solid;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+th {
+  background: var(--track-bg-color);
+}
+
+tbody tr:nth-child(even) {
+  background: var(--form-block-bg-color);
+}
+
+
+/* Popup */
 
 .popup-container {
   display: none;
   position: fixed;
-  z-index: 30;
+  z-index: 50;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: var(--form-block-bg-color);
 }
 
 .popup-content {
-  background-color: #fefefe;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 30px;
+  font-style: oblique;
   padding: 20px;
   border: 1px solid #888;
-  border-radius: 5px;
-  text-align: center;
+  border-radius: 10px;
+  background: var(--track-bg-color);
+  box-shadow: var(--shadow-color);
 }
-
-/* .header_title {
-}
-.garage-btn {
-}
-.winners-btn {
-}
-
-.garage-container__title {
-}
-.form-container {
-}
-.form-container__create-car {
-}
-.create-car__car-name-input {
-}
-.create-car__car-color-input {
-}
-.create-car__button {
-}
-.form-container__update-car {
-}
-.update-car__car-name-input {
-}
-.update-car__car-color-input {
-}
-.update-car__button {
-}
-.form-container__buttons {
-}
-.buttons {
-}
-.buttons__race {
-}
-.buttons__reset {
-}
-.buttons__generate {
-}
-.pagination-container {
-}
-.car-list {
-}
-.car-block__control-btns {
-}
-.select-car-button {
-}
-.remove-car-button {
-}
-.car-name {
-}
-.car-block__track {
-}
-.start-car-button {
-}
-.stop-car-button {
-}
-.car-image {
-}
-.flag-image {
-} */

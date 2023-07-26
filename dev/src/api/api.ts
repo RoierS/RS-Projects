@@ -49,7 +49,6 @@ export async function request<T>(
 
 export async function getCars(page = 1, limit = 7): Promise<Car[]> {
   const data: Car[] = await request(`/garage?_page=${page}&_limit=${limit}`);
-  // console.log(data);
   return data;
 }
 
@@ -82,8 +81,6 @@ export async function deleteCar(carId: number): Promise<void> {
 export async function deleteAllCars(): Promise<void> {
   try {
     const cars = await getCars();
-    // console.log(cars);
-    // console.log(cars.length);
 
     if (cars.length > 4) {
       const excessCars = cars.slice(4);
@@ -137,7 +134,6 @@ export async function switchCarEngineToDriveMode(
 
 export async function createWinner(newWinner: Car): Promise<Car> {
   const data: Car = await request(`/winners`, HttpMethod.POST, newWinner);
-  console.log(data);
   return data;
 }
 
@@ -162,7 +158,6 @@ export async function updateWinner(
   }
 
   const data: Car = await response.json();
-  // console.log(data);
   return data;
 }
 

@@ -12,12 +12,8 @@ import {
   createWinner,
   updateWinner,
   getWinner,
-  // getWinners,
-  // request,
-  // deleteAllCars,
 } from "../../api/api";
 import { Car } from "../../models/Car";
-// import Winners from "../winners/Winners";
 import { createNewElement } from "../../utils/createNewElement";
 import { carSvg } from "../../assets/img/carSvg";
 
@@ -69,7 +65,6 @@ class Garage {
     this.totalCount = 1;
     this.abortController = null;
     this.addEventListeners();
-    // this.animationRequestId = null;
   }
 
   initGarage() {
@@ -91,12 +86,12 @@ class Garage {
         <div class="form-container__create-car">
           <input class="create-car__car-name-input" type="text" placeholder="Car Name" />
           <input class="create-car__car-color-input" type="color" />
-          <button class="create-car__button">Create</button>
+          <button class="buttons create-car__button">Create</button>
         </div>
         <div class="form-container__update-car">
           <input class="update-car__car-name-input" type="text" placeholder="Car Name" />
           <input class="update-car__car-color-input" type="color" />
-          <button class="update-car__button">Update</button>
+          <button class="buttons update-car__button">Update</button>
         </div>
         <div class="form-container__buttons">
           <button class="buttons buttons__race">Race</button>
@@ -161,6 +156,7 @@ class Garage {
           "button",
           "pagination-prev-button",
         ) as HTMLButtonElement;
+        prevButton.classList.add("buttons");
         prevButton.textContent = "Previous";
         prevButton.disabled = this.currentPage === 1;
         prevButton.addEventListener("click", () =>
@@ -187,6 +183,7 @@ class Garage {
           "button",
           "pagination-next-button",
         ) as HTMLButtonElement;
+        nextButton.classList.add("buttons");
         nextButton.textContent = "Next";
         nextButton.disabled = this.currentPage === totalPages;
 
@@ -269,17 +266,18 @@ class Garage {
         const color = car.color || placeholderColor;
         carBlock.innerHTML = `
         <div class="car-block__control-btns">
-          <button class="select-car-button">Select</button>
-          <button class="remove-car-button">Remove</button>
+          <button class="buttons select-car-button">Select 👆</button>
+          <button class="buttons remove-car-button">Remove 🗑️</button>
           <p class="car-name">${car.name}</p>
         </div>
         <div class="car-block__track">
-          <button class="start-car-button">A</button>
-          <button class="stop-car-button">B</button>
+          <button class="buttons start-car-button">A</button>
+          <button class="buttons stop-car-button">B</button>
           <div class="car-image" id="${car.id}">
             ${this.createCarImage(color)}
           </div>
           <img class="flag-image" src="./assets/img/flag-icon.svg">
+          <div class="line"></div>
         </div>
         `;
 
@@ -435,9 +433,7 @@ class Garage {
   }
 
   async handleRaceClick(): Promise<void> {
-    // getWinners(1, 5);
     const carsDB = await getCars(this.currentPage, this.carsPerPage);
-    console.log(carsDB);
     this.abortController = new AbortController();
     const { signal } = this.abortController;
     const cars = document.querySelectorAll(".car-image");
@@ -460,7 +456,6 @@ class Garage {
       }
       return time;
     });
-    // console.log(validAnimationTimes);
 
     if (validAnimationTimes.length === 0) {
       console.log("All animations failed. No winner.");
@@ -469,7 +464,6 @@ class Garage {
     const minTime = Math.min(...validAnimationTimes);
     const winnerCarIndex = validAnimationTimes.indexOf(minTime);
     const winnerCar = carsDB[winnerCarIndex];
-    console.log(winnerCar);
     const winnerCarName = winnerCar.name;
     const winnerTime = (minTime / 1000).toFixed(2);
 
@@ -481,14 +475,11 @@ class Garage {
       color: winnerCar.color,
       // carImg: carSvg,
     };
-    console.log(winnerData);
 
     try {
       const existingWinner = await getWinner(winnerCar.id!);
-      console.log(existingWinner);
 
       if (existingWinner) {
-        console.log(existingWinner);
         const updatedWinnerData = {
           ...existingWinner,
           wins: existingWinner.wins! + 1,
@@ -650,7 +641,6 @@ class Garage {
 
     try {
       const response = await switchCarEngineToDriveMode(car.id!, signal);
-      // console.log(response);
       if (!response.success) {
         cancelAnimationFrame(animationRequestId!);
         return -1;

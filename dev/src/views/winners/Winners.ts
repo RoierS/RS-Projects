@@ -1,3 +1,4 @@
+import { carSvg } from "../../assets/img/carSvg";
 import { getWinners, getTotalWinnersCount } from "../../api/api";
 import { Car } from "../../models/Car";
 import { createNewElement } from "../../utils/createNewElement";
@@ -54,29 +55,37 @@ class Winners {
     }
   }
 
-  renderWinnersTable(): void {
-    if (!this.winnersTable) {
-      this.winnersTable = createNewElement(
-        "table",
-        "winners-table",
-      ) as HTMLTableElement;
-      this.winnersContainer?.appendChild(this.winnersTable);
-
-      const headerRow = this.winnersTable.insertRow();
-      const headers = ["№", "Car image", "Car Name", "Wins", "Best time(s)"];
-      headers.forEach((headerText) => {
-        const th = document.createElement("th");
-        th.textContent = headerText;
-        headerRow.appendChild(th);
-      });
-    } else {
-      this.winnersTable.innerHTML = "";
+  async renderWinnersTable(): Promise<void> {
+    if (this.winnersTable) {
+      this.winnersContainer?.removeChild(this.winnersTable);
     }
+    await this.loadWinnersData();
+    this.winnersTable = createNewElement(
+      "table",
+      "winners-table",
+    ) as HTMLTableElement;
+    this.winnersContainer?.appendChild(this.winnersTable);
 
-    console.log(this.winnersData);
+    const headerRow = this.winnersTable.insertRow();
+    const headers = ["№", "Car image", "Car Name", "Wins", "Best time(s)"];
+    headers.forEach((headerText) => {
+      const th = document.createElement("th");
+      th.textContent = headerText;
+      headerRow.appendChild(th);
+    });
+
     this.winnersData.forEach((winnersData, index) => {
       this.addCarToTable(winnersData, index + 1);
     });
+  }
+
+  createCarImage(color: string): string {
+    const updatedSvgCode = carSvg.replace(/#000000/g, color);
+    const resultSvgCode = updatedSvgCode.replace(
+      /url\(#linearGradient3889\)/g,
+      color,
+    );
+    return resultSvgCode;
   }
 
   addCarToTable(carData: Car, position: number): void {
@@ -84,7 +93,7 @@ class Winners {
       const row = this.winnersTable.insertRow();
       row.innerHTML = `
       <td>${position}</td>
-      <td>${carData.id}</td>
+      <td>${this.createCarImage(carData.color!)}</td>
       <td>${carData.name}</td>
       <td>${carData.wins}</td>
       <td>${carData.time}</td>

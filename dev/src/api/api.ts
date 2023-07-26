@@ -175,3 +175,10 @@ export async function getWinners(page: number, limit: number): Promise<Car[]> {
   const data: Car[] = await request(`/winners?_page=${page}&_limit=${limit}`);
   return data;
 }
+
+export async function getTotalWinnersCount(): Promise<number> {
+  const response = await fetch(`${BASE_URL}/winners?_limit=1`);
+  const totalCountHeader = response.headers.get("X-Total-Count");
+  const totalCount = totalCountHeader ? parseInt(totalCountHeader, 10) : 0;
+  return totalCount;
+}

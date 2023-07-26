@@ -1,4 +1,4 @@
-import { getWinners } from "../../api/api";
+import { getWinners, getTotalWinnersCount } from "../../api/api";
 import { Car } from "../../models/Car";
 import { createNewElement } from "../../utils/createNewElement";
 
@@ -6,6 +6,8 @@ class Winners {
   winnersContainer: HTMLElement | null;
 
   winnersTable: HTMLTableElement | null;
+
+  paginationContainer: HTMLElement | null;
 
   winnersData: Car[] = [];
 
@@ -18,6 +20,7 @@ class Winners {
   constructor() {
     this.winnersContainer = null;
     this.winnersTable = null;
+    this.paginationContainer = null;
     this.winnersData = [];
   }
 
@@ -31,36 +34,44 @@ class Winners {
     this.winnersContainer.textContent = "Winners Table";
     main.appendChild(this.winnersContainer);
 
+    const total = await getTotalWinnersCount();
+    this.totalCount = total;
+
+    const totalPages = Math.ceil(this.totalCount / this.carsPerPage); // ?? this.totalCount === total
     await this.loadWinnersData();
     this.renderWinnersTable();
-
-    // const totalPages = Math.ceil(this.totalCount / this.carsPerPage);
+    this.renderPaginationButtons(totalPages);
   }
 
   async loadWinnersData() {
     try {
       const winners = await getWinners(this.currentPage, this.carsPerPage);
       this.winnersData = winners;
-      console.log(this.winnersData);
+      // console.log(this.winnersData);
     } catch (error) {
       console.error("error", error);
     }
   }
 
   renderWinnersTable(): void {
-    this.winnersTable = createNewElement(
-      "table",
-      "winners-table",
-    ) as HTMLTableElement;
-    this.winnersContainer?.appendChild(this.winnersTable);
+    if (!this.winnersTable) {
+      this.winnersTable = createNewElement(
+        "table",
+        "winners-table",
+      ) as HTMLTableElement;
+      this.winnersContainer?.appendChild(this.winnersTable);
 
-    const headerRow = this.winnersTable.insertRow();
-    const headers = ["№", "Car", "Car Name", "Wins", "Best time(s)"];
-    headers.forEach((headerText) => {
-      const th = document.createElement("th");
-      th.textContent = headerText;
-      headerRow.appendChild(th);
-    });
+      const headerRow = this.winnersTable.insertRow();
+      const headers = ["№", "Car image", "Car Name", "Wins", "Best time(s)"];
+      headers.forEach((headerText) => {
+        const th = document.createElement("th");
+        th.textContent = headerText;
+        headerRow.appendChild(th);
+      });
+    } else {
+      this.winnersTable.innerHTML = "";
+    }
+
     console.log(this.winnersData);
     this.winnersData.forEach((winnersData, index) => {
       this.addCarToTable(winnersData, index + 1);
@@ -78,6 +89,78 @@ class Winners {
       <td>${carData.time}</td>
     `;
     }
+  }
+
+  renderPaginationButtons(totalPages: number): void {
+    if (!this.paginationContainer) {
+      this.paginationContainer = createNewElement(
+        "div",
+        "pagination-container",
+      );
+      this.winnersContainer?.appendChild(this.paginationContainer);
+    } else {
+      this.paginationContainer.innerHTML = "";
+    }
+    const prevButton = createNewElement(
+      "button",
+      "pagination-prev-button",
+    ) as HTMLButtonElement;
+    prevButton.textContent = "Previous";
+    prevButton.disabled = this.currentPage === 1;
+    prevButton.addEventListener("click", () => this.handlePrevButtonClick());
+    this.paginationContainer.appendChild(prevButton);
+
+    const currentPageBlock = createNewElement(
+      "div",
+      "current-page",
+    ) as HTMLElement;
+
+    currentPageBlock.textContent = `Page #${this.currentPage}`;
+    this.paginationContainer.appendChild(currentPageBlock);
+
+    const totalCountInfo = createNewElement(
+      "div",
+      "total-count",
+    ) as HTMLElement;
+    totalCountInfo.textContent = `Winners (${this.totalCount})`;
+    currentPageBlock.appendChild(totalCountInfo);
+
+    const nextButton = createNewElement(
+      "button",
+      "pagination-next-button",
+    ) as HTMLButtonElement;
+    nextButton.textContent = "Next";
+    nextButton.disabled = this.currentPage === totalPages;
+
+    nextButton.addEventListener("click", () => this.handleNextButtonClick());
+    this.paginationContainer.appendChild(nextButton);
+
+    getTotalWinnersCount()
+      .then((total) => {
+        this.totalCount = total;
+        totalCountInfo.textContent = `Garage (${this.totalCount})`;
+        nextButton.disabled = this.currentPage === totalPages;
+      })
+      .catch((error) => {
+        console.error("Error fetching total car count:", error);
+      });
+    currentPageBlock.appendChild(totalCountInfo);
+  }
+
+  handlePrevButtonClick(): void {
+    if (this.currentPage > 1) {
+      this.currentPage -= 1;
+      this.renderPaginationButtons(
+        Math.ceil(this.totalCount / this.carsPerPage),
+      );
+      this.renderWinnersTable();
+    }
+  }
+
+  handleNextButtonClick(): void {
+    this.currentPage += 1;
+    this.renderPaginationButtons(Math.ceil(this.totalCount / this.carsPerPage));
+    this.renderWinnersTable();
   }
 }
 

@@ -213,6 +213,7 @@ class Garage {
         Math.ceil(this.totalCount / this.carsPerPage),
       );
       this.displayCars();
+      this.saveGarageState();
     }
   }
 
@@ -220,6 +221,16 @@ class Garage {
     this.currentPage += 1;
     this.renderPaginationButtons(Math.ceil(this.totalCount / this.carsPerPage));
     this.displayCars();
+    this.saveGarageState();
+  }
+
+  saveGarageState(): void {
+    const currentState = {
+      currentPage: this.currentPage,
+      carNameInput: this.carNameInput?.value,
+      carColorInput: this.carColorInput?.value,
+    };
+    sessionStorage.setItem("garageState", JSON.stringify(currentState));
   }
 
   async createRandomCars(): Promise<void> {
@@ -345,6 +356,16 @@ class Garage {
     }
   }
 
+  saveInputsState() {
+    const currentState = {
+      currentPage: this.currentPage,
+      carNameInput: this.carNameInput?.value,
+      carColorInput: this.carColorInput?.value,
+    };
+
+    sessionStorage.setItem("garageState", JSON.stringify(currentState));
+  }
+
   addEventListeners(): void {
     if (this.createCarButton) {
       this.createCarButton.addEventListener(
@@ -381,6 +402,18 @@ class Garage {
         "click",
         this.handleRaceClick.bind(this),
       );
+    }
+
+    if (this.carNameInput) {
+      this.carNameInput.addEventListener("input", () => {
+        this.saveInputsState();
+      });
+    }
+
+    if (this.carColorInput) {
+      this.carColorInput.addEventListener("input", () => {
+        this.saveInputsState();
+      });
     }
   }
 
@@ -473,7 +506,6 @@ class Garage {
       time: +winnerTime,
       name: winnerCarName,
       color: winnerCar.color,
-      // carImg: carSvg,
     };
 
     try {

@@ -166,6 +166,7 @@ class Winners {
         Math.ceil(this.totalCount / this.carsPerPage),
       );
       this.renderWinnersTable();
+      this.saveWinnersState();
     }
   }
 
@@ -173,6 +174,14 @@ class Winners {
     this.currentPage += 1;
     this.renderPaginationButtons(Math.ceil(this.totalCount / this.carsPerPage));
     this.renderWinnersTable();
+    this.saveWinnersState();
+  }
+
+  saveWinnersState(): void {
+    const currentState = {
+      currentPage: this.currentPage,
+    };
+    sessionStorage.setItem("winnersState", JSON.stringify(currentState));
   }
 }
 

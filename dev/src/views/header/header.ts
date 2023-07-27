@@ -22,12 +22,14 @@ class Header {
     this.main = document.querySelector(".main");
   }
 
+  // Clear the main content of the page
   clearMainContent(): void {
     if (this.main) {
       this.main.innerHTML = "";
     }
   }
 
+  // Render the header
   render(): void {
     this.wrapper = createNewElement("div", "wrapper");
     this.header = createNewElement("header", "header");

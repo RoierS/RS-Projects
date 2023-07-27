@@ -11,6 +11,7 @@ enum HttpMethod {
   PATCH = "PATCH",
 }
 
+// sends HTTP requests to the server
 export async function request<T>(
   url: string,
   method: string = HttpMethod.GET,
@@ -47,11 +48,13 @@ export async function request<T>(
   return data;
 }
 
+// fetches a list of cars from the server
 export async function getCars(page = 1, limit = 7): Promise<Car[]> {
   const data: Car[] = await request(`/garage?_page=${page}&_limit=${limit}`);
   return data;
 }
 
+// retrieves the total count of cars available on the server.
 export async function getTotalCarCount(): Promise<number> {
   const response = await fetch(`${BASE_URL}/garage?_limit=1`);
   const totalCountHeader = response.headers.get("X-Total-Count");
@@ -59,25 +62,30 @@ export async function getTotalCarCount(): Promise<number> {
   return totalCount;
 }
 
+// fetches a specific car from the server
 export async function getCar(carId: number): Promise<Car> {
   const data: Car = await request(`/garage/${carId}`, HttpMethod.GET);
   return data;
 }
 
+// creates a new car on the server
 export async function createCar(car: Car): Promise<Car> {
   const data: Car = await request(`/garage`, HttpMethod.POST, car);
   return data;
 }
 
+// updates an existing car on the server
 export async function updateCar(carId: number, car: Car): Promise<Car> {
   const data: Car = await request(`/garage/${carId}`, HttpMethod.PUT, car);
   return data;
 }
 
+// deletes a car from the server
 export async function deleteCar(carId: number): Promise<void> {
   await request<void>(`/garage/${carId}`, HttpMethod.DELETE);
 }
 
+// deletes all cars from the server but keeps at least four cars
 export async function deleteAllCars(): Promise<void> {
   try {
     const cars = await getCars();
@@ -100,6 +108,7 @@ export async function deleteAllCars(): Promise<void> {
   }
 }
 
+// starts or stops the engine of a car on the server.
 export async function startStopCarEngine(
   carId: number,
   status: "started" | "stopped",
@@ -111,6 +120,7 @@ export async function startStopCarEngine(
   return data;
 }
 
+// switches the car's engine to "drive" mode on the server.
 export async function switchCarEngineToDriveMode(
   carId: number,
   signal: AbortSignal,
@@ -132,11 +142,13 @@ export async function switchCarEngineToDriveMode(
   }
 }
 
+// creates a new winner record on the server
 export async function createWinner(newWinner: Car): Promise<Car> {
   const data: Car = await request(`/winners`, HttpMethod.POST, newWinner);
   return data;
 }
 
+// updates the data of an existing winner on the server
 export async function updateWinner(
   id: number,
   winnerData: { wins: number; time: number },
@@ -161,16 +173,19 @@ export async function updateWinner(
   return data;
 }
 
+// fetches a specific winner from the server
 export async function getWinner(id: number): Promise<Car | null> {
   const data: Car = await request(`/winners/${id}`, HttpMethod.GET);
   return data;
 }
 
+// fetches a list of winners from the server
 export async function getWinners(page: number, limit: number): Promise<Car[]> {
   const data: Car[] = await request(`/winners?_page=${page}&_limit=${limit}`);
   return data;
 }
 
+// return the total count of winners available on the server
 export async function getTotalWinnersCount(): Promise<number> {
   const response = await fetch(`${BASE_URL}/winners?_limit=1`);
   const totalCountHeader = response.headers.get("X-Total-Count");

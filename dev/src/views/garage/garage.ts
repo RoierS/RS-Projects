@@ -48,8 +48,6 @@ class Garage {
 
   abortController: AbortController | null;
 
-  // animationRequestId: number | null;
-
   constructor() {
     this.garageContainer = null;
     this.carNameInput = null;
@@ -67,12 +65,14 @@ class Garage {
     this.addEventListeners();
   }
 
+  // Initialize the garage page
   initGarage() {
     this.render();
     this.displayCars();
     this.addEventListeners();
   }
 
+  // Rendering the garage page setting up event listeners for buttons and inputs
   render(): void {
     const main = document.querySelector(".main");
     if (!main) {
@@ -120,6 +120,7 @@ class Garage {
     this.raceButton = document.querySelector(".buttons__race");
   }
 
+  // Display the list of cars in the garage
   async displayCars(): Promise<void> {
     try {
       const cars: Car[] = await getCars(this.currentPage, this.carsPerPage);
@@ -143,6 +144,7 @@ class Garage {
     }
   }
 
+  // Render pagination buttons based on total pages
   renderPaginationButtons(totalPages: number): void {
     if (this.garageContainer) {
       const paginationContainer = this.garageContainer.querySelector(
@@ -206,6 +208,7 @@ class Garage {
     }
   }
 
+  // Handling previous button click for pagination
   handlePrevButtonClick(): void {
     if (this.currentPage > 1) {
       this.currentPage -= 1;
@@ -217,6 +220,7 @@ class Garage {
     }
   }
 
+  // Handling next button click for pagination
   handleNextButtonClick(): void {
     this.currentPage += 1;
     this.renderPaginationButtons(Math.ceil(this.totalCount / this.carsPerPage));
@@ -224,6 +228,7 @@ class Garage {
     this.saveGarageState();
   }
 
+  // Save the current state of the garage page to session storage
   saveGarageState(): void {
     const currentState = {
       currentPage: this.currentPage,
@@ -233,6 +238,7 @@ class Garage {
     sessionStorage.setItem("garageState", JSON.stringify(currentState));
   }
 
+  // Create random cars
   async createRandomCars(): Promise<void> {
     try {
       const numberOfCars = 100;
@@ -258,6 +264,7 @@ class Garage {
     }
   }
 
+  // Create a car SVG image based on the car color
   createCarImage(color: string): string {
     const updatedSvgCode = carSvg.replace(/#000000/g, color);
     const resultSvgCode = updatedSvgCode.replace(
@@ -267,6 +274,7 @@ class Garage {
     return resultSvgCode;
   }
 
+  // Add a car to the car list on the page
   addCarToList(car: Car): void {
     if (this.garageContainer) {
       const carList = this.garageContainer.querySelector(".car-list");
@@ -322,6 +330,7 @@ class Garage {
     }
   }
 
+  // Handle the start button click for animating a car
   handleStartCarClick(
     car: Car,
     startButton: HTMLButtonElement,
@@ -340,6 +349,7 @@ class Garage {
     }
   }
 
+  // Handle the stop button click for stopping a car animation
   handleStopCarClick(
     car: Car,
     startButton: HTMLButtonElement,
@@ -356,6 +366,7 @@ class Garage {
     }
   }
 
+  // Save the inputs state to session storage
   saveInputsState() {
     const currentState = {
       currentPage: this.currentPage,
@@ -366,6 +377,7 @@ class Garage {
     sessionStorage.setItem("garageState", JSON.stringify(currentState));
   }
 
+  // Add event listeners to buttons and inputs
   addEventListeners(): void {
     if (this.createCarButton) {
       this.createCarButton.addEventListener(
@@ -417,6 +429,7 @@ class Garage {
     }
   }
 
+  // Handle the generate cars button click
   async handleGenerateCarsClick(): Promise<void> {
     try {
       await this.createRandomCars();
@@ -425,6 +438,7 @@ class Garage {
     }
   }
 
+  // Handle the reset race button click
   async handleResetRaceClick(): Promise<void> {
     try {
       if (
@@ -452,6 +466,7 @@ class Garage {
     }
   }
 
+  // Show the winner message popup
   showWinnerMessage(winnerMessage: string) {
     const popupContainer = createNewElement("div", "popup-container");
     const popupContent = createNewElement("div", "popup-content");
@@ -465,6 +480,7 @@ class Garage {
     }, 3000);
   }
 
+  // Handling the race button click and starting the race animation
   async handleRaceClick(): Promise<void> {
     const carsDB = await getCars(this.currentPage, this.carsPerPage);
     this.abortController = new AbortController();
@@ -534,6 +550,7 @@ class Garage {
     this.disableRaceAndStartButtons();
   }
 
+  // Disabling race and start buttons
   disableRaceAndStartButtons(): void {
     if (this.raceButton && this.resetRaceButton) {
       this.raceButton.disabled = true;
@@ -554,6 +571,7 @@ class Garage {
     });
   }
 
+  // Creating a new car
   handleCreateCarClick(): void {
     const carName = this.carNameInput?.value;
     const carColor = this.carColorInput?.value;
@@ -570,6 +588,7 @@ class Garage {
     }
   }
 
+  // Updating a car
   handleUpdateCarClick(): void {
     const carUpdateName = this.carUpdateNameInput?.value;
     const carUpdateColor = this.carUpdateColorInput?.value;
@@ -589,6 +608,7 @@ class Garage {
     }
   }
 
+  // Updating the selected car details
   handleSelectedCar(car: Car): void {
     this.selectedCar = car;
 
@@ -602,15 +622,17 @@ class Garage {
     }
   }
 
+  // Removal of a car from the car list
   handleRemoveCar(car: Car): void {
     if (car.id) {
-      this.deleteCarFromPage(car.id);
+      this.deleteCarFromApi(car.id);
       this.displayCars();
       this.resetInputField();
     }
   }
 
-  async deleteCarFromPage(carId: number): Promise<void> {
+  // Deleting a car from the API
+  async deleteCarFromApi(carId: number): Promise<void> {
     try {
       await deleteCar(carId);
     } catch (error) {
@@ -618,6 +640,7 @@ class Garage {
     }
   }
 
+  // Resetting input fields and selected car details
   resetInputField(): void {
     if (this.carNameInput && this.carColorInput) {
       this.carNameInput.value = "";
@@ -636,6 +659,7 @@ class Garage {
     this.selectedCar = null;
   }
 
+  // Starting a car animation
   async startAnimation(car: Car, signal: AbortSignal): Promise<number> {
     let animationRequestId: number | null = null;
     const { velocity, distance } = await startStopCarEngine(car.id!, "started");
@@ -685,13 +709,10 @@ class Garage {
     }
   }
 
+  // Stopping a car animation
   async stopAnimation(car: Car) {
     try {
       startStopCarEngine(car.id!, "stopped");
-      // if (this.abortController !== null) {
-      //   this.abortController.abort();
-      //   this.abortController = null;
-      // }
       this.displayCars();
     } catch (error) {
       console.error("Error stop cars", error);

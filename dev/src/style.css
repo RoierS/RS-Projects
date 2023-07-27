@@ -8,6 +8,7 @@
     border: none;
 }
 
+/* Colors */
 :root {
   --background-color: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(187,62,62,1) 50%, rgba(252,176,69,1) 100%);
   --track-bg-color: linear-gradient(90deg, rgba(61,60,70,1) 0%, rgba(157,163,177,1) 55%, rgba(136,170,177,1) 100%);

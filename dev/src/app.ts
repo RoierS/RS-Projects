@@ -6,6 +6,7 @@ import Winners from "./views/winners/Winners";
 const header = new Header();
 header.render();
 
+// Function to show the Garage page
 function showGaragePage() {
   header.clearMainContent();
   const garage = new Garage();
@@ -27,6 +28,7 @@ function showGaragePage() {
   garage.saveGarageState();
 }
 
+// Function to show the Winners page
 function showWinnersPage() {
   header.clearMainContent();
   const winners = new Winners();
@@ -42,6 +44,7 @@ function showWinnersPage() {
   winners.render();
 }
 
+// Function to handle the view based on the hash in the URL
 function handleView(): void {
   const { hash } = window.location;
   switch (hash) {

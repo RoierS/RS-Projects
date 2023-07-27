@@ -623,20 +623,11 @@ class Garage {
   }
 
   // Removal of a car from the car list
-  handleRemoveCar(car: Car): void {
+  async handleRemoveCar(car: Car): Promise<void> {
     if (car.id) {
-      this.deleteCarFromApi(car.id);
+      await deleteCar(car.id);
       this.displayCars();
       this.resetInputField();
-    }
-  }
-
-  // Deleting a car from the API
-  async deleteCarFromApi(carId: number): Promise<void> {
-    try {
-      await deleteCar(carId);
-    } catch (error) {
-      console.error("Erorr", error);
     }
   }
 

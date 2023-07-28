@@ -482,6 +482,10 @@ class Garage {
 
   // Handling the race button click and starting the race animation
   async handleRaceClick(): Promise<void> {
+    this.disableRaceAndStartButtons();
+    if (this.raceButton) {
+      this.raceButton.disabled = true;
+    }
     const carsDB = await getCars(this.currentPage, this.carsPerPage);
     this.abortController = new AbortController();
     const { signal } = this.abortController;
@@ -547,14 +551,14 @@ class Garage {
 
     const winnerMessage = `${winnerCarName} won the race. Winner time: ${winnerTime}s`;
     this.showWinnerMessage(winnerMessage);
-    this.disableRaceAndStartButtons();
+    this.resetRaceButton!.disabled = false;
   }
 
   // Disabling race and start buttons
   disableRaceAndStartButtons(): void {
     if (this.raceButton && this.resetRaceButton) {
       this.raceButton.disabled = true;
-      this.resetRaceButton.disabled = false;
+      this.resetRaceButton.disabled = true;
     }
 
     const startButtons = document.querySelectorAll(".start-car-button");
@@ -703,7 +707,7 @@ class Garage {
   // Stopping a car animation
   async stopAnimation(car: Car) {
     try {
-      startStopCarEngine(car.id!, "stopped");
+      await startStopCarEngine(car.id!, "stopped");
       this.displayCars();
     } catch (error) {
       console.error("Error stop cars", error);

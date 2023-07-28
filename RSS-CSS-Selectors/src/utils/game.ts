@@ -53,6 +53,7 @@ class Game {
     );
   }
 
+  // Saves the current progress to local storage
   saveProgress(): void {
     localStorage.setItem("currentLevel", this.currentLevel.toString());
     localStorage.setItem(
@@ -65,6 +66,7 @@ class Game {
     );
   }
 
+  // Loads the saved progress from local storage
   loadSavedProgress(): void {
     const savedCurrentLevel: number = parseInt(
       localStorage.getItem("currentLevel") || "0",
@@ -100,6 +102,7 @@ class Game {
     }
   }
 
+  // Displays the solution when the user clicks help btn
   showHelp(): void {
     if (this.helpBtn) {
       this.helpBtn.addEventListener("click", () => {
@@ -120,6 +123,7 @@ class Game {
     }
   }
 
+  // Loads a specific game level and updates the gameboard
   loadLevel(levelIndex: number): void {
     let currentIndex: number = levelIndex;
     if (currentIndex < 0 || currentIndex >= levels.length) {
@@ -237,6 +241,8 @@ class Game {
     this.currentLevel = currentIndex;
   }
 
+  // Checks if the entered CSS selector matches the correct selector
+  // If the entered selector is correct, the user go to the next level
   checkWin(correctSelector: string): void {
     const enteredSelector: string | undefined = this.inputCss?.value;
     const selectMeElements: NodeListOf<Element> =
@@ -296,17 +302,20 @@ class Game {
     }
   }
 
+  // Triggers the checkWin function for the current level
   checkWinHandler = (): void => {
     const currentLevel: Level = this.levels[this.currentLevel];
     const correctSelector: string = currentLevel.selector;
     this.checkWin(correctSelector);
   };
 
+  // Handler for level link click to load the corresponding level
   levelLinkClickHandler(levelIndex: number): void {
     this.loadLevel(levelIndex);
     this.saveProgress();
   }
 
+  // Resets the game progress, sets current level to 0, clears data for all levels
   resetProgress(): void {
     this.currentLevel = 0;
     this.isLevelCompleted = new Array<boolean>(levels.length).fill(false);
@@ -317,6 +326,7 @@ class Game {
     this.loadLevel(this.currentLevel);
   }
 
+  // Initializes the game, loads saved progress
   initGame(): void {
     this.loadSavedProgress();
     this.loadLevel(this.currentLevel);

@@ -1,0 +1,24 @@
+h2.main-title {
+  margin-bottom: 70px;
+}
+
+.speaker__title {
+  font-size: 26px;
+  text-align: right;
+}
+
+.speaker__name {
+  color: rgb(1, 111, 171);
+  text-align: right;
+}
+
+.images01 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: 70%;
+}

@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Form Handling with React Hook Form & Yup Validation</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/moon.css">
+		<link rel="stylesheet" href="style.css">
+
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h2 class="main-title">Form Handling with React Hook Form & Yup Validation</h2>
+					<p class="speaker__title">speaker:</p>
+					<p class="speaker__name">Roman Iermoliuk</p>
+				</section>
+				<section>
+					<h3 class="slide-title">Agenda</h3>
+					<ul>
+						<li>What is React Hook Form</li>
+						<li>Setting Up React Hook Form</li>
+						<li>Handling Form Data</li>
+						<li>Adding a validation rules</li>
+						<li>Errors handling</li>
+						<li>Form Validation with Yup</li>
+						<li>Integrating Yup with React Hook Form</li>
+						<li>Yup Schema Validation Methods</li>
+						<li>Conclusion</li>
+					</ul>
+				</section>
+				<section>
+					<h2 class="slide-title">Introducing React Hook Form</h2>
+					<p>React Hook Form is a lightweight and powerful library for managing forms in React applications</p>
+					<p>Advantages of React Hook Form:
+					</p>
+					<ul>
+						<li>Lightweight </li>
+						<li>Minimal boilerplate code</li>
+						<li>Performance</li>
+						<li>Custom Hooks</li>
+						<li>Customizable validation and error handling</li>
+					</ul>
+				</section>
+				<section>
+					<h2 class="slide-title">Setting Up React Hook Form</h2>
+					<ol>
+						<li>Install the package:
+							<pre><code data-trim data-noescape>
+							npm install react-hook-form
+							</code></pre>
+						</li>
+						<li>Import the required functions:
+							<pre><code data-trim data-noescape>
+								import { useForm } from "react-hook-form";
+							</code></pre>
+						</li>
+					</ol>
+				</section>
+				<section>
+					<section>
+						<h2 class="slide-title">Handling Form Data</h2>
+						<pre><code data-id="code-animation" data-line-numbers="2|6|8|12|15-16,20-21,25-26|28"><script type="text/template">
+import { useForm } from "react-hook-form";
+import './MyForm.css';
+
+function MyForm() {
+	const {register, handleSubmit} = useForm();
+
+	const submit = data => console.log(data)
+	
+	return (
+		<div className="MyForm">
+			<form onSubmit={handleSubmit(submit)}>
+				<div>
+					<label htmlFor="firstName">First Name</label>
+					<input {...register("firstName")} 
+					placeholder="Enter your first name"/>
+				</div>
+				<div>
+					<label htmlFor="lastName">Last Name</label>
+					<input {...register("lastName")} 
+					placeholder="Enter your last name" />
+				</div>
+				<div>
+					<label htmlFor="email">Email</label>
+					<input {...register("email")} 
+					placeholder="Enter your email" />
+				</div>
+				<button type="submit">Submit</button>
+			</form>
+		</div>
+	);
+}
+
+export default MyForm;
+						</script></code></pre>
+					</section>
+				</section>
+				<section>
+					<div class="images01">
+						<img class="image" data-src="./assets/img/form01.png">
+						<img class="image" data-src="./assets/img/console01.png">
+					</div>
+				</section>
+				<section>
+					<section>
+						<h4>Adding a validation rules</h4>
+						<pre><code data-id="code-animation" data-line-numbers="18-21|28-30|37-40"><script type="text/template">
+						import { useForm } from "react-hook-form";
+						import './MyForm.css';
+						
+						function MyForm() {
+							const {register, handleSubmit} = useForm();
+						
+							const submit = data => {
+								console.log(data)
+							} 
+						
+							return (
+								<div className="MyForm">
+									<form onSubmit={handleSubmit(submit)}>
+										<div>
+						<label htmlFor="firstName">First Name</label>
+						<input
+							{...register("firstName", {
+								required: true,
+								maxLength: 15
+							})}
+							placeholder="Enter your first name"/>
+										</div>
+						
+										<div>
+						<label htmlFor="lastName">Last Name</label>
+						<input
+							{...register("lastName", {
+								pattern: /^[A-Za-z]+$/i
+							})}
+							placeholder="Enter your last name" />
+										</div>
+						
+										<div>
+						<label htmlFor="age">Age</label>
+						<input type="number"
+							{...register("age", {
+								min: 18,
+								max: 99
+								})}
+								placeholder="Enter your age"/>
+										</div>
+						
+										<button type="submit">Submit</button>
+									</form>
+								</div>
+							);
+						}
+						
+						export default MyForm;
+						</script></code></pre>
+					</section>
+				</section>
+				<section>
+					<h3>List of validation rules supported:</h3>
+					<ul>
+						<li>required</li>
+						<li>min</li>
+						<li>max</li>
+						<li>minLength</li>
+						<li>maxLength</li>
+						<li>pattern</li>
+						<li>validate</li>
+					</ul>		
+				</section>
+				<section >
+					<section>
+						<h3>Errors handling</h3>
+						<pre><code data-id="code-animation" data-line-numbers="9|27|37|48"><script type="text/template">
+						import { useForm } from "react-hook-form";
+						import './MyForm.css';
+						
+						function MyForm() {
+							const {
+								register,
+								handleSubmit,
+								formState: { errors }
+							} = useForm();
+						
+							const submit = data => {
+								console.log(data)
+							} 
+						
+							return (
+								<div className="MyForm">
+									<form onSubmit={handleSubmit(submit)}>
+										<div>
+						<label htmlFor="firstName">First Name</label>
+						<input
+							{...register("firstName", {
+								required: true,
+								maxLength: 15
+							})}
+							placeholder="Enter your first name"/>
+							{errors.firstName && <p>This field is required</p>}
+										</div>
+						
+										<div>
+						<label htmlFor="lastName">Last Name</label>
+						<input
+							{...register("lastName", {
+								pattern: /^[A-Za-z]+$/i
+							})}
+							placeholder="Enter your last name" />
+							{errors.lastName && <p>This field can't contains numbers</p>}
+										</div>
+						
+										<div>
+						<label htmlFor="age">Age</label>
+						<input type="number"
+							{...register("age", {
+								min: 18,
+								max: 99
+								})}
+								placeholder="Enter your age"/>
+						{errors.age && <p>The age must be from 18 to 99</p>}
+										</div>
+						
+										<button type="submit">Submit</button>
+									</form>
+								</div>
+							);
+						}
+						
+						export default MyForm;
+						</script></code></pre>
+					</section>
+				</section>
+				<section>
+					<div class="images01">
+						<img class="image" data-src="./assets/img/form02.png">
+					</div>
+				</section>
+				<section>
+					<h3>Form Validation with Yup</h3>
+					<p>Yup is a JavaScript library for data validation. It provides a declarative way to define validation rules for your form data</p>
+					<h6>Key Features of Yup:</h6>
+					<ul>
+						<li>Integration with React Hook Form</li>
+						<li>Declarative Syntax</li>
+						<li>Schema-based Validation</li>
+						<li>Custom Validation</li>
+						<li>Asynchronous Validation</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Integrating Yup with React Hook Form</h3>
+					<ol>
+						<li>Install the Yup package:
+							<pre><code data-trim data-noescape>
+							npm install yup
+							</code></pre>
+						</li>
+						<li>Import Yup and define a validation schema:
+							<pre><code data-id="code-animation" data-trim data-noescape><script type="text/template">
+import * as yup from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
+
+const schema = yup.object({
+	firstName: yup.string()
+		.required("First Name is required"),
+	lastName: yup.string()
+		.matches(/^[A-Za-z]+$/, "This field can't contain numbers")
+		.required("Last Name is required"),
+	age: yup.number()
+		.min(18, "The age must be at least 18")
+		.max(99, "The age must be at most 99")
+		.required("Age is required"),
+});
+							</script></code></pre>
+						</li>
+					</ol>
+				</section>
+				<section>
+					<ol start="3">
+						<li>Initialization with the validation schema:
+							<pre><code data-trim data-noescape><script type="text/template">
+								const { 
+									register,
+									handleSubmit,
+									formState: { errors }
+								} = useForm({
+									resolver: yupResolver(schema)
+								});
+							</script></code></pre>
+						</li>
+						<li>Access validation errors and display them:
+							<pre><code data-trim data-noescape><script type="text/template">
+							<input {...register("firstName")}
+								placeholder="Enter your first name" />
+							{errors.firstName && <p>{errors.firstName.message}</p>}
+						</script></code></pre>
+						</li>
+					</ol>
+				</section>
+				<section>
+					<section>
+						<h3>Example form</h3>
+						<pre><code data-id="code-animation" data-trim data-noescape data-line-numbers="22,32,42|18,28,38"><script type="text/template">
+							function MyForm() {
+								const {
+									register,
+									handleSubmit,
+									formState: { errors }
+								} = useForm({
+									resolver: yupResolver(schema),
+									mode: "onChange",
+								});
+						
+								const submit = data => console.log(data)
+						
+								return (
+									<div className="MyForm">
+										<form onSubmit={handleSubmit(submit)}>
+											<div>
+												<label htmlFor="firstName">First Name</label>
+												<div className={errors.firstName ? "error" : ""}>
+													<input
+														{...register("firstName")}
+														placeholder="Enter your first name" />
+													{errors.firstName && <p>{errors.firstName.message}</p>}
+												</div>
+											</div>
+						
+											<div>
+												<label htmlFor="lastName">Last Name</label>
+												<div className={errors.lastName ? "error" : ""}>
+													<input
+														{...register("lastName")}
+														placeholder="Enter your last name" />
+													{errors.lastName && <p>{errors.lastName.message}</p>}
+												</div>
+											</div>
+						
+											<div>
+												<label htmlFor="age">Age</label>
+												<div className={errors.age ? "error" : ""}>
+													<input type="number"
+														{...register("age")}
+														placeholder="Enter your age"/>
+													{errors.age && <p>{errors.age.message}</p>}
+												</div>
+											</div>
+						
+											<button type="submit">Submit</button>
+										</form>
+									</div>
+								);
+							}
+						</script></code></pre>
+					</section>
+				</section>
+				<section>
+					<div class="images01">
+						<img class="image" data-src="./assets/img/form03.png">
+					</div>
+				</section>
+				<section>
+					<h3>Yup Schema Validation Methods</h3>
+					<p>Validation numeric input:</p>
+					<pre><code>
+						const schema = yup.object({
+							age: yup.number()
+									.positive()
+									.integer()
+									.required('Age is required'),
+						});
+					</code></pre>
+					<p>Ensures that the input value is a string</p>
+					<pre><code>
+						const schema = yup.object({
+							name: yup.string().required('Name is required'),
+						});
+					</code></pre>
+				</section>
+				<section>
+					<h3>Conclusion</h3>
+					<p>React Hook Form is a powerful tool for managing forms in React applications especially compined with Yup</p>
+				</section>
+				<section>
+					<h3>Thanks for Watching</h3>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+
+			Reveal.initialize({
+				hash: true,
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>

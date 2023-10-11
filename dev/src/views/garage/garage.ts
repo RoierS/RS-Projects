@@ -529,20 +529,21 @@ class Garage {
     };
 
     try {
-      const existingWinner = await getWinner(winnerCar.id!);
+      if (winnerCar.id !== undefined) {
+        const existingWinner = await getWinner(winnerCar.id!);
 
-      if (existingWinner) {
-        const updatedWinnerData = {
-          ...existingWinner,
-          wins: existingWinner.wins! + 1,
-          time: winnerData.time,
-        };
-
-        await updateWinner(winnerCar.id!, updatedWinnerData);
-        console.log("Winner updated in the table.");
-      } else {
-        const response = await createWinner(winnerData);
-        console.log("Winner added to the table:", response);
+        if (existingWinner) {
+          const updatedWinnerData = {
+            ...existingWinner,
+            wins: existingWinner.wins! + 1,
+            time: winnerData.time,
+          };
+          await updateWinner(winnerCar.id!, updatedWinnerData);
+          console.log("Winner updated in the table.");
+        } else {
+          const response = await createWinner(winnerData);
+          console.log("Winner added to the table:", response);
+        }
       }
     } catch (error) {
       console.log(`New winner ${winnerCarName} added`);

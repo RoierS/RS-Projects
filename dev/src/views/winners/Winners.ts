@@ -150,7 +150,7 @@ class Winners {
     getTotalWinnersCount()
       .then((total) => {
         this.totalCount = total;
-        totalCountInfo.textContent = `Garage (${this.totalCount})`;
+        totalCountInfo.textContent = `Winners (${this.totalCount})`;
         nextButton.disabled = this.currentPage === totalPages;
       })
       .catch((error) => {

@@ -1,5 +1,6 @@
+import { getTotalWinnersCount, getWinners } from "../../api/winners/winnersApi";
 import { carSvg } from "../../assets/img/carSvg";
-import { getWinners, getTotalWinnersCount } from "../../api/api";
+// import { getWinners, getTotalWinnersCount } from "../../api/api";
 import { Car } from "../../models/Car";
 import { createNewElement } from "../../utils/createNewElement";
 

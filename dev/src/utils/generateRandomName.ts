@@ -1,4 +1,4 @@
-import { carBrands, carModels } from "./carsBrandsAndModels.ts";
+import { carBrands, carModels } from "./carsBrandsAndModels";
 
 export function generateRandomName(): string {
   const randomBrand = carBrands[Math.floor(Math.random() * carBrands.length)];

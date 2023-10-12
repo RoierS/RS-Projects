@@ -15,18 +15,6 @@ import {
 } from "../../api/garage/garageApi";
 import { generateRandomName } from "../../utils/generateRandomName";
 import { generateRandomColor } from "../../utils/generateRandomColor";
-// import {
-//   getCars,
-//   deleteCar,
-//   createCar,
-//   updateCar,
-//   startStopCarEngine,
-//   switchCarEngineToDriveMode,
-//   getTotalCarCount,
-//   createWinner,
-//   updateWinner,
-//   getWinner,
-// } from "../../api/api";
 import { Car } from "../../models/Car";
 import { createNewElement } from "../../utils/createNewElement";
 import { carSvg } from "../../assets/img/carSvg";

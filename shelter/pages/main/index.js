@@ -23,9 +23,7 @@ burgerMenu.addEventListener('click', toggleBurger);
 overlay.addEventListener('click', toggleBurger);
 navLinks.forEach(navLink => navLink.addEventListener('click', toggleBurger));
 
-
 // Slider 
-
 
 const pets = [
         {
@@ -118,10 +116,6 @@ const pets = [
         }
       ];
 
-//add json
-
-
-
 const btnNext = document.querySelector('.next-slide');
 const btnPrev = document.querySelector('.prev-slide');
 
@@ -163,15 +157,10 @@ const generateNewPets = () => {
 const createBlockTemplate = () => {
     const item = document.createElement('div');
     item.classList.add('slider__item');
-    // activeSliderItems.forEach(item => item.setAttribute('id', `${pets.name}`));
 
-    
     return item;
 }
 createBlockTemplate();
-
-
-
 
 // next slide
 const moveRight = () => {
@@ -198,12 +187,6 @@ carousel.addEventListener('animationend', (animationDirection) => {
         previousPets = currentPets;
         currentPets = generateNewPets();
         activeBlock.innerHTML = rightBlock.innerHTML;
-
-        // console.log(changedBlock)
-        // console.log(previousPets)
-        // console.log(currentPets)
-        // console.log(activeBlock)
-
     } else {
         carousel.classList.remove('transition-left');
         changedBlock = leftBlock;
@@ -217,8 +200,6 @@ carousel.addEventListener('animationend', (animationDirection) => {
         const item = createBlockTemplate();
 
         changedBlock.appendChild(item);
-        // activeSliderItems.forEach(item => item.setAttribute('data-name', `${previousPets[i].name}`));
-
         item.setAttribute('data-name', `${currentPets[i].name}`);
         item.innerHTML = `
         <div class="slider__item-img" data-name="${currentPets[i].name}">
@@ -227,9 +208,6 @@ carousel.addEventListener('animationend', (animationDirection) => {
         <div class="slider__item-name">${currentPets[i].name}</div>
         <button class="learn-more__button">Learn more</button>
         `;
-       
-        // console.log(currentPets)
-        // console.log(previousPets)
     }
 
     btnNext.addEventListener('click', moveRight);
@@ -283,7 +261,6 @@ activeBlock.addEventListener('click', (e) => {
             popup.style.visibility = 'hidden';
             popup.style.opacity = '0';
             popup.classList.remove('popup__wrapper-open');
-            // popup.classList.remove('popup__wrapper');
             setTimeout(() => {
                 popup.remove();
             }, 500)
@@ -292,12 +269,7 @@ activeBlock.addEventListener('click', (e) => {
     })
 
 })
-// fetch('../../pages/json/pets.json').then(resolve => resolve.json()).then(petsJson => {
-//     console.log(petsJson)
-//     const currentPet = petsJson.find(el => el.name === e.target.closest('div').dataset.name);
-//     console.log(currentPet)
 
-// })
 
 
 

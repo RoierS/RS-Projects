@@ -4,12 +4,12 @@
 /* eslint-disable no-plusplus */
 import './style.css';
 import createElement from './components/createElement';
-import revealSound from './audio/reveal_sound.mp3';
-import flagSound from './audio/flag_sound.mp3';
-import bombSound from './audio/bomb_sound.mp3';
-import winSound from './audio/win_sound.mp3';
-import timerSound from './audio/timer_sound.mp3';
-import gameOverSound from './audio/game-over_sound.mp3';
+import revealSound from './assets/audio/reveal_sound.mp3';
+import flagSound from './assets/audio/flag_sound.mp3';
+import bombSound from './assets/audio/bomb_sound.mp3';
+import winSound from './assets/audio/win_sound.mp3';
+import timerSound from './assets/audio/timer_sound.mp3';
+import gameOverSound from './assets/audio/game-over_sound.mp3';
 
 const wrapper = createElement('div', 'wrapper');
 const title = createElement('h1', 'header');
